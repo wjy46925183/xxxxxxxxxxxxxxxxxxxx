@@ -1,0 +1,148 @@
+package com.dlg.personal.oddjob.activity;
+
+
+import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.home.adapter.EmployeeCardAdapter;
+import com.dlg.personal.oddjob.fragment.EmployeesJobsFragment;
+import com.dlg.personal.oddjob.fragment.HirerOddFragment;
+import com.dlg.personal.oddjob.view.NoScrollViewPager;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.key.UserRole;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：王进亚
+ * 主要功能：我的零工
+ * 创建时间：2017/7/6 09:22
+ */
+
+public class OddActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+
+    private RadioGroup mRgOrderact;
+    private RadioButton mRb01;
+    private RadioButton mRb02;
+    private RadioButton mRb03;
+    private RadioButton mRb04;
+    private NoScrollViewPager mOddViewpager; //viewpager
+    private List<Fragment> mFragments = new ArrayList<>();
+    private EmployeeCardAdapter mCardAdapter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_odd);
+
+        initView();
+    }
+
+    private void initView() {
+        //设置标题 右侧发布
+        getToolBarHelper().getToolbarTitle().setText("我的零工");
+        TextView toolbarTextRight = getToolBarHelper().getToolbarTextRight();
+        toolbarTextRight.setVisibility(View.VISIBLE);
+        getToolBarHelper().getToolbarBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        if((int)mACache.getAsObject(AppKey.CacheKey.USER_ROLE) == UserRole.employee.getRole()){
+            toolbarTextRight.setText("卖自己");
+        }else{
+            toolbarTextRight.setText("发布");
+        }
+        toolbarTextRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((int)mACache.getAsObject(AppKey.CacheKey.USER_ROLE) == UserRole.employee.getRole()){
+                    ActivityNavigator.navigator().navigateTo(SeviceListActivity.class);
+                }else{
+                    ActivityNavigator.navigator().navigateTo(ReleaseOrEditActivity.class);
+                }
+            }
+        });
+
+        mRgOrderact = (RadioGroup) findViewById(R.id.rg_orderact);
+        mRb01 = (RadioButton) findViewById(R.id.rb_01);
+        mRb02 = (RadioButton) findViewById(R.id.rb_02);
+        mRb03 = (RadioButton) findViewById(R.id.rb_03);
+        mRb04 = (RadioButton) findViewById(R.id.rb_04);
+        mOddViewpager = (NoScrollViewPager) findViewById(R.id.odd_viewpager);
+        mOddViewpager.setOffscreenPageLimit(0);
+        mRgOrderact.setOnCheckedChangeListener(this);
+        mFragments.clear();
+        for (int i = 0; i < 4; i++) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("index",i);
+
+            if((int)mACache.getAsObject(AppKey.CacheKey.USER_ROLE) == UserRole.employee.getRole()){ //雇员身份
+                EmployeesJobsFragment employeesJobsFragment = new EmployeesJobsFragment();
+                employeesJobsFragment.setArguments(bundle);
+                mFragments.add(employeesJobsFragment);
+            }else{//雇主身份
+                HirerOddFragment hirerOddFragment = new HirerOddFragment();
+                hirerOddFragment.setArguments(bundle);
+                mFragments.add(hirerOddFragment);
+            }
+        }
+        mCardAdapter = new EmployeeCardAdapter(getSupportFragmentManager(), mFragments);
+        mOddViewpager.setAdapter(mCardAdapter);
+        mOddViewpager.addOnPageChangeListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        if(checkedId == R.id.rb_01){
+            mOddViewpager.setCurrentItem(0,false);
+        }else if(checkedId == R.id.rb_02){
+            mOddViewpager.setCurrentItem(1,false);
+        }else if(checkedId == R.id.rb_03){
+            mOddViewpager.setCurrentItem(2,false);
+        }else if(checkedId == R.id.rb_04){
+            mOddViewpager.setCurrentItem(3,false);
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position){
+            case 0:
+                mRb01.setChecked(true);
+                break;
+            case 1:
+                mRb02.setChecked(true);
+                break;
+            case 2:
+                mRb03.setChecked(true);
+                break;
+            case 3:
+                mRb04.setChecked(true);
+                break;
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+}

@@ -1,0 +1,280 @@
+package com.dlg.personal.home.fragment;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.common.utils.DialogUtils;
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.dlg.data.home.model.JobOrdersInfo;
+import com.dlg.data.oddjob.model.OddServiceItemBean;
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.activity.WillServiceActivity;
+import com.dlg.personal.home.adapter.NeedAdaper;
+import com.dlg.personal.home.adapter.ServiceAdapter;
+import com.dlg.personal.oddjob.activity.ReleaseOrEditActivity;
+import com.dlg.viewmodel.home.JobOrderViewModel;
+import com.dlg.viewmodel.home.SelectOrderViewModel;
+import com.dlg.viewmodel.home.presenter.JobOrderPresenter;
+import com.dlg.viewmodel.home.presenter.SelectOrderPrensenter;
+import com.dlg.viewmodel.oddjob.OddServiceItemViewModel;
+import com.dlg.viewmodel.oddjob.presenter.OddServiceItemPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.umeng.socialize.utils.DeviceConfig.context;
+
+/**
+ * 作者：王进亚
+ * 主要功能：
+ * 创建时间：2017/7/17 16:43
+ */
+
+public class NeedOrServiceFragment extends BaseFragment implements JobOrderPresenter, SwipeRefreshLayout.OnRefreshListener, BaseLoadMoreHeaderAdapter.OnLoadMoreListener, OddServiceItemPresenter {
+    public static int completeHttpNumber = 0;//网络请求次数 两次请求完在判断是否都没有数据
+    public static boolean isHas = false;//是否有数据
+
+    private SwipeRefreshLayout mSwipeRefresh;
+    private RecyclerView mRecyNeedService;
+    private int mIndex;
+    private List<JobOrdersInfo> mJobOrdersInfos = new ArrayList<>();
+    private List<OddServiceItemBean> mOddServiceItemBeen = new ArrayList<>();
+    private NeedAdaper mNeedAdaper;
+    private String mUserId;
+    private JobOrderViewModel mJobOrderViewModel;
+    private ServiceAdapter mServiceAdapter;
+    private int page = 0;
+    private OddServiceItemViewModel mOddServiceItemViewModel;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    if (mDialog != null && mDialog.isShowing()) {
+                        mDialog.dismiss();
+                    }
+                    if (!isHas) {//如果没有数据
+                        goToRelese();
+                    }
+                    break;
+            }
+        }
+    };
+    private Dialog mDialog;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mIndex = getArguments().getInt("index");
+        mUserId = getArguments().getString("mUserId");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View inflate = inflater.from(mContext).inflate(R.layout.fragment_need_service, null);
+        initView(inflate);
+
+        return inflate;
+    }
+
+    private void initView(View inflate) {
+        mSwipeRefresh = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh);
+        mRecyNeedService = (RecyclerView) inflate.findViewById(R.id.recy_need_service);
+
+        mRecyNeedService.setLayoutManager(new LinearLayoutManager(mContext));
+        mSwipeRefresh.setColorSchemeColors(getResources().getColor(R.color.yellow_btncolor));
+        mSwipeRefresh.setOnRefreshListener(this);
+        completeHttpNumber = 0;
+        isHas = false;
+        if (mDialog == null) {
+            mDialog = DialogUtils.showLoadingDialog(mContext);
+        }
+        if (mIndex == 0) {//需求
+            mNeedAdaper = new NeedAdaper(mContext, mRecyNeedService,
+                    mJobOrdersInfos, R.layout.item_need);
+            mRecyNeedService.setAdapter(mNeedAdaper);
+
+            mJobOrderViewModel = new JobOrderViewModel(mContext, this);
+            mJobOrderViewModel.jobOrder(mUserId);
+            mNeedAdaper.setOnLoadMoreListener(this);
+        } else if (mIndex == 1) {//服务
+            mServiceAdapter =
+                    new ServiceAdapter(mActivity, mRecyNeedService, mOddServiceItemBeen,
+                            R.layout.item_service_hire);
+            mRecyNeedService.setAdapter(mServiceAdapter);
+
+            mOddServiceItemViewModel = new OddServiceItemViewModel(mContext, this);
+            mOddServiceItemViewModel.getJobServiceList(mUserId, page);
+            mServiceAdapter.setOnLoadMoreListener(this);
+        }
+    }
+
+    /**
+     * 需求网络请求成功
+     *
+     * @param jobOrdersInfos
+     */
+    @Override
+    public void jobOrderList(List<JobOrdersInfo> jobOrdersInfos) {
+        completeHttpNumber++;
+        if (jobOrdersInfos.size() == 0) {
+            isHas = false;
+        } else {
+            isHas = true;
+        }
+        if (completeHttpNumber == 2) { //两次网络请求成功
+            mHandler.sendEmptyMessage(0);
+        }
+        mSwipeRefresh.setRefreshing(false);
+        mNeedAdaper.completeLoadMore();
+        mJobOrdersInfos.clear();
+        mJobOrdersInfos.addAll(jobOrdersInfos);
+        mNeedAdaper.notifyDataSetChanged();
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        mSwipeRefresh.setRefreshing(false);
+        if (mNeedAdaper != null) {
+            mNeedAdaper.completeLoadMore();
+        }
+        Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRefresh() {
+        mSwipeRefresh.setRefreshing(true);
+        if (mJobOrderViewModel != null) {
+            mJobOrderViewModel.onDestroy();
+            mJobOrderViewModel.jobOrder(mUserId);
+        }
+        if (mOddServiceItemViewModel != null) {
+            mOddServiceItemViewModel.onDestroy();
+            page = 0;
+            mOddServiceItemViewModel.getJobServiceList(mUserId, page);
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        if (mJobOrderViewModel != null) {
+            mJobOrderViewModel.onDestroy();
+            mJobOrderViewModel.jobOrder(mUserId);
+        }
+
+        if (mOddServiceItemViewModel != null) {
+            mOddServiceItemViewModel.onDestroy();
+            page++;
+            mOddServiceItemViewModel.getJobServiceList(mUserId, page);
+        }
+    }
+
+    /**
+     * 服务网络请求成功
+     *
+     * @param beanList
+     */
+    @Override
+    public void onOddServiceData(List<OddServiceItemBean> beanList) {
+        completeHttpNumber++;
+        if (beanList.size() == 0 && mOddServiceItemBeen.size() == 0) {
+            Toast.makeText(mContext, "该雇员还没有发布服务！", Toast.LENGTH_SHORT).show();
+            isHas = false;
+        } else {
+            isHas = true;
+        }
+        if (completeHttpNumber == 2) {
+            mHandler.sendEmptyMessage(0);
+        }
+        mServiceAdapter.completeLoadMore();
+        mSwipeRefresh.setRefreshing(false);
+//        if (page == 0) { 接口好像这个东西没有什么屌用 返回的都一样
+        mOddServiceItemBeen.clear();
+//        }
+        mOddServiceItemBeen.addAll(beanList);
+        mServiceAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 去发布任务
+     */
+    private void goToRelese() {
+        SweetAlertDialog dialog = new SweetAlertDialog(mActivity, SweetAlertDialog.NORMAL_TYPE)
+                .setContentText("您还没有发布零工，是否去发布")
+                .setCancelText("取消")
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
+                        mActivity.finish();
+                    }
+                }).setConfirmText("确认")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        startActivity(new Intent(context, ReleaseOrEditActivity.class));
+                        sweetAlertDialog.dismiss();
+                    }
+                }).setTitleText("提示:");
+        dialog.show();
+    }
+
+    /**
+     * 点击确认选择 跳转
+     */
+    public void selectNeedOrService() {
+        if (mIndex == 0) {
+            int selectedPosition = mNeedAdaper.getSelectedPosition();
+            if (selectedPosition != -1) {//选择需求
+                JobOrdersInfo jobOrdersInfo = mJobOrdersInfos.get(selectedPosition);
+                if (mDialog != null && !mDialog.isShowing()) {
+                    mDialog.show();
+                } else {
+                    mDialog = DialogUtils.showLoadingDialog(mActivity);
+                }
+                new SelectOrderViewModel(mContext, new SelectOrderPrensenter() {
+                    @Override
+                    public void selectHandleOrder(String msg) {//成功
+                        mDialog.dismiss();
+                        Toast.makeText(mContext, "成功", Toast.LENGTH_SHORT).show();
+                        mActivity.finish();
+                    }
+
+                    @Override
+                    public void errorMsg(String error) {//失败
+                        mDialog.dismiss();
+                        Toast.makeText(mContext, error, Toast.LENGTH_SHORT).show();
+                    }
+                }).selectOrder(mUserId, jobOrdersInfo.getId());
+            } else {
+                Toast.makeText(mContext, "请至少选择一项需求！", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            int selectedPosition = mServiceAdapter.getSelectedPosition();
+            if (selectedPosition != -1) {
+                OddServiceItemBean oddServiceItemBean = mOddServiceItemBeen.get(selectedPosition);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("oddServiceItemBean",oddServiceItemBean);
+                ActivityNavigator.navigator().navigateTo(WillServiceActivity.class,bundle);
+            } else {
+                Toast.makeText(mContext, "请至少选择一项服务！", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}

@@ -1,0 +1,78 @@
+package com.dlg.personal.oddjob.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.dlg.personal.R;
+import com.dlg.personal.app.MApp;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.base.DlgMapView;
+import com.dlg.personal.base.ToolBarType;
+import com.dlg.personal.home.fragment.EmployeeOngoingFragment;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：雇员零工订单地图详情工作台页面
+ * 创建时间：2017/7/10 20:45
+ */
+public class EmployeeOddMapActivity extends BaseActivity{
+
+    private DlgMapView mMapView; //地图控件
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_employee_odd_map, ToolBarType.NO);
+        initView(savedInstanceState);
+        initFragment();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMapView.onSaveInstanceState(outState);
+    }
+
+    /**
+     * 初始化布局
+     */
+    private void initView(Bundle bundle){
+        mMapView = (DlgMapView) findViewById(R.id.map_view);
+        mMapView.onCreate(bundle);
+        mMapView.setMyLng(MApp.getInstance().getMyLatLng());
+    }
+
+    /**
+     * 初始化添加Fragment到布局中
+     */
+    private void initFragment() {
+        EmployeeOngoingFragment ongoingFragment = new EmployeeOngoingFragment();
+        ongoingFragment.setArguments(getIntent().getExtras());
+        addFragment(R.id.employee_ongoing,ongoingFragment,"employee_ongoing");
+    }
+
+    public DlgMapView getMapView() {
+        return mMapView;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mMapView != null) {
+            mMapView.onDestroy();
+        }
+    }
+
+}

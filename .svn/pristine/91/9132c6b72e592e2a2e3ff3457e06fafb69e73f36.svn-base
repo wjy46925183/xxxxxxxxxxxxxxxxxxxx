@@ -1,0 +1,115 @@
+package com.dlg.personal.home.fragment;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.dlg.data.home.model.JobOrdersInfo;
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.adapter.NeedAdaper;
+import com.dlg.viewmodel.home.JobOrderViewModel;
+import com.dlg.viewmodel.home.presenter.JobOrderPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：王进亚
+ * 主要功能：
+ * 创建时间：2017/7/17 16:43
+ */
+
+public class NeedOrServiceFragment extends BaseFragment implements JobOrderPresenter, SwipeRefreshLayout.OnRefreshListener, BaseLoadMoreHeaderAdapter.OnLoadMoreListener {
+
+    private SwipeRefreshLayout mSwipeRefresh;
+    private RecyclerView mRecyNeedService;
+    private int mIndex;
+    private List<JobOrdersInfo> mJobOrdersInfos = new ArrayList<>();
+    private NeedAdaper mNeedOrServiceAdaper;
+    private String mUserId;
+    private JobOrderViewModel mJobOrderViewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mIndex = getArguments().getInt("index");
+        mUserId = getArguments().getString("mUserId");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View inflate = inflater.from(mContext).inflate(R.layout.fragment_need_service, null);
+        initView(inflate);
+
+        return inflate;
+    }
+
+    private void initView(View inflate) {
+        mSwipeRefresh = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh);
+        mRecyNeedService = (RecyclerView) inflate.findViewById(R.id.recy_need_service);
+
+        mRecyNeedService.setLayoutManager(new LinearLayoutManager(mContext));
+        mSwipeRefresh.setColorSchemeColors(getResources().getColor(R.color.yellow_btncolor));
+        mSwipeRefresh.setOnRefreshListener(this);
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefresh.setRefreshing(true);
+            }
+        });
+
+        if (mIndex == 0) {//需求
+            mNeedOrServiceAdaper = new NeedAdaper(mContext, mRecyNeedService,
+                    mJobOrdersInfos, R.layout.item_need);
+            mRecyNeedService.setAdapter(mNeedOrServiceAdaper);
+
+            mJobOrderViewModel = new JobOrderViewModel(mContext, this);
+            mJobOrderViewModel.jobOrder(mUserId);
+        } else if (mIndex == 1) {//服务
+
+        }
+        if (mNeedOrServiceAdaper != null) {
+            mNeedOrServiceAdaper.setOnLoadMoreListener(this);
+        }
+    }
+
+
+    @Override
+    public void jobOrderList(List<JobOrdersInfo> jobOrdersInfos) {
+        mSwipeRefresh.setRefreshing(false);
+        mNeedOrServiceAdaper.completeLoadMore();
+        mJobOrdersInfos.clear();
+        mJobOrdersInfos.addAll(jobOrdersInfos);
+        mNeedOrServiceAdaper.notifyDataSetChanged();
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        mSwipeRefresh.setRefreshing(false);
+        mNeedOrServiceAdaper.completeLoadMore();
+        Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRefresh() {
+        mSwipeRefresh.setRefreshing(true);
+        mJobOrderViewModel.onDestroy();
+        mJobOrderViewModel.jobOrder(mUserId);
+    }
+
+    @Override
+    public void onLoadMore() {
+        mJobOrderViewModel.onDestroy();
+        mJobOrderViewModel.jobOrder(mUserId);
+    }
+}

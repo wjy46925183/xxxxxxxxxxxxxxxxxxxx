@@ -1,0 +1,161 @@
+package com.dlg.personal.wallet.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import com.common.string.LogUtils;
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.dlg.data.wallet.model.BillHistoryBean;
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.base.ToolBarType;
+import com.dlg.personal.wallet.adapter.InvoiceHistoryListAdapter;
+import com.dlg.personal.wallet.view.InvoiceItemDecoration;
+import com.dlg.viewmodel.Wallet.InvoiceHistoryViewModel;
+import com.dlg.viewmodel.Wallet.presenter.InvoiceHistoryPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：邹前坤
+ * 主要功能：发票 的开票历史
+ * 创建时间： 2017/7/11  11:29
+ */
+
+public class InvoiceHistoryActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, InvoiceHistoryPresenter, BaseLoadMoreHeaderAdapter.OnLoadMoreListener {
+	private SwipeRefreshLayout mSwipeRefresh;//
+	private RecyclerView mLvInvoiceHistoryList;//展示数据的view
+	private InvoiceHistoryViewModel viewModel;//
+	private int currtPage=0;//第几页
+	private ArrayList<BillHistoryBean>billBeenData=new ArrayList<>();//展示数据的集合
+	private InvoiceHistoryListAdapter adapter;//适配器
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.page_invoice_history, ToolBarType.Default);
+		initView();
+		initData();
+		initNet();
+
+	}
+
+	/**
+	 * 初始化控件
+	 */
+	private void initView() {
+		mSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+
+		mLvInvoiceHistoryList = (RecyclerView) findViewById(R.id.lv_invoice_history_list);
+		mLvInvoiceHistoryList.setLayoutManager(new LinearLayoutManager(mContext));
+		//mLvInvoiceHistoryList.addItemDecoration(new InvoiceItemDecoration());
+
+	}
+
+	/**
+	 * 初始化数据
+	 */
+	private void initData() {
+		viewModel = new InvoiceHistoryViewModel(this,this,this);
+		mToolBarHelper.setToolbarRightTextVisibility(View.GONE);
+		mToolBarHelper.setToolbarTitle("开票历史");
+
+		adapter = new InvoiceHistoryListAdapter(this,mLvInvoiceHistoryList,billBeenData, R.layout.item_invoice_history);
+		mLvInvoiceHistoryList.setAdapter(adapter);
+		adapter.setOnLoadMoreListener(this);
+		adapter.setOnItemClickListener(new BaseLoadMoreHeaderAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				BillHistoryBean billHistoryBean = billBeenData.get(position);
+				Bundle bunder = new Bundle();
+				bunder.putSerializable("bean",billHistoryBean);
+				ActivityNavigator.navigator().navigateTo(InvoiceHistoryDetailsActivity.class,bunder);
+			}
+		});
+		mSwipeRefresh.setColorSchemeResources(R.color.orange_yellow);
+		mSwipeRefresh.setOnRefreshListener(this);
+		autoRefresh();
+	}
+
+	/**
+	 * 自动刷新
+	 */
+	private void autoRefresh() {
+		if(mSwipeRefresh != null){
+			mSwipeRefresh.post(new Runnable() {
+				@Override
+				public void run() {
+					mSwipeRefresh.setRefreshing(true);
+				}
+			});
+		}
+	}
+
+	/**
+	 * 初始化联网
+	 */
+	private void initNet() {
+		if (mViewModel == null) {
+			mViewModel = new InvoiceHistoryViewModel(this, this, this);
+		} else {
+			mViewModel.onDestroy();//取消上次的请求
+		}
+		viewModel.getInvoiceHistory(currtPage);
+	}
+
+	@Override
+	public void requestError(String msg) {
+		super.requestError(msg);
+		if (mSwipeRefresh.isRefreshing()) {
+			mSwipeRefresh.setRefreshing(false);
+		}
+	}
+
+	@Override
+	public void logInError() {
+		super.logInError();
+		if (mSwipeRefresh.isRefreshing()) {
+			mSwipeRefresh.setRefreshing(false);
+		}
+	}
+
+	@Override
+	public void onRefresh() {
+		currtPage=0;
+		initNet();
+	}
+
+	/**
+	 * 得到数据
+	 * @param bean
+	 */
+	@Override
+	public void getDataList(List<BillHistoryBean> bean) {
+		LogUtils.d("得到查询数据"+bean.size());
+		adapter.completeLoadMore();
+		if (bean==null||bean.size()==0){
+			return;
+		}
+		if (currtPage==0){
+			billBeenData.clear();
+		}
+		billBeenData.addAll(bean);
+		adapter.notifyDataSetChanged();
+		if (mSwipeRefresh.isRefreshing()) {
+			mSwipeRefresh.setRefreshing(false);
+		}
+	}
+
+	@Override
+	public void onLoadMore() {
+		currtPage++;
+		initNet();
+	}
+}

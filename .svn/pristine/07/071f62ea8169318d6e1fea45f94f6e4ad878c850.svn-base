@@ -1,0 +1,50 @@
+package com.dlg.personal.oddjob.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.common.view.loadmore.BaseViewHolder;
+import com.dlg.data.oddjob.model.ListBean;
+import com.dlg.personal.R;
+import com.dlg.personal.oddjob.view.HirerPublicView;
+
+import java.util.List;
+
+/**
+ * 作者：王进亚
+ * 主要功能：
+ * 创建时间：2017/7/10 15:57
+ */
+
+public class PayOrderAdapter extends BaseLoadMoreHeaderAdapter<ListBean> {
+    public PayOrderAdapter(Context mContext, RecyclerView recyclerView, List<ListBean> mDatas, int mLayoutId) {
+        super(mContext, recyclerView, mDatas, mLayoutId);
+    }
+
+    @Override
+    public void convert(Context mContext, RecyclerView.ViewHolder holder, int position, ListBean listBean) {
+        if(holder instanceof BaseViewHolder){
+            HirerPublicView view = ((BaseViewHolder) holder).getView(R.id.public_view);
+            view.setContent(listBean);
+            CheckBox checkBox = view.getCheckBox();
+
+            TextView tvIncome = ((BaseViewHolder) holder).getView(R.id.income_text);
+            EditText editText = ((BaseViewHolder) holder).getView(R.id.xiaofei_edit);
+            TextView tvBaoxian = ((BaseViewHolder) holder).getView(R.id.baoxian_text);
+            tvIncome.setText(listBean.getPrice()+"元");
+            RelativeLayout relativeLayout = ((BaseViewHolder) holder).getView(R.id.baoxian_linear);
+            if(listBean.isFarmersInsurance == 1){
+                tvBaoxian.setVisibility(View.VISIBLE);
+                tvBaoxian.setText(listBean.insuranceAmount == null?"2元":listBean.insuranceAmount);
+            }else{
+                relativeLayout.setVisibility(View.GONE);
+            }
+        }
+    }
+}

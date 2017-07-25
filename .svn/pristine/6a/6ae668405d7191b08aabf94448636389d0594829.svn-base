@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\yalantis_phoenix_buildings.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\src\\main\\res\\mipmap-xhdpi\\yalantis_phoenix_buildings.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\yalantis_phoenix_sun.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\src\\main\\res\\mipmap-xhdpi\\yalantis_phoenix_sun.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\rotate_progress.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\src\\main\\res\\mipmap-xhdpi\\rotate_progress.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\classic_pull_arrow.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\src\\main\\res\\mipmap-xhdpi\\classic_pull_arrow.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\yalantis_phoenix_sky.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\Canrefresh\\src\\main\\res\\mipmap-xhdpi\\yalantis_phoenix_sky.png"
+    }
+]

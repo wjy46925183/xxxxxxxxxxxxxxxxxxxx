@@ -1,0 +1,285 @@
+package com.example.umengshare;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.Toast;
+
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.Log;
+import com.umeng.socialize.utils.ShareBoardlistener;
+import com.umeng.socialize.utils.SocializeUtils;
+
+import java.lang.ref.WeakReference;
+import java.util.Map;
+
+/**
+ * 友盟分享工具类
+ * shareUmeng
+ **/
+public class UmengShareUtil {
+    private UMShareListener mShareListener;
+    private ShareAction mShareAction;
+    private Context mContext;
+    private ProgressDialog dialog;
+
+    public UmengShareUtil(Context context) {
+        this.mContext = context;
+        dialog = new ProgressDialog(context);
+    }
+
+    /**
+     * 初始化组件
+     *
+     * @param context
+     * @return
+     */
+    public static UmengShareUtil Builder(Context context) {
+        return new UmengShareUtil(context);
+    }
+
+    /**
+     * 初始化监听
+     *
+     * @return
+     */
+    public UmengShareUtil initListener() {
+        mShareListener = new CustomShareListener((Activity) mContext);
+        return this;
+    }
+
+    /**
+     * 初始化监听分享面板
+     *
+     * @param title   分享标题
+     * @param content 分享内容
+     * @param url     分享URL
+     * @param logoUrl 分享头像
+     * @return
+     */
+    public ShareAction initShareAction(final String title, final String content, final String url, final String logoUrl) {
+        mShareAction = new ShareAction((Activity) mContext).setDisplayList(
+                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
+                SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        UMWeb web = new UMWeb(url);
+                        web.setTitle(title);
+                        web.setDescription(content);
+                        if (!TextUtils.isEmpty(logoUrl) && !"null".equals(logoUrl)) {
+                            web.setThumb(new UMImage(mContext, logoUrl));
+                        }
+                        new ShareAction((Activity) mContext).withMedia(web)
+                                .setPlatform(share_media)
+                                .setCallback(mShareListener)
+                                .share();
+                    }
+                });
+        return mShareAction;
+    }
+
+    /**
+     * 初始化单个分享
+     *
+     * @param share_media 分享平台
+     * @param title       分享标题
+     * @param content     分享内容
+     * @param url         分享URL
+     * @param logoUrl     图片
+     * @return
+     */
+    public ShareAction initShareAction(SHARE_MEDIA share_media, final String title, final String content, final String url, final String logoUrl) {
+        UMWeb web = new UMWeb(url);
+        web.setTitle(title);
+        web.setDescription(content);
+        if (TextUtils.isEmpty(logoUrl) && "null" != logoUrl) {
+            web.setThumb(new UMImage(mContext, logoUrl));
+        }
+        mShareAction = new ShareAction((Activity) mContext).withMedia(web)
+                .setPlatform(share_media)
+                .setCallback(mShareListener);
+        return mShareAction;
+    }
+
+    /**
+     * 授权时需要在Create初始化
+     *
+     * @param savedInstanceState
+     */
+    public void initCreate(Bundle savedInstanceState) {
+        UMShareAPI.get(mContext).fetchAuthResultWithBundle((Activity) mContext, savedInstanceState, new UMAuthListener() {
+            @Override
+            public void onStart(SHARE_MEDIA platform) {
+            }
+
+            @Override
+            public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            }
+
+            @Override
+            public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            }
+
+            @Override
+            public void onCancel(SHARE_MEDIA platform, int action) {
+            }
+        });
+    }
+
+    /**
+     * 取消授权
+     *
+     * @param platform 取消授权的平台
+     */
+    public void deleteOauth(final SHARE_MEDIA platform, UMAuthListener umAuthListener) {
+        UMShareAPI.get(mContext).deleteOauth((Activity) mContext, platform, null == umAuthListener ? authListener : umAuthListener);
+    }
+
+    /**
+     * 授权
+     *
+     * @param platform 授权的平台
+     */
+    public void doOauthVerify(final SHARE_MEDIA platform, UMAuthListener umAuthListener) {
+        UMShareAPI.get(mContext).doOauthVerify((Activity) mContext, platform, null == umAuthListener ? authListener : umAuthListener);
+    }
+
+    /**
+     * 获取第三方登录信息
+     *
+     * @param platform       平台
+     * @param umAuthListener 回调接口
+     */
+    public void getPlatformInfo(SHARE_MEDIA platform, UMAuthListener umAuthListener) {
+        UMShareAPI.get(mContext).getPlatformInfo((Activity) mContext, platform, null == umAuthListener ? authListener : umAuthListener);
+    }
+
+    UMAuthListener authListener = new UMAuthListener() {
+        /**
+         * @desc 授权开始的回调
+         * @param platform 平台名称
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            SocializeUtils.safeShowDialog(dialog);
+        }
+
+        /**
+         * @desc 授权成功的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param data 用户资料返回
+         */
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @desc 授权失败的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(mContext, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @desc 授权取消的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            SocializeUtils.safeCloseDialog(dialog);
+            Toast.makeText(mContext, "取消了", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    /**
+     * 分享监听
+     */
+    private static class CustomShareListener implements UMShareListener {
+
+        private WeakReference<Activity> mActivity;
+
+        private CustomShareListener(Activity activity) {
+            mActivity = new WeakReference(activity);
+        }
+
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+
+            if (platform.name().equals("WEIXIN_FAVORITE")) {
+                Toast.makeText(mActivity.get(), platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
+            } else {
+                if (platform != SHARE_MEDIA.MORE && platform != SHARE_MEDIA.SMS
+                        && platform != SHARE_MEDIA.EMAIL
+                        && platform != SHARE_MEDIA.FLICKR
+                        && platform != SHARE_MEDIA.FOURSQUARE
+                        && platform != SHARE_MEDIA.TUMBLR
+                        && platform != SHARE_MEDIA.POCKET
+                        && platform != SHARE_MEDIA.PINTEREST
+
+                        && platform != SHARE_MEDIA.INSTAGRAM
+                        && platform != SHARE_MEDIA.GOOGLEPLUS
+                        && platform != SHARE_MEDIA.YNOTE
+                        && platform != SHARE_MEDIA.EVERNOTE) {
+                    Toast.makeText(mActivity.get(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            if (platform != SHARE_MEDIA.MORE && platform != SHARE_MEDIA.SMS
+                    && platform != SHARE_MEDIA.EMAIL
+                    && platform != SHARE_MEDIA.FLICKR
+                    && platform != SHARE_MEDIA.FOURSQUARE
+                    && platform != SHARE_MEDIA.TUMBLR
+                    && platform != SHARE_MEDIA.POCKET
+                    && platform != SHARE_MEDIA.PINTEREST
+
+                    && platform != SHARE_MEDIA.INSTAGRAM
+                    && platform != SHARE_MEDIA.GOOGLEPLUS
+                    && platform != SHARE_MEDIA.YNOTE
+                    && platform != SHARE_MEDIA.EVERNOTE) {
+                Toast.makeText(mActivity.get(), platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+                if (t != null) {
+                    Log.d("throw", "throw:" + t.getMessage());
+                }
+            }
+
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+
+            Toast.makeText(mActivity.get(), platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+}
+
+

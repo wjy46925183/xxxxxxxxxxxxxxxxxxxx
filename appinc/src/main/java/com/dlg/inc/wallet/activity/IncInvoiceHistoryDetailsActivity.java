@@ -1,0 +1,180 @@
+package com.dlg.inc.wallet.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+
+import com.common.string.LogUtils;
+import com.common.utils.DateUtils;
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.dlg.data.wallet.model.BillDetailListBean;
+import com.dlg.data.wallet.model.BillHistoryBean;
+
+import com.dlg.inc.R;
+import com.dlg.inc.base.IncBaseActivity;
+import com.dlg.inc.base.IncToolBarType;
+import com.dlg.inc.wallet.adapter.IncInvoiceDetailsListAdapter;
+import com.dlg.viewmodel.Wallet.InvoiceHistoryDetailViewModel;
+import com.dlg.viewmodel.Wallet.presenter.InvoiceHistoryDetailPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：邹前坤
+ * 主要功能：开票历史 单条详情
+ * 创建时间： 2017/7/11  19:02
+ */
+
+public class IncInvoiceHistoryDetailsActivity extends IncBaseActivity implements InvoiceHistoryDetailPresenter, SwipeRefreshLayout.OnRefreshListener, BaseLoadMoreHeaderAdapter.OnLoadMoreListener {
+
+	private BillHistoryBean mBean;//这个是上个页面传过来的数据bean
+	private TextView mTvHdetailApplyTime;//申请时间
+	private TextView mTvHdetailSendoffTime;//寄出时间
+	private TextView mTvHdetailReceiptType;//信件类型
+	private TextView mTvHdetailRecipientsName;//收件人姓名
+	private TextView mTvHdetailRecipientsPhone;//    电话
+	private TextView mTvHdetailRecipientsAddress;//  地址
+	private TextView mTvHdetailBillName;//发票名
+	private TextView mTvHdetailBillMoney;//发票金额
+	private TextView mTvHdetailBillNumber;//发票号码
+	private TextView mTvHdetailBillAddress;//发票地址
+	private TextView mTvHdetailBillPhone;//发票电话
+	private TextView mTvHdetailBillBank;//发票银行
+	private TextView mTvHdetailBillBankNumber;//发票银行号码
+	private SwipeRefreshLayout mSwipeRefresh;//刷新控件
+	private RecyclerView mLvHdetailList;//刷新控件
+
+	private InvoiceHistoryDetailViewModel viewModel;
+	private List<BillDetailListBean> detailsData=new ArrayList<>();
+	private IncInvoiceDetailsListAdapter adapter;
+
+	private  int currentPage=0;
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.inc_page_invoice_history_details, IncToolBarType.Default);
+		initView();
+		initData();
+		initNet();
+	}
+
+	/**
+	 * 初始化控件
+	 */
+	private void initView() {
+		mTvHdetailApplyTime = (TextView) findViewById(R.id.tv_hdetail_apply_time);
+		mTvHdetailSendoffTime = (TextView) findViewById(R.id.tv_hdetail_sendoff_time);
+		mTvHdetailReceiptType = (TextView) findViewById(R.id.tv_hdetail_receipt_type);
+		mTvHdetailRecipientsName = (TextView) findViewById(R.id.tv_hdetail_recipients_name);
+		mTvHdetailRecipientsPhone = (TextView) findViewById(R.id.tv_hdetail_recipients_phone);
+		mTvHdetailRecipientsAddress = (TextView) findViewById(R.id.tv_hdetail_recipients_address);
+		mTvHdetailBillName = (TextView) findViewById(R.id.tv_hdetail_bill_name);
+		mTvHdetailBillMoney = (TextView) findViewById(R.id.tv__hdetail_bill_money);
+		mTvHdetailBillNumber = (TextView) findViewById(R.id.tv__hdetail_bill_number);
+		mTvHdetailBillAddress = (TextView) findViewById(R.id.tv__hdetail_bill_address);
+		mTvHdetailBillPhone = (TextView) findViewById(R.id.tv_hdetail_bill_phone);
+		mTvHdetailBillBank = (TextView) findViewById(R.id.tv_hdetail_bill_bank);
+		mTvHdetailBillBankNumber = (TextView) findViewById(R.id.tv_hdetail_bill_bank_number);
+		mSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+		mLvHdetailList = (RecyclerView) findViewById(R.id.lv_hdetail_list);
+		mLvHdetailList.setLayoutManager(new LinearLayoutManager(mContext));
+		mSwipeRefresh.setColorSchemeResources(R.color.orange_yellow);
+		mSwipeRefresh.setOnRefreshListener(this);
+		autoRefresh();
+	}
+
+	/**
+	 * 自动刷新
+	 */
+	private void autoRefresh(){
+		if(mSwipeRefresh != null){
+			mSwipeRefresh.post(new Runnable() {
+				@Override
+				public void run() {
+					mSwipeRefresh.setRefreshing(true);
+				}
+			});
+		}
+	}
+	/**
+	 * 初始化数据
+	 */
+	private void initData() {
+		mBean = (BillHistoryBean) getIntent().getExtras().getSerializable("bean");
+		getToolBarHelper().setToolbarTitle("开票详情");
+		if (mBean!=null){
+			mTvHdetailApplyTime.setText(DateUtils.dateFormat("yyyy-MM-dd HH:mm",mBean.getCreateTime()));
+			mTvHdetailSendoffTime.setText(DateUtils.dateFormat("yyyy-MM-dd HH:mm",mBean.getModifyTime()));
+			if (mBean.getStatus()==1){
+				mTvHdetailReceiptType.setText("申请中");
+			}else {
+				mTvHdetailReceiptType.setText("已寄出");
+			}
+			mTvHdetailRecipientsName.setText(mBean.getInvoiceInformationRestVo().getCheckTakerName());
+			mTvHdetailRecipientsAddress.setText(mBean.getInvoiceInformationRestVo().getCheckTakerAddress());
+			mTvHdetailRecipientsPhone.setText(mBean.getInvoiceInformationRestVo().getCheckTakerPhone());
+
+			mTvHdetailBillName.setText(mBean.getInvoiceInformationRestVo().getCompanyName());
+			mTvHdetailBillMoney.setText(mBean.getInvoiceAmount()+"元");
+
+			mTvHdetailBillAddress.setText(mBean.getInvoiceInformationRestVo().getCheckTakerAddress());
+			mTvHdetailBillPhone.setText(mBean.getInvoiceInformationRestVo().getCheckTakerPhone());
+			mTvHdetailBillBank.setText(mBean.getInvoiceInformationRestVo().getBankName());
+			mTvHdetailBillBankNumber.setText(mBean.getInvoiceInformationRestVo().getBankAccount());
+			mTvHdetailBillNumber.setText(mBean.getInvoiceInformationRestVo().getId());
+
+			adapter = new IncInvoiceDetailsListAdapter(this,mLvHdetailList,detailsData, R.layout.inc_item_bill_history_list);
+			mLvHdetailList.setAdapter(adapter);
+			adapter.setOnLoadMoreListener(this);
+
+		}
+
+
+		viewModel=new InvoiceHistoryDetailViewModel(this,this,this);
+	}
+
+	/**
+	 * 初始化联网以及后续联网
+	 */
+	private void initNet() {
+		//viewModel.getInvoiceHistoryDetail(0,mBean.getId());
+		viewModel.getInvoiceHistoryDetail(currentPage,mBean.getId());
+	}
+
+	@Override
+	public void getDataList(List<BillDetailListBean> bean) {
+		adapter.completeLoadMore();
+		if (null!=mSwipeRefresh&&mSwipeRefresh.isRefreshing()) {
+			mSwipeRefresh.setRefreshing(false);
+		}
+		if (bean==null||bean.size()==0&&currentPage!=0){
+			return;
+		}
+		if (currentPage==0){
+			detailsData.clear();
+		}
+		detailsData.addAll(bean);
+		LogUtils.d("得到了详情bean  大小  === "+bean.size());
+		adapter.notifyDataSetChanged();
+
+	}
+
+	/**
+	 * 刷新
+	 */
+	@Override
+	public void onRefresh() {
+		currentPage=0;
+		initNet();
+	}
+
+	@Override
+	public void onLoadMore() {
+		currentPage++;
+		initNet();
+	}
+}

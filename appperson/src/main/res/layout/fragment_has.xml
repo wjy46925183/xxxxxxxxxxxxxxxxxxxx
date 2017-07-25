@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_has"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_5_5_80"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/all_select_re"
+            android:layout_width="@dimen/px_300"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            >
+            <CheckBox
+                android:id="@+id/all_select_cbox"
+                style="@style/checkbox_style"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/px_30" />
+
+            <TextView
+                android:id="@+id/all_select_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/all_select_cbox"
+                android:layout_marginLeft="@dimen/px_30"
+                android:text="全选"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/cancle_btn"
+            android:layout_width="@dimen/px_120"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/px_30"
+            android:layout_toLeftOf="@+id/agree_btn"
+            android:background="@color/cmbkb_transparent"
+            android:gravity="center"
+            android:text="拒绝"
+            android:textColor="@color/chenghong_textcolor"
+            android:textSize="@dimen/text_size_12" />
+
+        <Button
+            android:id="@+id/agree_btn"
+            android:layout_width="@dimen/px_120"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px_30"
+            android:background="@color/cmbkb_transparent"
+            android:gravity="center"
+            android:text="同意"
+            android:textColor="@color/green_textcolor"
+            android:textSize="@dimen/text_size_12" />
+    </RelativeLayout>
+</LinearLayout>

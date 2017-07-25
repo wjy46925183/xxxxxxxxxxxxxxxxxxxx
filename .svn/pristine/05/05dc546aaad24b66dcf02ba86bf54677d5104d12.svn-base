@@ -1,0 +1,68 @@
+package com.dlg.viewmodel.Wallet;
+
+import android.content.Context;
+
+import com.common.cache.ACache;
+import com.common.utils.Base64Utils;
+import com.common.utils.MD5Utils;
+import com.dlg.data.wallet.model.WalletBean;
+import com.dlg.viewmodel.BasePresenter;
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.RXSubscriber;
+import com.dlg.viewmodel.Wallet.presenter.PaymentPresenter;
+import com.dlg.viewmodel.Wallet.presenter.WalletPresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.server.WalletServer;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+
+/**
+ * 作者：曹伟
+ * 主要功能：钱包model
+ * 创建时间：2017/7/6 16:37
+ */
+
+public class PaymentViewModel extends BaseViewModel<JsonResponse<List<String>>>{
+    private BasePresenter basePresenter;
+    private final WalletServer mServer;
+    private PaymentPresenter paymentPresenter;
+
+    public PaymentViewModel(Context context, BasePresenter basePresenter, PaymentPresenter paymentPresenter) {
+        this.basePresenter = basePresenter;
+        mContext = context;
+        mServer = new WalletServer(context);
+        this.paymentPresenter=paymentPresenter;
+    }
+
+    /**
+     * 根据userid获取当前用户零钱信息
+     */
+    public void getPayment(String orders,String psw) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("orders", orders);
+        map.put("payPassword", Base64Utils.getBase64(MD5Utils.MD5Encode(psw) + "/."));
+        mSubscriber = getMapSubscriber();
+        mServer.getPayment(mSubscriber,map);
+    }
+
+    private Subscriber<JsonResponse<List<String>>> getMapSubscriber(){
+        return new RXSubscriber<JsonResponse<List<String>>,List<String>>(basePresenter) {
+//            @Override
+//            public void requestNext(List<String> walletBeans) {
+//                if(null != walletBeans && walletBeans.size() > 0){
+//                    paymentPresenter.getPayOKOrNo(walletBeans.get(0));
+//                }
+//            }
+
+            @Override
+            public void requestNextCode(Object m) {
+                super.requestNextCode(m);
+                paymentPresenter.getPayOKOrNo(m.toString());
+            }
+        };
+    }
+}

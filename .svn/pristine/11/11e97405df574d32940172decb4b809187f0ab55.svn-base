@@ -1,0 +1,165 @@
+package com.dlg.viewmodel.server;
+
+import android.content.Context;
+
+import com.alibaba.fastjson.JSON;
+import com.dlg.data.wallet.factory.WalletFactory;
+import com.dlg.data.wallet.interactor.WalletInteractor;
+import com.dlg.data.wallet.model.BillDetailBean;
+import com.dlg.data.wallet.model.BillDetailListBean;
+import com.dlg.data.wallet.model.BillHistoryBean;
+import com.dlg.data.wallet.model.InvoiceInformationRestVoBean;
+import com.dlg.data.wallet.model.InvoiceListBean;
+import com.dlg.data.wallet.model.WalletBean;
+import com.dlg.data.wallet.model.WalletListBean;
+import com.dlg.data.wallet.model.WalletListDetailBean;
+import com.dlg.data.wallet.url.WalletUrl;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+/**
+ * 作者：曹伟
+ * 主要功能：零钱请求服务
+ * 创建时间：2017/7/6 17:36
+ */
+
+public class WalletServer {
+    WalletFactory walletFactory;
+
+    public WalletServer(Context appContext) {
+        this(new WalletFactory(appContext));
+    }
+
+    public WalletServer(WalletFactory walletFactory) {
+        this.walletFactory = walletFactory;
+    }
+
+    /**
+     * 查询用户零钱
+     * @param mSubscriber
+     * @param map
+     */
+
+    public void getWalletBalance(Subscriber<JsonResponse<List<WalletBean>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.WALLET_BALANCE + JSON.toJSONString(map), true);
+        walletInteractor.getWalletBalance(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    /**
+     * 查询用户的消费列表
+     * @param mSubscriber
+     * @param map
+     */
+
+    public void getInvoicBalance(Subscriber<JsonResponse<List<InvoiceListBean>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.INVOICE_LIST_BALANCE + JSON.toJSONString(map), true);
+        walletInteractor.getInvoiceBalance(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    /**
+     * 得到 发票列表
+     * @param mSubscriber
+     * @param map
+     */
+    public void getInvoicHistory(Subscriber<JsonResponse<List<BillHistoryBean>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.INVOICE_BILL_LIST + JSON.toJSONString(map), true);
+        walletInteractor.getInvoiceHistory(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    /**
+     * 得到 发票详情 根据发票id
+     * @param mSubscriber
+     * @param map
+     */
+    public void getInvoicHistoryDetail(Subscriber<JsonResponse<List<BillDetailListBean>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.INVOICE_BILL_DETAILS + JSON.toJSONString(map), true);
+        walletInteractor.getInvoiceHistoryDetail(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    /**
+     * 得到 发票的模板
+     * @param mSubscriber
+     * @param map
+     */
+    public void getOrderBillTemplate(Subscriber<JsonResponse<List<InvoiceInformationRestVoBean>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.ORDER_BILL_TEMPLATE + JSON.toJSONString(map), true);
+        walletInteractor.getOrderBillTemplape(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    /**
+     * 新建发票
+     * @param mSubscriber
+     * @param map
+     */
+    public void getOrderBillNew(Subscriber<JsonResponse<List<String>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.ORDER_BILL_NEW + JSON.toJSONString(map), true);
+        walletInteractor.getOrderBillNew(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    /**
+     * 得到钱包详情列表
+     * @param mSubscriber
+     * @param map
+     */
+    public void getWalletList(Subscriber<JsonResponse<List<WalletListBean>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.WALLET_DETAILS_LIST + JSON.toJSONString(map), true);
+        walletInteractor.getWalletList(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+
+    }
+
+    /**
+     * 得到钱包详情列表的单个详情
+     * @param mSubscriber
+     * @param map
+     */
+    public void getWalletDetailDetailBean(Subscriber<JsonResponse<List<WalletListDetailBean>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.WALLET_DETAILS_LIST_DETAIL + JSON.toJSONString(map), true);
+        walletInteractor.getWalletListDetail(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    public void VerifyVerificationCode(Subscriber<JsonResponse<List<String>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.RESET_PWD_CHECK_VERIFYCODE + JSON.toJSONString(map), true);
+        walletInteractor.getResetPwdCheck(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    public void getResetPwd(Subscriber<JsonResponse<List<String>>> mSubscriber, HashMap<String, String> map) {
+        WalletInteractor walletInteractor = walletFactory.getWalletBalance(WalletUrl.RESET_PWD_UPDATE_PWD + JSON.toJSONString(map), true);
+        walletInteractor.getResetPwd(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+}

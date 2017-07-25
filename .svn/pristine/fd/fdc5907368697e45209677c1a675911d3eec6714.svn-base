@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <com.dlg.personal.oddjob.view.HirerPublicView
+        android:id="@+id/public_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@color/gray_line"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_80"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:background="@drawable/pressed_layout"
+        android:paddingLeft="@dimen/margin_15">
+
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="已取消"
+            android:textColor="@color/textColor_black_light03"
+            android:textSize="@dimen/text_size_12"/>
+
+        <TextView
+            android:id="@+id/cancle_reseason_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="取消原因：取消原因就是，我不想要了。"
+            android:textColor="@color/textColor_black_light03"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingRight="@dimen/margin_15"
+            android:textSize="@dimen/text_size_12"
+            />
+        <TextView
+            android:id="@+id/cancle_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/agree_tv"
+            android:background="@color/cmbkb_transparent"
+            android:text="不通过"
+            android:gravity="center"
+            android:textColor="@color/chenghong_textcolor"
+            android:textSize="@dimen/text_size_12"/>
+
+        <TextView
+            android:id="@+id/agree_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/cmbkb_transparent"
+            android:text="通过"
+            android:gravity="center"
+            android:textColor="@color/green"
+            android:layout_marginRight="@dimen/margin_15"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:textSize="@dimen/text_size_12"/>
+    </RelativeLayout>
+</LinearLayout>

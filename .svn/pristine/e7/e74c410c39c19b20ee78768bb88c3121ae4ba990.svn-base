@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recy_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/slid_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent_color"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/bottom_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/down_pay_img"/>
+
+        <LinearLayout
+            android:id="@+id/detail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_color"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_80"
+                android:layout_marginLeft="@dimen/px_90"
+                android:layout_marginRight="@dimen/left_right_jx">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="报酬"
+                    android:textColor="@color/gray_textcolor"
+                    android:textSize="@dimen/small_textsize"/>
+
+                <TextView
+                    android:id="@+id/income_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="0元"
+                    android:textColor="@color/chenghong_textcolor"
+                    android:textSize="@dimen/small_textsize"/>
+            </RelativeLayout>
+            <View
+                style="@style/line_thin_full" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_80"
+                android:layout_marginLeft="@dimen/px_90"
+                android:layout_marginRight="@dimen/left_right_jx">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="小费"
+                    android:textColor="@color/gray_textcolor"
+                    android:textSize="@dimen/small_textsize"/>
+
+                <TextView
+                    android:id="@+id/xiaofei_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="0元"
+                    android:textColor="@color/chenghong_textcolor"
+                    android:textSize="@dimen/small_textsize"/>
+            </RelativeLayout>
+            <View
+                style="@style/line_thin_full" />
+            <RelativeLayout
+                android:id="@+id/bao_linear"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_80"
+                android:layout_marginLeft="@dimen/px_90"
+                android:layout_marginRight="@dimen/left_right_jx">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="保险"
+                    android:textColor="@color/gray_textcolor"
+                    android:textSize="@dimen/small_textsize"/>
+
+                <TextView
+                    android:id="@+id/baoxian_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="0元"
+                    android:textColor="@color/chenghong_textcolor"
+                    android:textSize="@dimen/small_textsize"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/line_thin_full"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_80"
+                android:layout_marginLeft="@dimen/px_90"
+                android:layout_marginRight="@dimen/left_right_jx">
+
+                <TextView
+                    android:id="@+id/total_tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="合计"
+                    android:textColor="@color/gray_textcolor"
+                    android:textSize="@dimen/small_textsize"/>
+
+                <TextView
+                    android:id="@+id/total_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="0元"
+                    android:textColor="@color/chenghong_textcolor"
+                    android:textSize="@dimen/small_textsize"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        style="@style/line_thin_full" />
+    <LinearLayout
+        android:id="@+id/bottom_re2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_88"
+        android:background="@color/white_color">
+
+        <RelativeLayout
+            android:id="@+id/bottom_re"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                style="@style/checkbox_style"
+                android:layout_marginLeft="@dimen/px_30"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/totals_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/px_30"
+                android:layout_toRightOf="@id/checkbox"
+                android:text="总支付金额："
+                android:textColor="@color/textColor_black_light03"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/totals_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/totals_tab"
+                android:text="0元"
+                android:textColor="@color/chenghong_textcolor"
+                android:textSize="@dimen/text_size_15" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/pay_btn"
+            android:layout_width="@dimen/px_212"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/yellow_textcolor"
+            android:gravity="center"
+            android:text="支付"
+            android:textColor="@color/white_color"
+            android:textSize="@dimen/text_size_12" />
+    </LinearLayout>
+</LinearLayout>

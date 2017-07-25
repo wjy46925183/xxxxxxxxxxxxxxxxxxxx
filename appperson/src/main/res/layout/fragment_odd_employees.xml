@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:background="@color/app_bg_page"
+    android:layout_height="wrap_content">
+
+    <com.common.view.swipemenulistview.SwipeMenuListView
+        android:id="@+id/menu_listview"
+        android:layout_width="match_parent"
+        android:padding="@dimen/padding_10"
+        android:layout_height="wrap_content"
+        android:divider="#00000000"
+        android:scrollbars="none"
+        android:dividerHeight="@dimen/padding_10"
+        android:listSelector="@android:color/transparent" />
+</android.support.v4.widget.SwipeRefreshLayout>

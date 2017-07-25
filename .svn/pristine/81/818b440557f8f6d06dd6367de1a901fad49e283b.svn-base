@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextOrEditxtView">
+        <!--左边文字-->
+        <attr name="leftText" format="string" />
+        <!--左边文字颜色-->
+        <attr name="leftTextColor" format="color" />
+        <!--左边文字字体大小-->
+        <attr name="leftTextSize" format="dimension" />
+        <!--右边文字-->
+        <attr name="rightText" format="string" />
+        <!--右边文字颜色-->
+        <attr name="rightTextColor" format="color" />
+        <!--右边文字字体大小-->
+        <attr name="rightTextSize" format="dimension" />
+        <!--右边提示文字-->
+        <attr name="rightHintText" format="string" />
+        <!--右边提示文字颜色-->
+        <attr name="rightTextHintColor" format="color" />
+        <!--右边文字字体大小-->
+        <attr name="rightTextHintSize" format="dimension" />
+        <!--右边又paddingRight-->
+        <attr name="rightTextPaddingRight" format="dimension" />
+        <!--底部分割线是否显示-->
+        <attr name="bottomDivider" format="boolean" />
+        <!--右边Editext是否可以编辑-->
+        <attr name="isEnabled" format="boolean" />
+        <!--右边Editext只能输入数字-->
+        <attr name="isNumber" format="boolean" />
+        <!--右边Editext可输入的长度-->
+        <attr name="maxLength" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="StatisticalOrderView">
+        <!--订单类型 -->
+        <attr name="orderType" format="integer" />
+        <!--标题提示文字-->
+        <attr name="hintText" format="string" />
+    </declare-styleable>
+</resources>

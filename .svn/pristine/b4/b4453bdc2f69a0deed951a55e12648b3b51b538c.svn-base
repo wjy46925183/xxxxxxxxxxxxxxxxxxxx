@@ -1,0 +1,72 @@
+package com.dlg.personal.user.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.widget.FrameLayout;
+
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.user.fragment.PersonCertificateFragment;
+import com.dlg.personal.user.fragment.PersonLoginFragment;
+import com.dlg.personal.user.fragment.PersonRegistFragment;
+import com.dlg.personal.user.fragment.ResetPsdFragment;
+
+/**
+ * 作者：小明
+ * 主要功能：登录主选择页面
+ * 创建时间：2017/7/14 0014 09:34
+ */
+public class LoginActivity extends BaseActivity {
+
+    public static final String TAG_REGIST = "TAG_REGIST";
+    public static final String TAG_LOGIN = "TAG_LOGIN";
+    public static final String TAG_RESET = "TAG_RESET";
+    public static final String TAG_VERYCODE = "TAG_VERYCODE";
+    Bundle bundle;
+    PersonRegistFragment registFragment;
+    PersonLoginFragment personLoginFragment;
+    ResetPsdFragment resetPsdFragment;
+    PersonCertificateFragment certificateFragment;
+    FrameLayout frameLayout;
+    String from;//从哪个页面来的、1注册、2登录、3忘记密码、4、验证码登录
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_login);
+        initView();
+    }
+
+    private void initView() {
+        bundle = new Bundle();
+        frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+        from = getIntent().getStringExtra("inFrom");
+
+        if (from.equals(TAG_REGIST)) {                                             //注册
+            mToolBarHelper.setToolbarTitle("用户注册");
+            registFragment = new PersonRegistFragment();
+            registFragment.setArguments(getIntent().getExtras());
+            addFragment(R.id.frameLayout, registFragment, TAG_REGIST);
+
+        } else if (from.equals(TAG_LOGIN)) {                                               //个人登录
+            mToolBarHelper.setToolbarTitle("个人登录");
+            personLoginFragment = new PersonLoginFragment();
+            personLoginFragment.setArguments(getIntent().getExtras());
+            addFragment(R.id.frameLayout, personLoginFragment, TAG_LOGIN);
+
+        } else if (from.equals(TAG_RESET)) {                                        //重置密码
+            mToolBarHelper.setToolbarTitle("找回密码");
+            resetPsdFragment = new ResetPsdFragment();
+            resetPsdFragment.setArguments(getIntent().getExtras());
+            addFragment(R.id.frameLayout, resetPsdFragment, TAG_RESET);
+
+        } else if (from.equals(TAG_VERYCODE)) {                                        //验证码登录
+            mToolBarHelper.setToolbarTitle("验证码登录");
+            certificateFragment = new PersonCertificateFragment();
+            certificateFragment.setArguments(getIntent().getExtras());
+            addFragment(R.id.frameLayout, certificateFragment, TAG_VERYCODE);
+        }
+    }
+
+
+}

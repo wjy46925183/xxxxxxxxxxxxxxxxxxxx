@@ -1,0 +1,85 @@
+package com.dlg.data.user.interactor;
+
+import com.dlg.data.user.model.UserAttributeInfoBean;
+import com.dlg.data.user.model.UserInfoDataBean;
+import com.dlg.data.user.model.UserIsBindingBean;
+import com.dlg.data.user.model.UserNameBean;
+import com.dlg.data.user.model.UserUpHeadBean;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Observable;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：用户接口
+ * 创建时间：2017/6/23 19:15
+ */
+public interface UserInteractor {
+    /**
+     * 根据ID 获取用户信息
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<UserInfoDataBean>>> queryUserDetail(HashMap<String,String> hashMap);
+
+    /**
+     * 用户登录
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<UserAttributeInfoBean>> userLogIn(HashMap<String,String> hashMap);
+    /**
+     * 用户是否已经注册
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse> IsRegist(HashMap<String,String> hashMap);
+    /**
+     * 注册
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse> getCode(HashMap<String,String> hashMap);
+
+    /**
+     * 重置密码
+     * @param hashMap
+     */
+    Observable<JsonResponse<String>> resetPsd(HashMap<String,String> hashMap);
+    /**
+     * 更新个人信息
+     * @param hashMap
+     */
+    Observable<JsonResponse<String>> upUserInfo(HashMap<String,String> hashMap);/**
+     * 更新个人信息主表
+     * @param hashMap
+     */
+    Observable<JsonResponse<String>> upUserInfoMain(HashMap<String,String> hashMap);
+    /**
+     * 是否绑定三方
+     * @param hashMap
+     */
+    Observable<JsonResponse<List<UserIsBindingBean>>> isBindingThird(HashMap<String,String> hashMap);
+    /**
+     * 拍照检测身份信息
+     * @param hashMap
+     */
+    Observable<JsonResponse<List<UserNameBean>>> isVerify(HashMap<String,String> hashMap);
+
+    /**
+     * 退出登录
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<Object>> logOut(HashMap<String,String> hashMap);
+    /**
+     * 更新头像
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<UserUpHeadBean>>> upLoadHead(HashMap<String,String> hashMap);
+
+}

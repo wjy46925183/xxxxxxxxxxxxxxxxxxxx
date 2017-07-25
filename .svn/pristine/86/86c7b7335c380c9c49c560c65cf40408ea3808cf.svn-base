@@ -1,0 +1,225 @@
+package com.dlg.personal.user.fragment;
+
+import android.Manifest;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
+import android.telephony.TelephonyManager;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.common.sys.SystemUtil;
+import com.common.utils.StringUtils;
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.activity.HomeActivity;
+import com.dlg.personal.home.view.ToastUtils;
+import com.dlg.viewmodel.common.SendCodeViewModel;
+import com.dlg.viewmodel.common.presenter.SuccessObjectPresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.user.RegisterViewModel;
+import com.dlg.viewmodel.user.presenter.RegisterPresenter;
+import com.tbruyelle.rxpermissions.RxPermissions;
+import com.umeng.analytics.AnalyticsConfig;
+
+import java.util.List;
+
+import rx.functions.Action1;
+
+/**
+ * 作者：小明
+ * 主要功能：个人注册页面
+ * 创建时间：2017/7/14 0014 10:13
+ */
+public class PersonRegisterFragment extends BaseFragment implements RegisterPresenter, SuccessObjectPresenter, View.OnClickListener {
+    TextView phoneText; //电话
+    EditText codeText;  //验证码
+    LinearLayout getCodeLayout;
+    TextView time;      //剩余时间
+    TextView getNew;    //重新获取
+    EditText psdText;   //密码
+    CheckBox eye;       //密码显隐CheckBox
+    Button btnNext;     //下一步
+    Bundle bundle;
+
+    String phone;
+    String code;
+    String psd;
+    String channel;     //平台名
+    String deviceId;    //设备ID
+    String appVersion;  //版本号
+    String type = "1";    //类型
+
+    private SendCodeViewModel viewModel;//
+    private RegisterViewModel registerViewModel;//
+    private LinearLayout waitLayout;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_person_regist, null);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        phoneText = (TextView) view.findViewById(R.id.phone_text);
+        codeText = (EditText) view.findViewById(R.id.code_text);
+        getCodeLayout = (LinearLayout) view.findViewById(R.id.getcode_layout);
+        waitLayout = (LinearLayout) view.findViewById(R.id.wait_layout);
+        time = (TextView) view.findViewById(R.id.time);
+        getNew = (TextView) view.findViewById(R.id.getNew);
+        psdText = (EditText) view.findViewById(R.id.psd_text);
+        eye = (CheckBox) view.findViewById(R.id.eye);
+        btnNext = (Button) view.findViewById(R.id.btnNext);
+        getNew.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
+
+        codeText.addTextChangedListener(getTextWatcher(codeText));
+        psdText.addTextChangedListener(getTextWatcher(psdText));
+
+        bundle = getArguments();
+        phone = getArguments().getString("phone");
+        phoneText.setText(phone);
+        getVerifyCode();
+    }
+    int i=1;
+    int j=1;
+    private TextWatcher getTextWatcher(final EditText view){
+       return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(view == codeText){
+                    if (StringUtils.isVerifyCode(s.toString())){
+                        i=2;
+                    }
+                }
+                if(view == psdText){
+                    if (StringUtils.isPassWord(s.toString())){
+                        j=2;
+                    }
+                }
+                if (i==2&&j==2){
+                    btnNext.setEnabled(true);
+                }else {
+                    btnNext.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnNext) {
+            go2Register();
+        }
+        if (v.getId() == R.id.getNew) {
+            getVerifyCode();
+        }
+    }
+
+    /**初始化获取验证码*/
+    private void getVerifyCode() {
+        if (null == viewModel) {
+            viewModel = new SendCodeViewModel(mContext, this, this);
+        }
+        viewModel.sendMsg(phone);
+    }
+
+    private void go2Register() {
+        code = codeText.getText().toString().trim();
+        psd = psdText.getText().toString().trim();
+        if (TextUtils.isEmpty(code)) {
+            ToastUtils.showShort(mContext, "请输入验证码");
+            return;
+        }
+        if (TextUtils.isEmpty(psd) && psd.length() < 6) {
+            ToastUtils.showShort(mContext, "密码长度不少于6位");
+        }
+        appVersion = SystemUtil.getVersionName(getActivity());
+        channel = AnalyticsConfig.getChannel(getActivity());//获取渠道名
+        checkPermissions();
+
+        if (registerViewModel == null) {
+            registerViewModel = new RegisterViewModel(mContext, this, this);
+        }
+        registerViewModel.getRegister(phone, psd, type, code, deviceId, channel, appVersion);
+    }
+
+    /**检查权限是否开始 获取设备ID*/
+    public void checkPermissions() {
+        RxPermissions _Permissions = new RxPermissions(mActivity);
+        _Permissions.request(Manifest.permission.READ_PHONE_STATE).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                if (aBoolean) {
+                    TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                    deviceId = tm.getDeviceId() == null ? "" : tm.getDeviceId();
+                }
+            }
+        });
+    }
+
+    /**注册回调*/
+    @Override
+    public void getRegister(List<String> result) {
+        mACache.put(AppKey.CacheKey.MY_USER_ID, result.get(0));
+        ToastUtils.showShort(mContext, "登陆成功");
+        ActivityNavigator.navigator().navigateTo(HomeActivity.class);
+    }
+
+    /**验证码回调*/
+    @Override
+    public void onSuccess(boolean success) {
+        if (success) {
+            ToastUtils.showShort(mContext, "验证码发送成功");
+        }
+        MyCount myCount = new MyCount(60000, 1000);
+        myCount.start();
+    }
+
+
+    /**计时器
+     * */
+    private class MyCount extends CountDownTimer {
+        private MyCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            waitLayout.setVisibility(View.GONE);
+            getCodeLayout.setEnabled(true);
+            getNew.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            waitLayout.setVisibility(View.VISIBLE);
+            time.setText(""+millisUntilFinished / 1000 + "秒后");
+            getNew.setVisibility(View.GONE);
+
+        }
+    }
+}

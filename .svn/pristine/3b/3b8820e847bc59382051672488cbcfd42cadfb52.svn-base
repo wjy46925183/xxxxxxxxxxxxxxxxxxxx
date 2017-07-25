@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/type_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/inc_margin_10"
+        android:layout_marginLeft="@dimen/inc_margin_10"
+        android:layout_marginBottom="@dimen/inc_margin_10">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/type_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:text="微信"
+        android:layout_marginLeft="@dimen/inc_margin_20">
+    </TextView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        </TextView>
+
+    <CheckBox
+            android:id="@+id/check_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/inc_margin_10"
+            android:layout_marginBottom="@dimen/inc_margin_10"
+            android:paddingLeft="@dimen/inc_padding_10"
+            android:paddingRight="@dimen/inc_padding_20"
+            android:button="@drawable/inc_recharge_type_selector">
+    </CheckBox>
+</LinearLayout>

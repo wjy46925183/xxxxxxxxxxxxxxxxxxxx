@@ -1,0 +1,106 @@
+package com.dlg.personal.user.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import com.common.string.StringUtil;
+import com.common.utils.StringUtils;
+import com.dlg.data.user.model.UserAttributeInfoBean;
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.view.ToastUtils;
+import com.dlg.personal.user.activity.LoginActivity;
+import com.dlg.viewmodel.user.IsRegistViewModel;
+import com.dlg.viewmodel.user.LogInViewModel;
+import com.dlg.viewmodel.user.presenter.IsRegistPresenter;
+import com.dlg.viewmodel.user.presenter.LogInPresenter;
+
+import java.util.List;
+
+/**
+ * 作者：小明
+ * 主要功能：选择登录方式个人登录
+ * 创建时间：2017/7/13 0013 18:01
+ */
+public class PersonFragment extends BaseFragment implements View.OnClickListener,IsRegistPresenter {
+    private EditText phoneText;
+    private Button btnNext;
+    private ImageView qq;
+    private ImageView weixin;
+    private ImageView weibo;
+    private String phone;
+    private IsRegistViewModel viewModel;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_person, null);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        phoneText = (EditText) view.findViewById(R.id.phone_text);
+        btnNext = (Button) view.findViewById(R.id.btnNext);
+        qq = (ImageView) view.findViewById(R.id.qq);
+        weixin = (ImageView) view.findViewById(R.id.weixin);
+        weibo = (ImageView) view.findViewById(R.id.weibo);
+        phone = phoneText.getText().toString().trim();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.btnNext){   //下一步
+            gotoSubmit();
+        }
+        if (v.getId()==R.id.weixin){    //微信
+
+        }
+        if (v.getId()==R.id.qq){        //QQ
+
+        }
+        if (v.getId()==R.id.weibo){     //微博
+
+        }
+    }
+
+    private void gotoSubmit() {
+        if (StringUtils.isPhoneNumber(phone)){
+            if (viewModel==null){
+                viewModel = new IsRegistViewModel(mContext,this);
+            }
+            viewModel.IsRegist(phone,"1");
+        }else {
+            ToastUtils.showShort(mContext,"请输入正确的电话号码");
+        }
+
+    }
+
+    @Override
+    public void getIsRegist(boolean isRegist) {
+        if(isRegist){
+            Intent intent=new Intent(getActivity(), LoginActivity.class);
+            Bundle bundle=new Bundle();
+            bundle.putString("phone",phone);
+            bundle.putString("inFrom","2");
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+        }else {
+            Intent intent=new Intent(getActivity(), LoginActivity.class);
+            Bundle bundle=new Bundle();
+            bundle.putString("phone",phone);
+            bundle.putString("inFrom","1");
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    }
+}

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_color"
+            android:orientation="vertical">
+            <com.dlg.inc.view.IncTextOrEditxtView
+                android:id="@+id/tv_pay_compensation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/inc_height_1_5_80"
+                android:paddingRight="@dimen/inc_height_1_5_80"
+                app:inc_bottomDivider="true"
+                app:inc_isEnabled="false"
+                app:inc_leftText="报酬"
+                app:inc_leftTextColor="@color/black_textcolor"
+                app:inc_leftTextSize="@dimen/inc_text_size_12"
+                app:inc_rightTextColor="@color/black_textcolor"
+                app:inc_rightTextPaddingRight="@dimen/inc_padding_15"
+                app:inc_rightTextSize="@dimen/inc_text_size_12" />
+
+            <com.dlg.inc.view.IncTextOrEditxtView
+                android:id="@+id/tv_pay_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/inc_height_1_5_80"
+                android:paddingRight="@dimen/inc_height_1_5_80"
+                app:inc_bottomDivider="true"
+                app:inc_isEnabled="false"
+                app:inc_leftText="小费"
+                app:inc_leftTextColor="@color/black_textcolor"
+                app:inc_leftTextSize="@dimen/inc_text_size_12"
+                app:inc_rightTextColor="@color/black_textcolor"
+                app:inc_rightTextPaddingRight="@dimen/inc_padding_15"
+                app:inc_rightTextSize="@dimen/inc_text_size_12" />
+
+            <com.dlg.inc.view.IncTextOrEditxtView
+                android:id="@+id/tv_pay_insurance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/inc_height_1_5_80"
+                android:paddingRight="@dimen/inc_height_1_5_80"
+                app:inc_bottomDivider="true"
+                app:inc_isEnabled="false"
+                app:inc_leftText="保险"
+                app:inc_leftTextColor="@color/black_textcolor"
+                app:inc_leftTextSize="@dimen/inc_text_size_12"
+                app:inc_rightTextColor="@color/black_textcolor"
+                app:inc_rightTextPaddingRight="@dimen/inc_padding_15"
+                app:inc_rightTextSize="@dimen/inc_text_size_12" />
+
+
+            <com.dlg.inc.view.IncTextOrEditxtView
+                android:id="@+id/tv_pay_service_charge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/inc_height_1_5_80"
+                android:paddingRight="@dimen/inc_height_1_5_80"
+                app:inc_bottomDivider="true"
+                app:inc_isEnabled="false"
+                app:inc_leftText="平台服务费"
+                app:inc_leftTextColor="@color/black_textcolor"
+                app:inc_leftTextSize="@dimen/inc_text_size_12"
+                app:inc_rightTextColor="@color/black_textcolor"
+                app:inc_rightTextPaddingRight="@dimen/inc_padding_15"
+                app:inc_rightTextSize="@dimen/inc_text_size_12" />
+
+            <com.dlg.inc.view.IncTextOrEditxtView
+                android:id="@+id/tv_pay_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="@dimen/inc_height_1_5_80"
+                android:paddingRight="@dimen/inc_height_1_5_80"
+                app:inc_bottomDivider="true"
+                app:inc_isEnabled="false"
+                app:inc_leftText="总金额"
+                app:inc_leftTextColor="@color/black_textcolor"
+                app:inc_leftTextSize="@dimen/inc_text_size_12"
+                app:inc_rightTextColor="@color/yellow_textcolor"
+                app:inc_rightTextPaddingRight="@dimen/inc_padding_15"
+                app:inc_rightTextSize="@dimen/inc_text_size_12" />
+
+            <com.dlg.inc.view.IncTextOrEditxtView
+                android:id="@+id/tv_pay_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/inc_height_1_5_80"
+                android:paddingRight="@dimen/inc_height_1_5_80"
+                app:inc_bottomDivider="true"
+                app:inc_isEnabled="false"
+                app:inc_leftText="余额"
+                app:inc_leftTextColor="@color/black_textcolor"
+                app:inc_leftTextSize="@dimen/inc_text_size_12"
+                app:inc_rightTextColor="@color/black_textcolor"
+                app:inc_rightTextPaddingRight="@dimen/inc_padding_15"
+                app:inc_rightTextSize="@dimen/inc_text_size_12"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inc_height_2_80"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="输入支付密码"
+                    android:textColor="#404040"
+                    android:textSize="@dimen/inc_text_size_15"/>
+
+                <com.common.view.gridpasswordview.GridPasswordView
+                    android:id="@+id/password_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/inc_height_7_5_80"
+                    android:layout_marginTop="@dimen/inc_height_2_80"
+                    android:layout_marginLeft="@dimen/inc_width_3_80"
+                    android:layout_marginRight="@dimen/inc_width_3_80"
+                    android:inputType="number"
+                    app:pivBorderColor="#ffffff"
+                    app:pivBorderRadius="10dp"
+                    app:pivBorderWidth="5dp"
+                    app:pivPasswordColor="#666666"
+                    app:pivPasswordLength="6"
+                    app:paddingEnd="@dimen/inc_margin_5"
+                    app:paddingStart="@dimen/inc_margin_5"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_forgetPWD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/inc_width_3_80"
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:text="忘记密码"
+                    android:textSize="@dimen/inc_text_size_12"
+                    android:textColor="@color/cmbkb_lightblack">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

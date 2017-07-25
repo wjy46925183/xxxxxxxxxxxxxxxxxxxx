@@ -1,0 +1,248 @@
+package com.dlg.data.home;
+
+import com.alibaba.fastjson.JSON;
+import com.dlg.data.cache.ObjectCache;
+import com.dlg.data.home.interactor.HomeInteractor;
+import com.dlg.data.home.model.BossListBean;
+import com.dlg.data.home.model.DataBean;
+import com.dlg.data.home.model.DictionaryBean;
+import com.dlg.data.home.model.DoingTaskOrderDetailBean;
+import com.dlg.data.home.model.EmployeeListBean;
+import com.dlg.data.home.model.HistoryBean;
+import com.dlg.data.home.model.HomeMapBossListBean;
+import com.dlg.data.home.model.HomeMapListBean;
+import com.dlg.data.home.model.JobOrdersInfo;
+import com.dlg.data.home.model.WorkCardBean;
+import com.dlg.data.home.url.HomeUrl;
+import com.http.okgo.OkGo;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonConvert;
+import okhttp.rx.JsonResponse;
+import okhttp.rx.RxAdapter;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：实现接口
+ * 创建时间：2017/6/23 10:03
+ */
+public class HomeSource implements HomeInteractor {
+    private final ObjectCache objectCache;
+
+    /**
+     */
+    public HomeSource(ObjectCache objectCache) {
+        this.objectCache = objectCache;
+    }
+
+    private Action1<Object> saveToCacheAction(final String key) {
+        return new Action1<Object>() {
+            @Override
+            public void call(Object o) {
+                if (o != null) {
+                    HomeSource.this.objectCache.put(o, key);
+                }
+            }
+        };
+    }
+
+    @Override
+    public Observable<JsonResponse<List<EmployeeListBean>>> getListData(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.EMPPLOYEELIST_URL)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<EmployeeListBean>>>() {
+                }, RxAdapter.<JsonResponse<List<EmployeeListBean>>>create())
+                .doOnNext(saveToCacheAction(HomeUrl.EMPPLOYEELIST_URL + JSON.toJSONString(hashMap)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    @Override
+    public Observable<Boolean> isHasDoingTask(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.WORKER_IS_TASKING)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<Boolean>>>() {
+                }, RxAdapter.<JsonResponse<List<Boolean>>>create())
+                .map(new Func1<JsonResponse<List<Boolean>>, Boolean>() {
+                    @Override
+                    public Boolean call(JsonResponse<List<Boolean>> responses) {
+                        if (null != responses && null != responses.getData()
+                                && responses.getData().size() > 0) {
+                            return responses.getData().get(0);
+                        }
+                        return false;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<DoingTaskOrderDetailBean>>> getDoingTaskDetailList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.DOING_TASK_DETAIL_LIST)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<DoingTaskOrderDetailBean>>>() {
+                }, RxAdapter.<JsonResponse<List<DoingTaskOrderDetailBean>>>create())
+//                .doOnNext(saveToCacheAction(HomeUrl.DOING_TASK_DETAIL_LIST+ JSON.toJSONString(hashMap)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<HomeMapListBean>>> getHomeWorkMapList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.HOME_WORK_MAP_LIST)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<HomeMapListBean>>>() {
+                }, RxAdapter.<JsonResponse<List<HomeMapListBean>>>create())
+                .doOnNext(saveToCacheAction(HomeUrl.HOME_WORK_MAP_LIST + JSON.toJSONString(hashMap)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<HomeMapBossListBean>>> getHomeBossMapList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.HOME_BOSS_MAP_LIST)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<HomeMapBossListBean>>>() {
+                }, RxAdapter.<JsonResponse<List<HomeMapBossListBean>>>create())
+                .doOnNext(saveToCacheAction(HomeUrl.HOME_BOSS_MAP_LIST + JSON.toJSONString(hashMap)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> isHasDoingTaskBoss(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.BOSS_IS_TASKING)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<Boolean>>>() {
+                }, RxAdapter.<JsonResponse<List<Boolean>>>create())
+                .map(new Func1<JsonResponse<List<Boolean>>, Boolean>() {
+                    @Override
+                    public Boolean call(JsonResponse<List<Boolean>> responses) {
+                        if (null != responses && null != responses.getData()
+                                && responses.getData().size() > 0) {
+                            return responses.getData().get(0);
+                        }
+                        return false;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<DataBean>>> getBossTaskingList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.BOSS_IS_TASKING_LIST)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<DataBean>>>() {
+                }, RxAdapter.<JsonResponse<List<DataBean>>>create())
+//                .doOnNext(saveToCacheAction(HomeUrl.BOSS_IS_TASKING_LIST+ JSON.toJSONString(hashMap)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<BossListBean>>> getBossDtaList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.BOSS_DATA_LIST)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<BossListBean>>>() {
+                }, RxAdapter.<JsonResponse<List<BossListBean>>>create())
+                .doOnNext(saveToCacheAction(HomeUrl.BOSS_DATA_LIST + JSON.toJSONString(hashMap)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    @Override
+    public Observable<List<DictionaryBean>> getDictionaryList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.DICTIONARY)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<DictionaryBean>>>() {
+                }, RxAdapter.<JsonResponse<List<DictionaryBean>>>create())
+                .map(new Func1<JsonResponse<List<DictionaryBean>>, List<DictionaryBean>>() {
+                    @Override
+                    public List<DictionaryBean> call(JsonResponse<List<DictionaryBean>> responses) {
+                        return responses.getData();
+                    }
+                })
+                .doOnNext(saveToCacheAction(HomeUrl.DICTIONARY + JSON.toJSONString(hashMap)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    /**
+     * 雇员首页 卡片
+     *
+     * @param hashMap
+     * @return
+     */
+    @Override
+    public Observable<JsonResponse<List<WorkCardBean>>> getWorkCard(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.EMPLOYEE_CARD)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<WorkCardBean>>>() {
+                }, RxAdapter.<JsonResponse<List<WorkCardBean>>>create())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<HistoryBean>>> getHistoryList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.SEARCH_HISTORY)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<HistoryBean>>>() {
+                }, RxAdapter.<JsonResponse<List<HistoryBean>>>create())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<EmployeeListBean>>> getSearchConditionList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.GET_JOB_BY_CONDITION)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<EmployeeListBean>>>() {
+                }, RxAdapter.<JsonResponse<List<EmployeeListBean>>>create())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> getAddJobList(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.ADD_JOB_CONDITION)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<String>>>() {
+                }, RxAdapter.<JsonResponse<List<String>>>create())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> deletHistory(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.DELEET_SERACH_HISTORY)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<String>>>() {
+                }, RxAdapter.<JsonResponse<List<String>>>create())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+    //可接单数量
+    @Override
+    public Observable<JsonResponse<List<JobOrdersInfo>>> jobOrdersInfo(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.ORDERED_NUM)//
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<List<JobOrdersInfo>>>() {
+                }, RxAdapter.<JsonResponse<List<JobOrdersInfo>>>create())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<String>> selectOrder(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.SELECT_ORDER)
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<String>>() {
+                }, RxAdapter.<JsonResponse<String>>create())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<String>> subscribeService(HashMap<String, String> hashMap) {
+        return OkGo.post(HomeUrl.SUBSCRIBE_ORDER)
+                .params(hashMap)
+                .getCall(new JsonConvert<JsonResponse<String>>() {
+                }, RxAdapter.<JsonResponse<String>>create())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+}

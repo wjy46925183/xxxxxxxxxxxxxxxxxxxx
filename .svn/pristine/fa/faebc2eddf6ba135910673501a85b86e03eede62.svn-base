@@ -1,0 +1,229 @@
+package com.dlg.personal.oddjob.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.dlg.data.oddjob.model.OddServiceItemBean;
+import com.dlg.data.oddjob.model.OrderStatisticalBean;
+import com.dlg.data.user.model.UserAttributeInfoBean;
+import com.dlg.data.user.model.UserInfoDataBean;
+import com.dlg.data.user.model.UserRestInfoBean;
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.base.ToolBarType;
+import com.dlg.personal.oddjob.adapter.OddServiceAdapter;
+import com.dlg.personal.oddjob.view.OddServiceView;
+import com.dlg.personal.oddjob.view.StatisticalOrderView;
+import com.dlg.personal.view.TextOrEditxtView;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.key.UserRole;
+import com.dlg.viewmodel.oddjob.OddServiceItemViewModel;
+import com.dlg.viewmodel.oddjob.OrderStatisticalViewModel;
+import com.dlg.viewmodel.oddjob.presenter.OddServiceItemPresenter;
+import com.dlg.viewmodel.oddjob.presenter.OrderStatisticalPresenter;
+import com.dlg.viewmodel.user.UserInfoViewModel;
+import com.dlg.viewmodel.user.presenter.UserInfoPresenter;
+
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：详细信息页面
+ * 创建时间：2017/7/12 17:27
+ */
+public class DetailedInfoActivity extends BaseActivity implements View.OnClickListener,
+        UserInfoPresenter, OrderStatisticalPresenter, OddServiceItemPresenter {
+
+    private AppBarLayout mAppBarLayout;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
+    private LinearLayout mViewHeader;
+    private CircleImageView mIvHead; //头像
+    private TextView mTvName; //名称
+    private TextView mTvDescribe; //描述
+    private TextView mTvBillingCount; //发单数
+    private TextView mTvOrdersCount; //接单数
+    private TextView mTvCancelCount; //取消数
+    private TextView mTvLateCount; //迟到数
+    private Toolbar mLayoutToolbar;
+    private TextOrEditxtView mTvNickname; //昵称
+    private TextOrEditxtView mTvRealName; //真实姓名
+    private TextOrEditxtView mTvIdentity; //身份
+    private TextOrEditxtView mTvHeight; //身高
+    private TextOrEditxtView mTvWeight; //体重
+    private TextOrEditxtView mTvAddress; //所在地
+    private TextOrEditxtView mTvEmail; //邮箱
+    private StatisticalOrderView mOrderDispatchView; //发单记录
+    private StatisticalOrderView mOrderTakingView; //接单记录
+    private StatisticalOrderView mOrderCancelView; //取消记录
+    private StatisticalOrderView mOrderOperateView; //迟到记录
+    private OddServiceView mOddServiceView; //零工服务记录
+    private LinearLayout layouyFaithvalue; //诚信值显示控件
+    private TextView tvFaithvalue; //诚信值显示控件
+    private TextView mBtnHireTa; //雇TA
+
+    private UserInfoViewModel mInfoViewModel; //获取用户信息
+    private OrderStatisticalViewModel mStatisticalViewModel; //订单统计数据
+    private OddServiceItemViewModel mServiceItemViewModel; //零工服务
+    private String userId;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_detailed_info, ToolBarType.Default, R.id.layout_toolbar);
+        mToolBarHelper.setIsShownDividerLine(false);
+        mToolBarHelper.getToolBar().getBackground().setAlpha(0);
+        initView();
+        initData();
+    }
+
+    private void initData() {
+        if (null != getIntent().getExtras()) {
+            userId = getIntent().getExtras().getString("userId");
+        }
+        mInfoViewModel = new UserInfoViewModel(this, this);
+        mInfoViewModel.queryUserDetail(userId);
+        mStatisticalViewModel = new OrderStatisticalViewModel(this, this);
+        mStatisticalViewModel.queryReleaseJoinData(userId);
+        mServiceItemViewModel = new OddServiceItemViewModel(this, this);
+        mServiceItemViewModel.getJobServiceList(userId, 0);
+    }
+
+    private void initView() {
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
+        mViewHeader = (LinearLayout) findViewById(R.id.view_header);
+        mIvHead = (CircleImageView) findViewById(R.id.iv_head);
+        mTvName = (TextView) findViewById(R.id.tv_name);
+        mTvDescribe = (TextView) findViewById(R.id.tv_describe);
+        mTvBillingCount = (TextView) findViewById(R.id.tv_billing_count);
+        mTvOrdersCount = (TextView) findViewById(R.id.tv_orders_count);
+        mTvCancelCount = (TextView) findViewById(R.id.tv_cancel_count);
+        mTvLateCount = (TextView) findViewById(R.id.tv_late_count);
+        mLayoutToolbar = (Toolbar) findViewById(R.id.layout_toolbar);
+        mTvNickname = (TextOrEditxtView) findViewById(R.id.tv_nickname);
+        mTvRealName = (TextOrEditxtView) findViewById(R.id.tv_real_name);
+        mTvIdentity = (TextOrEditxtView) findViewById(R.id.tv_identity);
+        mTvHeight = (TextOrEditxtView) findViewById(R.id.tv_height);
+        mTvWeight = (TextOrEditxtView) findViewById(R.id.tv_weight);
+        mTvAddress = (TextOrEditxtView) findViewById(R.id.tv_address);
+        mTvEmail = (TextOrEditxtView) findViewById(R.id.tv_email);
+        mOrderDispatchView = (StatisticalOrderView) findViewById(R.id.order_dispatch_view);
+        mOrderTakingView = (StatisticalOrderView) findViewById(R.id.order_taking_view);
+        mOrderCancelView = (StatisticalOrderView) findViewById(R.id.order_cancel_view);
+        mOrderOperateView = (StatisticalOrderView) findViewById(R.id.order_operate_view);
+        mOddServiceView = (OddServiceView) findViewById(R.id.odd_service_view);
+        layouyFaithvalue = (LinearLayout) findViewById(R.id.layout_faithvalue);
+        tvFaithvalue = (TextView) findViewById(R.id.tv_faithvalue);
+        mBtnHireTa = (TextView) findViewById(R.id.btn_hire_ta);
+        layouyFaithvalue.setOnClickListener(this);
+        mBtnHireTa.setOnClickListener(this);
+        mOddServiceView.setOddServiceItemClick(new OddServiceAdapter.onOddServiceItemClick() {
+            @Override
+            public void onOddServiceItem(OddServiceItemBean itemBean) { //跳转到零工服务详情页
+
+            }
+        });
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset > -240) {
+                    mToolBarHelper.getToolbarBack().setImageResource(R.mipmap.ic_black_white);
+                    mToolBarHelper.getIvHead().setVisibility(View.GONE);
+                    mToolBarHelper.getToolbarTitle().setVisibility(View.GONE);
+                } else {
+                    mToolBarHelper.getToolbarBack().setImageResource(R.mipmap.ic_black);
+                    mToolBarHelper.getIvHead().setVisibility(View.VISIBLE);
+                    mToolBarHelper.getToolbarTitle().setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        if ((int) mACache.getAsObject(AppKey.CacheKey.USER_ROLE) == UserRole.hirer.getRole()) {
+            mBtnHireTa.setVisibility(View.VISIBLE);
+        } else {
+            mBtnHireTa.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.layout_faithvalue) { //跳转到诚信档案页
+
+        } else if (view.getId() == R.id.btn_hire_ta) { //雇TA按钮
+
+        }
+    }
+
+    @Override
+    public void userInfoData(UserInfoDataBean userInfoDataBean) {
+        if (null == userInfoDataBean) {
+            return;
+        }
+        UserRestInfoBean userRestVo = userInfoDataBean.getUserRestVo(); //用户其它基本信息
+        UserAttributeInfoBean userAttributeRestVo = userInfoDataBean.getUserAttributeRestVo(); //用户基本信息
+        if (null != userAttributeRestVo) {
+            Glide.with(this).load(userAttributeRestVo.getLogo()).error(R.mipmap.icon_default_user).into(mIvHead);
+            mToolBarHelper.setIvHead(userAttributeRestVo.getLogo());
+            mTvName.setText(userAttributeRestVo.getName());
+            mToolBarHelper.setToolbarTitle(userAttributeRestVo.getName());
+            mCollapsingToolbarLayout.setTitle(userAttributeRestVo.getName());
+            mTvDescribe.setText(userAttributeRestVo.getDescription());
+            mTvBillingCount.setText(userAttributeRestVo.getReleaseCount());
+            mTvOrdersCount.setText(userAttributeRestVo.getJoinCount());
+            mTvCancelCount.setText(userAttributeRestVo.getCancelCount());
+            mTvLateCount.setText(userAttributeRestVo.getLateCount());
+            mTvRealName.setRightText(userAttributeRestVo.getName());
+            mTvIdentity.setRightText(userAttributeRestVo.getIdentityName());
+            mTvHeight.setRightText(userAttributeRestVo.getHeight());
+            mTvWeight.setRightText(userAttributeRestVo.getWeight());
+            if (TextUtils.equals("0", userInfoDataBean.getIsShowCreditArchive())) {
+                layouyFaithvalue.setVisibility(View.VISIBLE);
+            } else {
+                layouyFaithvalue.setVisibility(View.GONE);
+            }
+            tvFaithvalue.setText(userAttributeRestVo.getCreditCount());
+        }
+        if (null != userRestVo) {
+            mTvNickname.setRightText(userRestVo.getUsername());
+            mTvAddress.setRightText(userRestVo.getLocation());
+            mTvEmail.setRightText(userRestVo.getEmail());
+        }
+
+    }
+
+    @Override
+    public void onOrderStatisticalData(OrderStatisticalBean statisticalBean) {
+        mOrderDispatchView.setOrderDispatchRestVos(statisticalBean.getOrderDispatchRestVos());
+        mOrderTakingView.setOrderTakingRestVos(statisticalBean.getOrderTakingRestVos());
+        mOrderCancelView.setOrderCancelRestVos(statisticalBean.getOrderCancelRestVos());
+        mOrderOperateView.setOrderOperateRestVos(statisticalBean.getOrderOperateRestVos());
+    }
+
+    @Override
+    public void onOddServiceData(List<OddServiceItemBean> beanList) {
+        mOddServiceView.setOddServiceData(beanList);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != mInfoViewModel) {
+            mInfoViewModel.onDestroy();
+        }
+        if (null != mStatisticalViewModel) {
+            mStatisticalViewModel.onDestroy();
+        }
+        if (null != mServiceItemViewModel) {
+            mServiceItemViewModel.onDestroy();
+        }
+    }
+}

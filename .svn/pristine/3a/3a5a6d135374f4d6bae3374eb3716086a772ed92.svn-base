@@ -1,0 +1,59 @@
+package com.dlg.data.user.url;
+
+import com.dlg.data.UrlNet;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：用户模块
+ * 创建时间：2017/6/23 19:14
+ */
+public class UserUrl {
+    /**
+     * 查询用户信息（根据ID获取）
+     */
+    public static final String QUERY_USER_DETAIL = UrlNet.getName() + "/api/userRest/queryUserDetail";
+    /**
+     * 用户登录接口
+     */
+    public static final String USER_LOGIN = UrlNet.getName() + "/login";
+    /**
+     * 根据手机号来判断用户是否注册
+     */
+    public static final String CHECK_IS_REGIST = UrlNet.getName() + "/verifyPhone";
+    /**
+     * 注册
+     */
+    public static final String SYSTEM_REGISTER = UrlNet.getName() + "/register";
+    /**
+     * 忘记密码
+     */
+    public static final String FORGET_PWD = UrlNet.getName() + "/forget";
+    /**
+     * 判断是否绑定QQ 微信等
+     */
+    public static final String IS_BINDING_THIRD = UrlNet.getName() + "/api/userRest/isBinding";
+    /**
+     * 退出登录
+     */
+    public static final String LOGOUT = UrlNet.getName() + "/logout";
+    /**
+     * 身份证验证
+     */
+    public static final String NAME_VERIFY = UrlNet.getName() + "/api/idCardRest/certification";
+    /**
+     * 身份证内容识别
+     */
+    public static final String NAME_VERIFY_BY_PHOTO = UrlNet.getName() + "/api/idCardRest/ocr";
+    /**
+     * 上传用户头像
+     */
+    public static final String UPDATE_USER_HEAD = UrlNet.getName() + "/api/userRest/uploadPersonalUserLogo";
+    /**
+     * 更新个人中心用户资料
+     */
+    public static final String UPDATE_USER_INFORMATION = UrlNet.getName() + "/api/userRest/updatePersonalUser";
+    /**
+     * 更新个人中心用户资料（主表）
+     */
+    public static final String UPDATE_USER_INFORMATION_MAIN = UrlNet.getName() + "/api/userRest/updateUser";
+}

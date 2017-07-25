@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\map_list.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\map_list.png"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\picture_loading.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\picture_loading.png"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\map_reset.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\map_reset.png"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\loading_picture.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\loading_picture.png"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\map_sobot.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\map_sobot.png"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\enter.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\enter.png"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\map_screening.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\map_screening.png"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\ic_task.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\ic_task.png"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xhdpi-v4\\map_pin.png",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\mipmap-xhdpi-v4\\map_pin.png"
+    }
+]

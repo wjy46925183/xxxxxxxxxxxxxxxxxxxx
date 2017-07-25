@@ -1,0 +1,138 @@
+[
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/success_bow_roate.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/f95264d5fc2d35f54d7ec4e7c320ad9153d0238f/output/res/anim/success_bow_roate.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_popup_enter.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/fade_out_center.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/fade_out_center.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/modal_out.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/f95264d5fc2d35f54d7ec4e7c320ad9153d0238f/output/res/anim/modal_out.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_out.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/c08554991d309862b18f0113c90c42ac7c4cb6c2/output/res/anim/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/c08554991d309862b18f0113c90c42ac7c4cb6c2/output/res/anim/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/cmbkb_push_bottom_in.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/cmbkb_push_bottom_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/slide_in_top.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/slide_out_bottom.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/slide_out_top.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_slide_out_top.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/modal_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/f95264d5fc2d35f54d7ec4e7c320ad9153d0238f/output/res/anim/modal_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/slide_in_bottom.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_fade_out.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/in_translate_top.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/in_translate_top.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/design_snackbar_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/c08554991d309862b18f0113c90c42ac7c4cb6c2/output/res/anim/design_snackbar_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/design_snackbar_out.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/c08554991d309862b18f0113c90c42ac7c4cb6c2/output/res/anim/design_snackbar_out.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/design_fab_out.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/c08554991d309862b18f0113c90c42ac7c4cb6c2/output/res/anim/design_fab_out.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_fade_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/error_frame_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/f95264d5fc2d35f54d7ec4e7c320ad9153d0238f/output/res/anim/error_frame_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/success_mask_layout.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/f95264d5fc2d35f54d7ec4e7c320ad9153d0238f/output/res/anim/success_mask_layout.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_popup_exit.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/cmbkb_push_bottom_out.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/cmbkb_push_bottom_out.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/pop_down_out.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/pop_down_out.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/pop_down_in.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/pop_down_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/fade_in_center.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/fade_in_center.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/error_x_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/f95264d5fc2d35f54d7ec4e7c320ad9153d0238f/output/res/anim/error_x_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/loading_progress_bar.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/anim/loading_progress_bar.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/design_fab_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/c08554991d309862b18f0113c90c42ac7c4cb6c2/output/res/anim/design_fab_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    }
+]

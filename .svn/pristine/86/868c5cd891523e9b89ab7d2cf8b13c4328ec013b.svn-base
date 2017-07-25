@@ -1,0 +1,84 @@
+package com.dlg.data.wallet;
+
+import com.alibaba.fastjson.JSON;
+import com.dlg.data.cache.ObjectCache;
+import com.dlg.data.wallet.interactor.WithDrawalInteractor;
+import com.dlg.data.wallet.url.WalletUrl;
+import com.http.okgo.OkGo;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonConvert;
+import okhttp.rx.JsonResponse;
+import okhttp.rx.RxAdapter;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+
+/**
+ * 作者：曹伟
+ * 主要功能：实现接口
+ * 创建时间：2017/7/6 17:56
+ */
+
+public class WithDrawalSource implements WithDrawalInteractor{
+    private final ObjectCache objectCache;
+
+    /**
+     */
+    public WithDrawalSource(ObjectCache objectCache) {
+        this.objectCache = objectCache;
+    }
+
+    private Action1<Object> saveToCacheAction(final String key) {
+        return new Action1<Object>() {
+            @Override
+            public void call(Object o) {
+                if (o != null) {
+                    WithDrawalSource.this.objectCache.put(o, key);
+                }
+            }
+        };
+    }
+
+    @Override
+    public Observable getFrequency(HashMap<String, String> map) {
+        return OkGo.post(WalletUrl.FREQUENCY_NUM)//
+                .params(map)
+                .getCall(new JsonConvert<JsonResponse<List<String>>>() {
+                }, RxAdapter.<JsonResponse<List<String>>>create())
+                .doOnNext(saveToCacheAction(WalletUrl.FREQUENCY_NUM + JSON.toJSONString(map)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> getBindWeChat(HashMap map) {
+        return OkGo.post(WalletUrl.PAY_BIND_ADD)//
+                .params(map)
+                .getCall(new JsonConvert<JsonResponse<List<String>>>() {
+                }, RxAdapter.<JsonResponse<List<String>>>create())
+                .doOnNext(saveToCacheAction(WalletUrl.PAY_BIND_ADD + JSON.toJSONString(map)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> exchange(HashMap map) {
+        return OkGo.post(WalletUrl.EXCHANGE)//
+                .params(map)
+                .getCall(new JsonConvert<JsonResponse<List<String>>>() {
+                }, RxAdapter.<JsonResponse<List<String>>>create())
+                .doOnNext(saveToCacheAction(WalletUrl.EXCHANGE + JSON.toJSONString(map)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> setPayPwd(HashMap map) {
+        return OkGo.post(WalletUrl.SET_PAY_PWD)//
+                .params(map)
+                .getCall(new JsonConvert<JsonResponse<List<String>>>() {
+                }, RxAdapter.<JsonResponse<List<String>>>create())
+                .doOnNext(saveToCacheAction(WalletUrl.SET_PAY_PWD + JSON.toJSONString(map)))
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+}

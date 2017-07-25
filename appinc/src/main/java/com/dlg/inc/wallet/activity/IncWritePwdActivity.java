@@ -1,0 +1,77 @@
+package com.dlg.inc.wallet.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.widget.TextView;
+
+import com.common.view.gridpasswordview.GridPasswordView;
+import com.dlg.inc.R;
+import com.dlg.inc.base.IncBaseActivity;
+import com.dlg.inc.base.IncToolBarType;
+
+
+/**
+ * 作者：邹前坤
+ * 主要功能： 公共的输入密码的界面
+ * 创建时间： 2017/7/13  15:10
+ *
+ * 可能有多个地方在用，根据传递过来的值，进行不同的操作
+ */
+
+public class IncWritePwdActivity extends IncBaseActivity {
+	private TextView mTvMarkedWords;// 提示文字
+	private GridPasswordView mPasswordInputView;// 输入框
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.inc_page_public_input_pwd, IncToolBarType.Default);
+		initView();
+		initData();
+		initListener();
+	}
+
+	/**
+	 * 初始化控件
+	 */
+	private void initView() {
+		mTvMarkedWords = (TextView) findViewById(R.id.tv_marked_words);
+		mPasswordInputView = (GridPasswordView) findViewById(R.id.passwordInputView);
+
+		/**
+		 * 弹出软键盘  还不起作用 要看看为什么
+		 */
+		mPasswordInputView.forceInputViewGetFocus();
+	}
+
+	/**
+	 * 处理一些传递过来的数据
+	 *
+	 */
+	private void initData() {
+		getToolBarHelper().setToolbarTitle("输入密码");
+	}
+
+
+	/**
+	 * 密码输入是否完成的监听
+	 */
+	private void initListener() {
+
+		mPasswordInputView.setOnPasswordChangedListener(new GridPasswordView.OnPasswordChangedListener() {
+			@Override
+			public void onTextChanged(String psw) {
+
+			}
+
+			@Override
+			public void onInputFinish(String psw) {
+				Intent intent = new Intent();
+				intent.putExtra("pwd",psw);
+				setResult(RESULT_OK,intent);
+				finish();
+			}
+		});
+	}
+}

@@ -1,0 +1,20 @@
+package com.dlg.personal.login.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseActivity;
+
+/**
+ * 作者：小明
+ * 主要功能：
+ * 创建时间：2017/7/13 0013 20:45
+ */
+public class WeChatUnitLogin extends BaseActivity {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wechat_unit_login);
+    }
+}

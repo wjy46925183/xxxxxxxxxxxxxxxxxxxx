@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@color/bg_color">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/inc_height_5_5_80"
+                    android:gravity="center_vertical"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:text="申请时间"
+                        android:textColor="@color/receipt_txt1"
+                        android:textSize="@dimen/inc_text_size_15"/>
+
+                    <TextView
+                        android:id="@+id/tv_hdetail_apply_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginRight="@dimen/inc_width_3_80"
+                        android:text="2017-03-13 14:04"
+                        android:textSize="@dimen/inc_text_size_15"/>
+                </RelativeLayout>
+
+                <View
+                    style="@style/inc_linethin_notfull"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/inc_height_5_5_80"
+                    android:gravity="center_vertical"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:text="寄出时间"
+                        android:textColor="@color/receipt_txt1"
+                        android:textSize="@dimen/inc_text_size_15"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_hdetail_sendoff_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginRight="@dimen/inc_width_3_80"
+                        android:textSize="@dimen/inc_text_size_15"
+                        android:text="2017-03-13 14:04"/>
+                </RelativeLayout>
+
+                <View
+                    style="@style/inc_linethin_notfull"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="@dimen/inc_width_3_80"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="收件信息"
+                            android:textColor="@color/receipt_txt1"
+                            android:textSize="@dimen/inc_text_size_15"/>
+
+                        <TextView
+                            android:id="@+id/tv_hdetail_receipt_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/inc_width_3_80"
+                            android:text="已寄出"
+                            android:textColor="@color/green_textcolor"
+                            android:textSize="@dimen/inc_text_size_14"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_hdetail_recipients_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="任传伟"
+                            android:textColor="@color/receipt_txt4"
+                            android:textSize="@dimen/inc_text_size_12"/>
+
+                        <TextView
+                            android:id="@+id/tv_hdetail_recipients_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/receipt_txt4"
+                            android:textSize="@dimen/inc_text_size_12"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_hdetail_recipients_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:text="上海市普陀区真北路958号"
+                        android:textColor="@color/receipt_txt4"
+                        android:textSize="@dimen/inc_text_size_12"/>
+
+                </LinearLayout>
+
+                <View
+                    style="@style/inc_linethin_notfull"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="@dimen/inc_width_3_80"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="发票信息"
+                        android:textColor="@color/receipt_txt1"
+                        android:textSize="@dimen/inc_text_size_15"/>
+
+                    <TextView
+                        android:id="@+id/tv_hdetail_bill_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:text="打零工互联网科技有限公司"
+                        android:textColor="@color/receipt_txt4"
+                        android:textSize="@dimen/inc_text_size_12"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="服务费"
+                            android:textColor="@color/receipt_txt4"
+                            android:textSize="@dimen/inc_text_size_12"/>
+
+                        <TextView
+                            android:id="@+id/tv__hdetail_bill_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="50元"
+                            android:textColor="@color/receipt_txt3"
+                            android:textSize="@dimen/inc_text_size_12"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv__hdetail_bill_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:text="913101070558512086"
+                        android:textColor="@color/receipt_txt4"
+                        android:textSize="@dimen/inc_text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/tv__hdetail_bill_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:text="上海市普陀区真北路958号"
+                        android:textColor="@color/receipt_txt4"
+                        android:textSize="@dimen/inc_text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/tv_hdetail_bill_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:text="021-52300000"
+                        android:textColor="@color/receipt_txt4"
+                        android:textSize="@dimen/inc_text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/tv_hdetail_bill_bank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:text="招商银行上海曹杨支行"
+                        android:textColor="@color/receipt_txt4"
+                        android:textSize="@dimen/inc_text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/tv_hdetail_bill_bank_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/inc_width_3_80"
+                        android:layout_marginTop="6dp"
+                        android:text="121910470710801"
+                        android:textColor="@color/receipt_txt4"
+                        android:textSize="@dimen/inc_text_size_12"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/inc_width_3_80"
+                        android:text="开票账单"
+                        android:textColor="@color/receipt_txt1"
+                        android:textSize="@dimen/inc_text_size_15"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/lv_hdetail_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@color/bg_deep_orange"
+                        android:dividerHeight="@dimen/inc_height_0_00"
+                        >
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

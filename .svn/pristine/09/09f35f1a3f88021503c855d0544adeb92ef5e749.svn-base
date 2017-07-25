@@ -1,0 +1,236 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.dlg.personal">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!--启动页面-->
+        <activity
+            android:name=".main.activity.StartPageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--首页-->
+        <activity
+            android:name=".home.activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--关键字热门搜索主页-->
+        <activity
+            android:name=".home.activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--条件搜索界面-->
+        <activity
+            android:name=".home.activity.ConditionsSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--选择工作类型-->
+        <activity
+            android:name=".home.activity.WorkTypeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--雇员雇主零工列表页-->
+        <activity
+            android:name=".oddjob.activity.OddActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!--钱包-->
+        <activity
+            android:name=".wallet.activity.WalletActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--发票管理-->
+        <activity
+            android:name=".wallet.activity.InvoiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".oddjob.activity.OddHirerHandleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--充值页面-->
+        <activity
+            android:name=".wallet.activity.RechargeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--发布和编辑页面-->
+        <activity
+            android:name=".oddjob.activity.ReleaseOrEditActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--地址公共搜索界面-->
+        <activity
+            android:name=".oddjob.activity.SerachNearPointActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--微信支付-->
+
+        <!-- alipay sdk begin -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- alipay sdk end -->
+
+        <!--招商银行一卡通支付页面-->
+        <activity android:name=".web.CMBWebViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <!--提现页面-->
+        <activity android:name=".wallet.activity.WithdrawalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <!--雇员零工列表点击过后进入的地图详情页-->
+        <activity android:name=".oddjob.activity.EmployeeOddMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+        <!--雇主零工地图详情页面-->
+        <activity
+            android:name=".oddjob.activity.HirerMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--雇主评价-->
+        <activity
+            android:name=".oddjob.activity.EvaluateHirerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+       <!--  开票历史  -->
+        <activity android:name=".wallet.activity.InvoiceHistoryActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+
+        <!--地图详情页-->
+        <activity android:name=".oddjob.activity.EmployeeMapInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--用户详细信息界面-->
+        <activity android:name=".user.activity.UserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--  开票历史列表中一条详情  -->
+        <activity android:name=".wallet.activity.InvoiceHistoryDetailsActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--  根据账单开发票 -->
+        <activity android:name=".wallet.activity.OrderBillActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--绑定支付宝页面-->
+        <activity android:name=".wallet.activity.BindAliActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--绑定银行卡页面-->
+        <activity android:name=".wallet.activity.BindBankCardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--解绑页面-->
+        <activity android:name=".wallet.activity.UnBindActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--兑换券页面-->
+        <activity android:name=".wallet.activity.ExchangeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--  根据账单开发票  更多信息界面 -->
+        <activity android:name=".wallet.activity.OrderMoreInfoActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--  公共的输入密码页面 -->
+        <activity android:name=".wallet.activity.PublicInputPwdActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--雇员详情页-->
+        <activity android:name=".oddjob.activity.DetailedInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+        <!-- 取消页-->
+        <activity android:name=".oddjob.activity.CancleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--登录首页-->
+        <activity android:name=".user.activity.ChoseLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--微信联合登录页面-->
+        <activity android:name=".user.activity.WeChatUnitLogin"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--登录切换页面-->
+        <activity android:name=".user.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--零工服务列表-->
+        <activity android:name=".oddjob.activity.SeviceListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--发布服务-->
+        <activity android:name=".oddjob.activity.ReleaseServiceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--Image Selector Entry-->
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
+        <!--支付页面-->
+        <activity android:name=".wallet.activity.WritePwdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--  钱包详情  -->
+        <activity android:name=".wallet.activity.WalletDetailActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--  钱包详情列表的单条详情  -->
+        <activity android:name=".wallet.activity.WalletDetailDetailActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--  钱包设置  -->
+        <activity android:name=".wallet.activity.WalletSettingActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--  钱包设置重置密码  -->
+        <activity android:name=".wallet.activity.WalletResetPwdActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--需求和服务-->
+        <activity android:name=".home.activity.HireDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!-- 钱包重置密码 输入密码 界面  -->
+        <activity android:name=".wallet.activity.WalletResetPwdInputActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!-- 订单支付   -->
+        <activity android:name=".wallet.activity.PaymentActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <!--预约-->
+        <activity android:name=".home.activity.WillServiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!-- 默认的webView页面  -->
+        <activity android:name=".web.DefaultWebActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+    </application>
+</manifest>

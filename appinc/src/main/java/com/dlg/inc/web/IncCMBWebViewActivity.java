@@ -1,0 +1,92 @@
+package com.dlg.inc.web;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.KeyEvent;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+
+import com.dlg.inc.R;
+import com.dlg.inc.base.IncBaseActivity;
+import com.dlg.inc.base.IncToolBarType;
+
+import cmb.pb.util.CMBKeyboardFunc;
+
+
+/**
+ * 作者：关蕤
+ * 主要功能：招行一卡通支付
+ * 创建时间：2017/7/11 15:12
+ */
+public class IncCMBWebViewActivity extends IncBaseActivity {
+    private WebView mWebView;
+    private String code ;
+    private String payUrl ;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.inc_page_cmb, IncToolBarType.Default);
+        mToolBarHelper.getToolbarTitle().setText("一网通支付");
+        initView();
+        initData();
+    }
+
+    /**
+     * 控件初始化操作
+     */
+    private void initView() {
+        mWebView = (WebView) findViewById(R.id.webView);
+    }
+
+    /**
+     * 变量初始化操作
+     */
+    private void initData() {
+        code = getIntent().getExtras().getString("code");
+        payUrl = getIntent().getExtras().getString("url");
+        mWebView.setWebViewClient(new WebViewClient());
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setSaveFormData(false);
+        webSettings.setSavePassword(false);
+        webSettings.setSupportZoom(false);
+
+        String s = "jsonRequestData=" + code/*.getBranchID() + "&CoNo=" + cmb.getCoNo() + "&BillNo=" + cmb.getBillNo()
+                    + "&Amount=" + new DecimalFormat("0.00").format(Double.parseDouble(cmb.getAmount())) + "&Date="
+                    + DateUtils.dateFormat("yyyyMMdd", System.currentTimeMillis() + "") + "&MerchantUrl=" + cmb.getMerchantUrl()
+                    + "&MerchantCode=" + cmb.getMerchantCode() + "&MerchantPara=" + cmb.getMerchantPara()
+                    + "&MerchantRetUrl=" + GetDataConfing.webURL + "?type=4"*/;
+
+        mWebView.postUrl(payUrl, s.getBytes());
+
+        mWebView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                CMBKeyboardFunc kbFunc = new CMBKeyboardFunc(IncCMBWebViewActivity.this);
+                if (kbFunc.HandleUrlCall(mWebView, url) == false) {
+//                        return super.shouldOverrideUrlLoading(view, url);
+                    return kbFunc.HandleUrlCall(mWebView, url) || super.shouldOverrideUrlLoading(view, url);
+                } else {
+                    return true;
+                }
+            }
+        });
+}
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mWebView.canGoBack()) {
+                mWebView.goBack();
+                return true;
+            } else {
+                finish();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+}

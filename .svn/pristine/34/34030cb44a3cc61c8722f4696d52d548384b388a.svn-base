@@ -1,0 +1,129 @@
+package com.dlg.data.oddjob;
+
+import com.alibaba.fastjson.JSON;
+import com.dlg.data.cache.ObjectCache;
+import com.dlg.data.oddjob.interactor.OddJobInteractor;
+import com.dlg.data.oddjob.model.CancleBean;
+import com.dlg.data.oddjob.model.EmployeeOrderItemBean;
+import com.dlg.data.oddjob.model.EvaluateItemsBean;
+import com.dlg.data.oddjob.model.HirerMapBean;
+import com.dlg.data.oddjob.model.OddHirerBean;
+import com.dlg.data.oddjob.model.OddServiceItemBean;
+import com.dlg.data.oddjob.model.OrderStatisticalBean;
+import com.dlg.data.oddjob.model.ServiceListDataBean;
+import com.dlg.data.oddjob.url.OddUrl;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Observable;
+
+/**
+ * 作者：王进亚
+ * 主要功能：零工模块数据
+ * 创建时间：2017/7/6 15:11
+ */
+
+public class OddJobDiaskSource implements OddJobInteractor {
+    private final ObjectCache objectCache;
+
+    public OddJobDiaskSource(ObjectCache objectCache) {
+        this.objectCache = objectCache;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<OddHirerBean>>> getOddHirerList(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<EmployeeOrderItemBean>>> getOddEmployeeList(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<HirerMapBean>>> getHirerMapList(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> getReleaseJOb(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> getEditJOb(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<String>> lotsOrders(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<EvaluateItemsBean>>> getEvaluateItems(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<Object>> goToEvaluate(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<CancleBean>>> getTruAndMoney(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<String>> goToCancleOrder(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    /**
+     * 雇主零工地图详情
+     * @param hashMap
+     * @return
+     */
+    @Override
+    public Observable<JsonResponse<List<OddHirerBean>>> getJobtaskInfo(HashMap<String, String> hashMap) {
+        return this.objectCache.getList(OddUrl.GET_JOBTASK_INFO + JSON.toJSONString(hashMap), JsonResponse.class, OddHirerBean.class);
+    }
+
+    @Override
+    public Observable<JsonResponse<List<OddServiceItemBean>>> getJobServiceList(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<OrderStatisticalBean>>> queryReleaseJoinData(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<Object>> grabSingleOrder(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<ServiceListDataBean>>> getServiceList(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<String>> releaseService(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> deleteHirerOrder(HashMap<String, String> hashMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> deleteEmployeeOrder(HashMap<String, String> hashMap) {
+        return null;
+    }
+}

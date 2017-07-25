@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_2"
+        android:background="@color/recharge_color">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:text="持卡人">
+        </TextView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_realName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10">
+        </TextView>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_1"
+        android:background="@color/recharge_color">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:text="卡号">
+        </TextView>
+
+        <EditText
+            android:id="@+id/ed_account"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="请输入您的卡号"
+            android:textSize="@dimen/text_size_16"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingTop="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_10">
+        </EditText>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding_1"
+        android:background="@color/recharge_color">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:text="银行预留手机号">
+        </TextView>
+
+        <EditText
+            android:id="@+id/ed_phoneNum"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="银行开户预留手机号"
+            android:textSize="@dimen/text_size_16"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingTop="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_10">
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white_color">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="验证码"
+            android:padding="@dimen/padding_10">
+        </TextView>
+
+        <EditText
+            android:id="@+id/ed_code"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:paddingRight="@dimen/padding_10"
+            android:background="@null"
+            android:inputType="number">
+        </EditText>
+
+        <Button
+            android:id="@+id/bt_send_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_marginBottom="@dimen/margin_5"
+            android:background="@drawable/bar_white_button"
+            android:text="发送验证码"
+            android:layout_marginRight="@dimen/margin_10">
+        </Button>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_bindBank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_selector_pay"
+        android:text="绑定银行卡"
+        android:layout_marginTop="@dimen/margin_20"
+        android:textColor="@color/white_color"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20">
+    </Button>
+</LinearLayout>

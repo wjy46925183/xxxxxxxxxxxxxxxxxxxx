@@ -1,0 +1,20 @@
+package com.dlg.personal.user.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseActivity;
+
+/**
+ * 作者：小明
+ * 主要功能：用户信息详情
+ * 创建时间：2017/7/12 0012 17:38
+ */
+public class UserInfoActivity extends BaseActivity {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_user_info);
+    }
+}

@@ -1,0 +1,139 @@
+package com.dlg.data.oddjob.interactor;
+
+import com.dlg.data.oddjob.model.CancleBean;
+import com.dlg.data.oddjob.model.EmployeeOrderItemBean;
+import com.dlg.data.oddjob.model.EvaluateItemsBean;
+import com.dlg.data.oddjob.model.HirerMapBean;
+import com.dlg.data.oddjob.model.OddHirerBean;
+import com.dlg.data.oddjob.model.OddServiceItemBean;
+import com.dlg.data.oddjob.model.OrderStatisticalBean;
+import com.dlg.data.oddjob.model.ServiceListDataBean;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Observable;
+
+/**
+ * 作者：王进亚
+ * 主要功能：
+ * 创建时间：2017/7/6 15:12
+ */
+
+public interface OddJobInteractor {
+    /**
+     * 雇主零工列表
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<OddHirerBean>>> getOddHirerList(HashMap<String, String> hashMap);
+
+    /**
+     * 雇员零工列表数据
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<EmployeeOrderItemBean>>> getOddEmployeeList(HashMap<String, String> hashMap);
+
+    /**
+     * 雇主零工地图详情
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<HirerMapBean>>> getHirerMapList(HashMap<String, String> hashMap);
+
+    /**
+     * 发布零工
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<String>>> getReleaseJOb(HashMap<String, String> hashMap);
+
+    /**
+     * 编辑零工
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<String>>> getEditJOb(HashMap<String, String> hashMap);
+
+    /**
+     * 批量处理订单
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<String>> lotsOrders(HashMap<String, String> hashMap);
+
+    /**
+     * 雇主零工地图详情
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<OddHirerBean>>> getJobtaskInfo(HashMap<String, String> hashMap);
+
+    /**
+     * 查询服务列表
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<OddServiceItemBean>>> getJobServiceList(HashMap<String, String> hashMap);
+
+    /**
+     * 查询订单统计数据
+     *
+     * @param hashMap
+     * @return
+     */
+    Observable<JsonResponse<List<OrderStatisticalBean>>> queryReleaseJoinData(HashMap<String, String> hashMap);
+
+    /**
+     * 雇主和雇员评价标签
+     */
+    Observable<JsonResponse<List<EvaluateItemsBean>>> getEvaluateItems(HashMap<String, String> hashMap);
+
+    /**
+     * 雇主和雇员评价点击事件
+     */
+    Observable<JsonResponse<Object>> goToEvaluate(HashMap<String, String> hashMap);
+
+    /**
+     * 获取违约金和信用值
+     */
+    Observable<JsonResponse<List<CancleBean>>> getTruAndMoney(HashMap<String, String> hashMap);
+
+    /**
+     * 取消订单
+     */
+    Observable<JsonResponse<Object>> goToCancleOrder(HashMap<String, String> hashMap);
+
+    /**
+     * 抢单
+     */
+    Observable<JsonResponse<List<String>>> grabSingleOrder(HashMap<String, String> hashMap);
+    /**
+     * 服务查询列表
+     */
+    Observable<JsonResponse<List<ServiceListDataBean>>> getServiceList(HashMap<String,String> hashMap);
+    /**
+     * 发布服务
+     */
+    Observable<JsonResponse<String>> releaseService(HashMap<String,String> hashMap);
+
+    /**
+     * 删除订单 雇主
+     */
+    Observable<JsonResponse<List<String>>> deleteHirerOrder(HashMap<String,String> hashMap);
+
+    /**
+     * 删除零工 雇元
+     */
+    Observable<JsonResponse<List<String>>> deleteEmployeeOrder(HashMap<String,String> hashMap);
+}

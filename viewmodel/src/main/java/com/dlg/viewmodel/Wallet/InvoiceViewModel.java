@@ -1,0 +1,65 @@
+package com.dlg.viewmodel.Wallet;
+
+import android.content.Context;
+
+import com.common.cache.ACache;
+import com.common.utils.DateUtils;
+import com.dlg.data.wallet.model.InvoiceListBean;
+import com.dlg.viewmodel.BasePresenter;
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.RXSubscriber;
+import com.dlg.viewmodel.Wallet.presenter.InvoicePresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.server.WalletServer;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+
+/**
+ * 作者：邹前坤
+ * 主要功能：发票列表 model
+ * 创建时间：2017/7/11 09:20
+ */
+
+public class InvoiceViewModel extends BaseViewModel<JsonResponse<List<InvoiceListBean>>>{
+    private BasePresenter basePresenter;
+    private final WalletServer mServer;
+    private InvoicePresenter invoicePresenter;
+
+    public InvoiceViewModel(Context context, BasePresenter basePresenter, InvoicePresenter invoicePresenter) {
+        this.basePresenter = basePresenter;
+        mContext = context;
+        mServer = new WalletServer(context);
+        this.invoicePresenter=invoicePresenter;
+    }
+
+    /**
+     * 根据userid获取当前用户消费列表
+     */
+    public void getInvoiceBalance(int currentPage) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("userId", ACache.get(mContext).getAsString(AppKey.CacheKey.MY_USER_ID));
+        map.put("status", "0");
+        map.put("minId", "0");
+        map.put("pageSize", "10");
+        map.put("isPossessInvoice", "0");
+        map.put("pageNumber", currentPage + "");
+        mSubscriber = getMapSubscriber();
+        mServer.getInvoicBalance(mSubscriber,map);
+    }
+
+    private Subscriber<JsonResponse<List<InvoiceListBean>>> getMapSubscriber(){
+        return new RXSubscriber<JsonResponse<List<InvoiceListBean>>,List<InvoiceListBean>>(basePresenter) {
+            @Override
+            public void requestNext(List<InvoiceListBean> walletBeans) {
+                if(null != walletBeans && walletBeans.size() > 0){
+
+                }
+                invoicePresenter.getDataList(walletBeans);
+            }
+        };
+    }
+}

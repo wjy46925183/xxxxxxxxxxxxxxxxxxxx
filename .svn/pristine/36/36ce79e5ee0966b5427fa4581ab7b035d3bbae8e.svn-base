@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main$Generated" generated="true"><source path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res"/><source path="D:\Code\DLG_ADNDROID\Canrefresh\build\generated\res\rs\debug"/><source path="D:\Code\DLG_ADNDROID\Canrefresh\build\generated\res\resValues\debug"/></dataSet><dataSet config="debug$Generated" generated="true"><source path="D:\Code\DLG_ADNDROID\Canrefresh\src\debug\res"/></dataSet><dataSet config="main" generated-set="main$Generated"><source path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res"><file name="rotate_down" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\anim\rotate_down.xml" qualifiers="" type="anim"/><file name="rotate_up" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\anim\rotate_up.xml" qualifiers="" type="anim"/><file name="layout_classic_refresh" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\layout\layout_classic_refresh.xml" qualifiers="" type="layout"/><file name="layout_google_refresh" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\layout\layout_google_refresh.xml" qualifiers="" type="layout"/><file name="layout_rotate_refresh" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\layout\layout_rotate_refresh.xml" qualifiers="" type="layout"/><file name="layout_yalantis_refresh" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\layout\layout_yalantis_refresh.xml" qualifiers="" type="layout"/><file name="classic_pull_arrow" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\mipmap-xhdpi\classic_pull_arrow.png" qualifiers="xhdpi-v4" type="mipmap"/><file name="rotate_progress" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\mipmap-xhdpi\rotate_progress.png" qualifiers="xhdpi-v4" type="mipmap"/><file name="yalantis_phoenix_buildings" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\mipmap-xhdpi\yalantis_phoenix_buildings.png" qualifiers="xhdpi-v4" type="mipmap"/><file name="yalantis_phoenix_sky" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\mipmap-xhdpi\yalantis_phoenix_sky.png" qualifiers="xhdpi-v4" type="mipmap"/><file name="yalantis_phoenix_sun" path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\mipmap-xhdpi\yalantis_phoenix_sun.png" qualifiers="xhdpi-v4" type="mipmap"/><file path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\values\attrs_canrefresh.xml" qualifiers=""><declare-styleable name="CanRefreshLayout">
+        <attr format="boolean" name="can_enabled_up"/>
+        <attr format="boolean" name="can_enabled_down"/>
+
+        <attr format="enum" name="can_style_up">
+            <enum name="classic" value="0"/>
+            <enum name="upper" value="1"/>
+            <enum name="lower" value="2"/>
+            <enum name="mid" value="3"/>
+        </attr>
+
+        <attr format="enum" name="can_style_down">
+            <enum name="classic" value="0"/>
+            <enum name="upper" value="1"/>
+            <enum name="lower" value="2"/>
+            <enum name="mid" value="3"/>
+        </attr>
+        <attr format="float" name="can_friction"/>
+        <attr format="integer" name="can_duration"/>
+
+        <attr format="integer" name="can_smooth_length"/>
+        <attr format="integer" name="can_smooth_duration"/>
+
+
+    </declare-styleable></file><file path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\values\attrs_google.xml" qualifiers=""><declare-styleable name="GoogleCircleProgressView">
+        <attr format="dimension" name="gcp_inner_radius"/>
+        <attr format="color" name="gcp_background_color"/>
+        <attr format="color" name="gcp_progress_color"/>
+        <attr format="dimension" name="gcp_progress_stoke_width"/>
+        <attr format="boolean" name="gcp_show_arrow"/>
+        <attr format="boolean" name="gcp_enable_circle_background"/>
+        <attr format="dimension" name="gcp_arrow_width"/>
+        <attr format="dimension" name="gcp_arrow_height"/>
+
+        <attr format="integer" name="gcp_progress"/>
+        <attr format="integer" name="gcp_max"/>
+
+
+        <attr format="dimension" name="gcp_progress_text_size"/>
+        <attr format="color" name="gcp_progress_text_color"/>
+
+        
+
+        <attr format="enum" name="gcp_progress_text_visibility">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+        </attr>
+    </declare-styleable></file><file path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\values\colors.xml" qualifiers=""><color name="google_blue">#4285F4</color><color name="google_green">#34A853</color><color name="google_red">#EA4335</color><color name="google_yellow">#FBBC05</color></file><file path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\values\dimens.xml" qualifiers=""><dimen name="refresh_height_rotate">50dp</dimen><dimen name="refresh_height_google">100dp</dimen><dimen name="refresh_height_yalantis">136dp</dimen></file><file path="D:\Code\DLG_ADNDROID\Canrefresh\src\main\res\values\ids.xml" qualifiers=""><item name="can_refresh_footer" type="id"/><item name="can_content_view" type="id"/><item name="can_refresh_header" type="id"/></file></source><source path="D:\Code\DLG_ADNDROID\Canrefresh\build\generated\res\rs\debug"/><source path="D:\Code\DLG_ADNDROID\Canrefresh\build\generated\res\resValues\debug"/></dataSet><dataSet config="debug" generated-set="debug$Generated"><source path="D:\Code\DLG_ADNDROID\Canrefresh\src\debug\res"/></dataSet><mergedItems><configuration qualifiers=""><declare-styleable name="CanRefreshLayout"><attr format="boolean" name="can_enabled_up"/><attr format="boolean" name="can_enabled_down"/><attr format="enum" name="can_style_up">
+            <enum name="classic" value="0"/>
+            <enum name="upper" value="1"/>
+            <enum name="lower" value="2"/>
+            <enum name="mid" value="3"/>
+        </attr><attr format="enum" name="can_style_down">
+            <enum name="classic" value="0"/>
+            <enum name="upper" value="1"/>
+            <enum name="lower" value="2"/>
+            <enum name="mid" value="3"/>
+        </attr><attr format="float" name="can_friction"/><attr format="integer" name="can_duration"/><attr format="integer" name="can_smooth_length"/><attr format="integer" name="can_smooth_duration"/></declare-styleable><declare-styleable name="GoogleCircleProgressView"><attr format="dimension" name="gcp_inner_radius"/><attr format="color" name="gcp_background_color"/><attr format="color" name="gcp_progress_color"/><attr format="dimension" name="gcp_progress_stoke_width"/><attr format="boolean" name="gcp_show_arrow"/><attr format="boolean" name="gcp_enable_circle_background"/><attr format="dimension" name="gcp_arrow_width"/><attr format="dimension" name="gcp_arrow_height"/><attr format="integer" name="gcp_progress"/><attr format="integer" name="gcp_max"/><attr format="dimension" name="gcp_progress_text_size"/><attr format="color" name="gcp_progress_text_color"/><attr format="enum" name="gcp_progress_text_visibility">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+        </attr></declare-styleable></configuration></mergedItems></merger>

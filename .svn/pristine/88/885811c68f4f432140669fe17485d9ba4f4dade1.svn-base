@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pay_type_name">
+        <item>支付宝</item>
+        <item>微信</item>
+        <item>招商银行</item>
+    </string-array>
+
+    !--定义一个Drawable数组,充值类型-->
+    <array name="pay_type_icon">
+        <item>@mipmap/zhifu_alipay</item>
+        <item>@mipmap/zhifu_weixin</item>
+        <item>@mipmap/yiwangtong</item>
+    </array>
+
+    <array name="cash_type_icon">
+        <item>@mipmap/zhifu_alipay</item>
+        <item>@mipmap/zhifu_weixin</item>
+        <item>@mipmap/zhifu_ka</item>
+    </array>
+
+    <array name="cash_type_icon_company">
+        <item>@mipmap/zhifu_alipay</item>
+        <item>@mipmap/zhifu_weixin</item>
+        <item>@mipmap/zhifu_ka</item>
+        <item>@mipmap/zhifu_ka</item><!--后面换成企业的图标-->
+    </array>
+
+    <!--  定义  钱包明细内的 tradeType 对应的汉文  顺序不可乱 -->
+    <string-array name="wallet_list_trade_type">
+        <item>充值</item>
+        <item>提现</item>
+        <item>报酬</item>
+        <item>小费</item>
+        <item>服务费</item>
+        <item>税费</item>
+        <item>违约金</item>
+        <item>补偿</item>
+        <item>活动赠送</item>
+        <item>取现手续费</item>
+        <item>盈利收益</item>
+        <item>服务费</item>
+        <item>活动赠送</item>
+        <item>活动赠送</item>
+        <item>保险</item>
+        <item>支付</item>
+    </string-array>
+    <!--  定义支付的途径 -->
+    <string-array name="payment_type">
+        <item>- 橙子</item>
+        <item>- 支付宝</item>
+        <item>- 微信</item>
+        <item>- 银行卡</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,67 @@
+package com.dlg.personal.home.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+import com.common.utils.DateUtils;
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.common.view.loadmore.BaseViewHolder;
+import com.dlg.data.home.model.JobOrdersInfo;
+import com.dlg.personal.R;
+
+import java.util.List;
+
+/**
+ * 作者：王进亚
+ * 主要功能：需求和服务
+ * 创建时间：2017/7/17 17:10
+ */
+
+public class NeedAdaper extends BaseLoadMoreHeaderAdapter<JobOrdersInfo> {
+    private int selectPosition = -1;
+
+    public NeedAdaper(Context mContext, RecyclerView recyclerView, List<JobOrdersInfo> mDatas, int mLayoutId) {
+        super(mContext, recyclerView, mDatas, mLayoutId);
+    }
+
+    @Override
+    public void convert(Context mContext, RecyclerView.ViewHolder holder, final int position, JobOrdersInfo jobOrdersInfo) {
+        if (holder instanceof BaseViewHolder) {
+            RadioButton mBossOrderCheckbox = ((BaseViewHolder) holder).getView(R.id.boss_order_checkbox);
+            TextView mBossOrderPrice = ((BaseViewHolder) holder).getView(R.id.boss_order_price);
+            TextView tvName = ((BaseViewHolder) holder).getView(R.id.boss_order_type);
+            TextView mBossOrderName = ((BaseViewHolder) holder).getView(R.id.boss_order_name);
+            TextView mBossOrderTime = ((BaseViewHolder) holder).getView(R.id.boss_order_time);
+
+            mBossOrderName.setText(jobOrdersInfo.getPostName());
+
+            tvName.setText(jobOrdersInfo.getPostTypeName());
+            mBossOrderPrice.setText(jobOrdersInfo.getPrice()+"元/"+jobOrdersInfo.getJobMeterUnitName());
+
+
+            String time = DateUtils.getTimeShow(jobOrdersInfo.demandType, jobOrdersInfo.startYear, jobOrdersInfo.startMonth, jobOrdersInfo.startDay
+                    , jobOrdersInfo.startHour, jobOrdersInfo.startMinute, jobOrdersInfo.endYear, jobOrdersInfo.endMonth, jobOrdersInfo.endDay,
+                    jobOrdersInfo.endHour, jobOrdersInfo.endMinute);
+
+            mBossOrderTime.setText(time);
+            mBossOrderCheckbox.setChecked(false);
+            if (selectPosition == position) {
+                mBossOrderCheckbox.setChecked(true);
+            }
+            mBossOrderCheckbox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(selectPosition == position){
+                        selectPosition = -1;
+                    }else{
+                        selectPosition = position;
+                    }
+                    notifyDataSetChanged();
+                }
+            });
+        }
+    }
+}

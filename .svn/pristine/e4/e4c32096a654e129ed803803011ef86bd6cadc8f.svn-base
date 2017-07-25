@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/tab_common"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View style="@style/linefat_full"/>
+
+            <LinearLayout style="@style/MyProfile_Layout">
+
+                <TextView
+                    style="@style/left_text_style"
+                    android:text="零工"/>
+
+                <EditText
+                    android:id="@+id/work_text"
+                    style="@style/right_release_style"
+                    android:hint="请输入零工名称"
+                    android:maxLength="15"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_textcolor"
+                    android:textCursorDrawable="@null">
+
+                    <requestFocus/>
+                </EditText>
+            </LinearLayout>
+
+            <View style="@style/line_thin_full"/>
+
+            <LinearLayout
+                android:id="@+id/type_layout"
+                style="@style/MyProfile_Layout">
+
+                <TextView
+                    style="@style/left_text_style"
+                    android:text="类型"/>
+
+                <TextView
+                    android:id="@+id/type_text"
+                    style="@style/right_release_style"
+
+                    android:hint="请选择类型"
+                    android:text=""
+                    android:textColorHint="@color/hint_textcolor"/>
+
+                <ImageView style="@style/right_img_style"/>
+            </LinearLayout>
+
+            <View style="@style/line_thin_full"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_right_jx"
+                android:layout_marginRight="@dimen/left_right_jx">
+
+                <TextView
+                    android:id="@+id/desc_tab"
+                    android:layout_width="@dimen/px_120"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px_20"
+                    android:gravity="center_vertical"
+                    android:text="描述"
+                    android:textColor="@color/black_textcolor"
+                    android:textSize="@dimen/normal_textsize"/>
+
+                <EditText
+                    android:id="@+id/describe_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/desc_tab"
+                    android:background="@color/transparent_color"
+                    android:gravity="top"
+                    android:hint="说一说具体的零工需求，清楚明确的描述更容易吸引雇员接单(5-200字)"
+                    android:maxLength="200"
+                    android:minHeight="@dimen/px_120"
+                    android:paddingBottom="@dimen/px_20"
+                    android:paddingLeft="@dimen/px_20"
+                    android:paddingTop="@dimen/px_20"
+                    android:text=""
+                    android:textColor="@color/cmbkb_lightblack"
+                    android:textColorHint="@color/hint_textcolor"
+                    android:textSize="@dimen/normal_textsize"/>
+
+            </RelativeLayout>
+
+            <View style="@style/linefat_full"/>
+
+            <LinearLayout style="@style/MyProfile_Layout">
+
+                <TextView
+                    style="@style/left_text_style"
+                    android:text="人数"/>
+
+                <EditText
+                    android:id="@+id/num_text"
+                    style="@style/right_release_style"
+                    android:digits="0123456789"
+                    android:hint="请输入零工需求数量"
+                    android:inputType="number"
+                    android:maxLength="2"
+                    android:singleLine="true"
+                    android:textColorHint="@color/hint_textcolor"
+                    android:textCursorDrawable="@null"/>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/jine_line1"
+                style="@style/linefat_full"/>
+
+            <LinearLayout
+                android:id="@+id/jine_linear"
+                style="@style/MyProfile_Layout">
+
+                <TextView
+                    style="@style/left_text_style"
+                    android:text="报酬(元)"/>
+
+                <EditText
+                    android:id="@+id/salary_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="我愿意支付多少报酬给雇员"
+                    android:maxLength="6"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:layout_marginLeft="@dimen/margin_20"
+                    android:inputType="number"
+                    android:textSize="@dimen/text_size_15"
+                    android:textColorHint="@color/hint_textcolor"
+                    />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/jine_line2"
+                style="@style/line_thin_full"/>
+
+            <RelativeLayout
+                android:id="@+id/unit_linear"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:layout_marginLeft="@dimen/left_right_jx"
+                android:layout_marginRight="@dimen/left_right_jx">
+
+                <TextView
+                    style="@style/left_text_style"
+                    android:text="单位"/>
+
+                <RadioGroup
+                    android:id="@+id/rg_demand_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_day"
+                        android:layout_width="@dimen/px_120"
+                        android:layout_height="@dimen/px_50"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/day_hour_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:checked="true"
+                        android:text="天"
+                        android:textColor="@color/yellow_textcolor"
+                        android:textSize="@dimen/normal_textsize"/>
+
+
+                    <RadioButton
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/rb_hour"
+                        android:layout_width="@dimen/px_120"
+                        android:layout_height="@dimen/px_50"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/day_hour_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="小时"
+                        android:textColor="@color/text_colors_grey"
+                        android:textSize="@dimen/normal_textsize"/>
+                    <RadioButton
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/rb_dan"
+                        android:layout_width="@dimen/px_120"
+                        android:layout_height="@dimen/px_50"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/day_hour_selector"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:text="单"
+                        android:textColor="@color/orange_yellow"
+                        android:textSize="@dimen/normal_textsize"/>
+                </RadioGroup>
+            </RelativeLayout>
+
+            <View style="@style/linefat_full"/>
+
+            <LinearLayout
+                android:id="@+id/date_layout"
+                style="@style/MyProfile_Layout">
+
+                <TextView
+                    style="@style/left_text_style"
+                    android:text="日期"/>
+
+                <TextView
+                    android:id="@+id/date_text"
+                    style="@style/right_release_style"
+                    android:hint="请选择日期"
+                    android:text=""
+                    android:textColorHint="@color/hint_textcolor"/>
+
+                <ImageView style="@style/right_img_style"/>
+            </LinearLayout>
+
+            <View style="@style/line_thin_full"/>
+
+            <LinearLayout
+                android:id="@+id/time_layout"
+                style="@style/MyProfile_Layout">
+
+                <TextView
+                    style="@style/left_text_style"
+                    android:text="时间"/>
+
+                <TextView
+                    android:id="@+id/time_text"
+                    style="@style/right_release_style"
+                    android:hint="请选择时间"
+                    android:text=""
+                    android:textColorHint="@color/hint_textcolor"/>
+
+                <ImageView style="@style/right_img_style"/>
+            </LinearLayout>
+
+            <View style="@style/linefat_full"/>
+
+            <RelativeLayout
+                android:id="@+id/address_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_right_jx"
+                android:layout_marginRight="@dimen/left_right_jx">
+
+                <TextView
+                    android:id="@+id/address_tab"
+                    android:layout_width="@dimen/px_120"
+                    android:layout_height="@dimen/px_88"
+                    android:gravity="center_vertical"
+                    android:text="地址"
+                    android:textColor="@color/black_textcolor"
+                    android:textSize="@dimen/normal_textsize"/>
+
+                <TextView
+                    android:id="@+id/address_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/add_right_img"
+                    android:background="@color/transparent_color"
+                    android:gravity="center_vertical"
+                    android:hint="请选择地址"
+                    android:maxWidth="@dimen/px_560"
+                    android:minHeight="@dimen/px_88"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text=""
+                    android:textColor="@color/cmbkb_lightblack"
+                    android:textColorHint="@color/hint_textcolor"/>
+
+                <ImageView
+                    android:id="@+id/add_right_img"
+                    style="@style/right_img_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+            <View style="@style/linefat_full"/>
+            <LinearLayout
+                android:id="@+id/baoxian_linear"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                >
+                <CheckBox
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:button="@null"
+                    android:background="@drawable/checkbox_selector_yellow"
+                    android:id="@+id/checkbox" />
+
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购买保险"
+                    android:textSize="13sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/hint_textcolor"/>
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/hint_textcolor"
+                    android:text="(雇工意外险,2元/人/天,最高保额50万)"/>
+
+            </LinearLayout>
+            <View style="@style/linethin_notfull"
+                android:id="@+id/line4"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/black_textcolor"
+                    android:textSize="@dimen/normal_textsize"
+                    android:text="是否需要"/>
+                <TextView
+                    android:id="@+id/daili_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/app_color_dodgerblue"
+                    android:textSize="@dimen/normal_textsize"
+                    android:text="代理商服务"/>
+            </LinearLayout>
+            <View style="@style/linethin_notfull"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black_textcolor"
+                    android:textSize="@dimen/normal_textsize"
+                    android:text="谁来审核雇员？"/>
+                <RadioGroup
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rb_we"
+                        android:background="@drawable/bg_text_selector"
+                        android:textColor="@color/yellow_textcolor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="我公司"
+                        android:button="@null"/>
+                    <RadioButton
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/rb_daili"
+                        android:background="@drawable/bg_text_selector"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_colors_grey"
+                        android:text="代理商"
+                        android:button="@null"/>
+
+                </RadioGroup>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_color">
+                <TextView
+                    android:id="@+id/commit_btn"
+                    style="@style/Button_Blue"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="发布"/>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

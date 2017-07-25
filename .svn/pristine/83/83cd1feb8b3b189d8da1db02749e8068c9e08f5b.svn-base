@@ -1,0 +1,146 @@
+package com.dlg.inc.base;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.common.cache.ACache;
+import com.common.string.LogUtils;
+import com.common.utils.RxBus;
+import com.dlg.viewmodel.BasePresenter;
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.key.AppKey;
+
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：Fragment 基类页面
+ * 创建时间：2017/6/1 12:00
+ */
+public class IncBaseFragment extends Fragment implements BasePresenter {
+
+    protected Context mContext;
+    protected IncBaseActivity mActivity;
+    protected BaseViewModel mViewModel;
+    protected ACache mACache;
+    private IncLogInRepository mLogInRepository; //登录接口
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = getActivity();
+        if(mContext instanceof IncBaseActivity){
+            mActivity = (IncBaseActivity) mContext;
+        }
+        mACache = ACache.get(getActivity());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    /**
+     * activity 添加fragment
+     *
+     * @param containerViewId 需要添加的fragment位置ID
+     * @param fragment        fragment 对象实例
+     * @param tag             fragment 标记
+     */
+    protected void addFragment(int containerViewId, Fragment fragment, String tag) {
+        FragmentTransaction fragmentTransaction = mActivity.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(containerViewId, fragment, tag);
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    /**
+     * activity 添加fragment
+     *
+     * @param containerViewId 需要添加的fragment位置ID
+     * @param fragment        fragment 对象实例
+     * @param tag             fragment 标记
+     */
+    protected void addFragmentToBackStack(int containerViewId, Fragment fragment, String tag) {
+        FragmentTransaction fragmentTransaction = mActivity.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(containerViewId, fragment, tag);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commitAllowingStateLoss();
+    }
+
+
+    /**
+     * 获取Fragment
+     *
+     * @param tag
+     * @param <T>
+     * @return
+     */
+    public <T extends Fragment> T getFragment(String tag) {
+        return (T)mActivity.getSupportFragmentManager().findFragmentByTag(tag);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(null != mViewModel){
+            mViewModel.onDestroyView();
+        }
+    }
+
+    /**
+     * 是否登录 true登录成功；false登录失败
+     */
+    public boolean isLogIn(){
+        String userId = mACache.getAsString(AppKey.CacheKey.MY_USER_ID);
+        if(TextUtils.isEmpty(userId)){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    /**
+     * 判断是否登录
+     */
+    public void startLogInForResult(IncLogInRepository logInSuccess) {
+        this.mLogInRepository = logInSuccess;
+        if (isLogIn()) {
+            mLogInRepository.logInSuccess();
+            return;
+        }
+        RxBus.get().post(AppKey.PageRequestCodeKey.LOGIN_RXBUS, "去登录");
+    }
+
+
+    @Override
+    public void requestStart() {
+        LogUtils.e("=========开始请求============");
+    }
+
+    @Override
+    public void requestComplete() {
+        LogUtils.e("=========请求完成============");
+    }
+
+    @Override
+    public void requestNext(String msg) {
+        LogUtils.e("=========请求成功============"+msg);
+    }
+
+    @Override
+    public void requestError(String msg) {
+        LogUtils.e("=========请求异常============"+msg);
+    }
+
+    @Override
+    public void logInError() {
+        LogUtils.e("=========请求登录异常============");
+    }
+}

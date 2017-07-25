@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true">
+        <layer-list>
+            <item android:top="@dimen/inc_height_6_0_80" android:height="@dimen/inc_height_0_00"  >
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/bg_gray"/>
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+    <item android:drawable="@color/white"></item>
+
+</selector>

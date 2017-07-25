@@ -1,0 +1,200 @@
+package gongren.com.dlg.login.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.common.utils.StringUtils;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.activity.HomeActivity;
+import com.dlg.personal.home.view.ToastUtils;
+import com.dlg.viewmodel.common.SendCodeViewModel;
+import com.dlg.viewmodel.common.presenter.SuccessObjectPresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.user.ResetPsdViewModel;
+import com.dlg.viewmodel.user.presenter.ResetPsdPresenter;
+
+import gongren.com.dlg.R;
+
+/**
+ * 作者：小明
+ * 主要功能：重置密码页面
+ * 创建时间：2017/7/14 0014 10:23
+ */
+public class ResetPsdFragment extends BaseFragment implements View.OnClickListener, SuccessObjectPresenter,ResetPsdPresenter,TextWatcher {
+    EditText phoneText;     //电话
+    EditText codeText;      //验证码
+    LinearLayout getcodeLayout;//
+    LinearLayout waitLayout;//时间等待布局
+    TextView time;          //时间
+    TextView getNew;        //重新验证
+    EditText psdText;       //密码
+    CheckBox cbEye;         //密码显隐
+    Button btnNext;         //下一步
+
+    String phone;           //电话
+    String psd;             //密码
+    private SendCodeViewModel codeViewModel;
+    private ResetPsdViewModel resetPsdViewModel;
+    private String code;
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_person_reset, null);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        phoneText = (EditText) view.findViewById(R.id.phone_text);
+        codeText = (EditText) view.findViewById(R.id.code_text);
+        getcodeLayout = (LinearLayout) view.findViewById(R.id.getcode_layout);
+        waitLayout = (LinearLayout) view.findViewById(R.id.wait_layout);
+        time = (TextView) view.findViewById(R.id.time);
+        getNew = (TextView) view.findViewById(R.id.getNew);
+        psdText = (EditText) view.findViewById(R.id.psd_text);
+        cbEye = (CheckBox) view.findViewById(R.id.cb_eye);
+        btnNext = (Button) view.findViewById(R.id.btn_next);
+
+        btnNext.setOnClickListener(this);
+        getcodeLayout.setOnClickListener(this);
+        Bundle bundle = getArguments();
+        phone = bundle.getString("phone");
+        psdText.addTextChangedListener(this);
+        phoneText.setText(phone);
+        btnNext.setEnabled(false);
+        getCode();
+    }
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.getcode_layout) {//验证码
+            getCode();
+        }
+        if (v.getId() == R.id.btn_next) {//下一步
+            go2Login();
+        }
+    }
+
+    private void go2Login() {
+        code = codeText.getText().toString().trim();
+        psd = psdText.getText().toString();
+        if (TextUtils.isEmpty(code)){
+            ToastUtils.showShort(mContext,"请输入验证码");
+            return;
+        }
+        if (!StringUtils.isVerifyCode(code)){
+            ToastUtils.showShort(mContext,"验证码格式错误");
+            return;
+        }
+        resetPsdViewModel=new ResetPsdViewModel(mContext,this,this);
+        resetPsdViewModel.getReset(phone,psd,code);
+
+    }
+
+    //获取验证码
+    private void getCode() {
+        if (null == codeViewModel) {
+            codeViewModel = new SendCodeViewModel(mContext, this, this);
+        }
+        codeViewModel.sendMsg(phone);
+    }
+    //验证码返回
+    @Override
+    public void onSuccess(boolean success) {
+        ToastUtils.showShort(mContext, "验证码发送成功");
+        getcodeLayout.setEnabled(false);
+        MyCount myCount = new MyCount(60000, 1000);
+        myCount.start();
+    }
+    //  重置密码
+    @Override
+    public void resetPsd(String result) {
+        ToastUtils.showShort(mContext,"重置密码成功");
+        mACache.put(AppKey.CacheKey.MY_USER_ID,result);
+        Intent intent=new Intent(getActivity(),HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
+
+
+
+
+    //计时器
+    private class MyCount extends CountDownTimer {
+        private MyCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            waitLayout.setVisibility(View.GONE);
+            getcodeLayout.setEnabled(true);
+            getNew.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            waitLayout.setVisibility(View.VISIBLE);
+            time.setText(""+millisUntilFinished / 1000 + "秒后");
+            getNew.setVisibility(View.GONE);
+
+        }
+    }
+    /**
+     * 是否要进行按钮可点击*/
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (StringUtils.isPassWord(s.toString())){
+            btnNext.setEnabled(true);
+        }else {
+            btnNext.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (codeViewModel!=null){
+            codeViewModel.onDestroy();
+        }
+        if (resetPsdViewModel!=null){
+            resetPsdViewModel.onDestroy();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (codeViewModel!=null){
+            codeViewModel.onDestroyView();
+        }
+        if (resetPsdViewModel!=null){
+            resetPsdViewModel.onDestroyView();
+        }
+    }
+}

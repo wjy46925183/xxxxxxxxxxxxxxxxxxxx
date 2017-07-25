@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        android:text="请输入兑换码"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:textSize="@dimen/text_size_16"
+        android:gravity="center_vertical|left">
+    </TextView>
+
+    <EditText
+        android:id="@+id/ed_write"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:hint="请输入八位兑换码"
+        android:background="@drawable/bg_exchange"
+        android:gravity="center"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10">
+    </EditText>
+
+    <Button
+        android:id="@+id/bt_exchange"
+        android:layout_marginTop="@dimen/margin_25"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_marginRight="@dimen/padding_10"
+        android:background="@drawable/btn_selector_pay"
+        android:text="确认兑换"
+        android:textSize="@dimen/text_size_16"
+        android:textColor="@color/white">
+    </Button>
+</LinearLayout>

@@ -1,0 +1,159 @@
+package com.dlg.personal.home.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.dlg.data.home.model.DictionaryBean;
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.activity.SearchActivity;
+import com.dlg.personal.home.adapter.HotSearchAdapter;
+import com.dlg.viewmodel.home.DictionaryViewModel;
+import com.dlg.viewmodel.home.presenter.DictionaryPresenter;
+import com.dlg.viewmodel.key.AppKey;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * 作者：小明
+ * 主要功能 热门关键字搜索页
+ * 创建时间：2017/7/3 0003 13:40
+ */
+public class KeyHotFragment extends BaseFragment implements DictionaryPresenter, View.OnClickListener {
+    private DictionaryViewModel keyHotSelectionViewModle;
+    private HotSearchAdapter hotSearchAdapter;
+    private HotSearchAdapter historySearchAdapter;
+    private LinearLayout llayoutHistory;
+    private TextView historyClear;//清除历史
+    private RecyclerView recyclerHis;
+    private RecyclerView recyclerHot;
+    private List<DictionaryBean> beanhot = new ArrayList<>(); //热门数据
+    private List<DictionaryBean> beanhis = new ArrayList<>(); //历史数据
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.frag_keyhot, null);
+        initView(view);
+        initData(view);
+        return view;
+    }
+
+
+    private void initData(View view) {
+        beanhis = (List<DictionaryBean>) mACache.getAsObject(AppKey.CacheKey.KEY_HOT);
+        if (null == beanhis) {
+            beanhis = new ArrayList<>();
+        } else {
+            llayoutHistory.setVisibility(View.VISIBLE);
+        }
+
+        historySearchAdapter = new HotSearchAdapter(mContext, recyclerHis, beanhis, R.layout.item_keyhot_history);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 4);
+        manager.setReverseLayout(true);
+        recyclerHis.setLayoutManager(manager);
+        recyclerHis.setAdapter(historySearchAdapter);
+        historySearchAdapter.setOnItemClickListener(new BaseLoadMoreHeaderAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                DictionaryBean data = beanhis.get(position);
+                if (mActivity instanceof SearchActivity) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("postName", data.getDataName());
+                    ((SearchActivity) mActivity).replaceFragment(2, bundle);
+                }
+            }
+        });
+        recyclerHot = (RecyclerView) view.findViewById(R.id.recycler_hot);
+        hotSearchAdapter = new HotSearchAdapter(mContext, recyclerHot, beanhot, R.layout.item_keyhot_history);
+        recyclerHot.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        recyclerHot.setAdapter(hotSearchAdapter);
+        hotSearchAdapter.setOnItemClickListener(new BaseLoadMoreHeaderAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                DictionaryBean data = beanhot.get(position);
+                saveData(data);
+                if (mActivity instanceof SearchActivity) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("postType", data.getDataValue());
+
+                    ((SearchActivity) mActivity).replaceFragment(2, bundle);
+                }
+            }
+        });
+    }
+
+    private void initView(View view) {
+        llayoutHistory = (LinearLayout) view.findViewById(R.id.llayout_history);
+        historyClear = (TextView) view.findViewById(R.id.history_clear);
+        recyclerHis = (RecyclerView) view.findViewById(R.id.recycler_history);
+        historyClear.setOnClickListener(this);
+        keyHotSelectionViewModle = new DictionaryViewModel(getActivity(), this, this);
+        keyHotSelectionViewModle.getDictionaryData("job.type", "1");
+
+    }
+
+    /**
+     * 保存历史数据
+     */
+    private void saveData(DictionaryBean data) {
+        beanhis = (List<DictionaryBean>) mACache.getAsObject(AppKey.CacheKey.KEY_HOT);
+        if (null != beanhis && beanhis.size() >= 10) {
+            beanhis.remove(0);
+        } else {
+            if (null == beanhis) {
+                beanhis = new ArrayList<>();
+            }
+        }
+        List<DictionaryBean> _bean = new ArrayList<>();
+        _bean.addAll(beanhis);
+        if(null !=_bean && _bean.size()>0){
+            for (DictionaryBean bean : _bean) {
+                if(bean.getDataName().equals(data.getDataName())){
+                    beanhis.remove(bean);
+                }
+            }
+        }
+        beanhis.add(data);
+        mACache.put(AppKey.CacheKey.KEY_HOT, (ArrayList) beanhis);
+    }
+
+    @Override
+    public void getDictionary(List<DictionaryBean> dictionaryBean) {
+        beanhot.clear();
+        beanhot.addAll(dictionaryBean);
+        hotSearchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        beanhis.clear();
+        llayoutHistory.setVisibility(View.GONE);
+        mACache.remove(AppKey.CacheKey.KEY_HOT);
+        hotSearchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        keyHotSelectionViewModle.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        keyHotSelectionViewModle.onDestroy();
+    }
+
+
+}

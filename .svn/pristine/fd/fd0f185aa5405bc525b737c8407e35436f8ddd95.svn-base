@@ -1,0 +1,127 @@
+package com.dlg.viewmodel.Wallet;
+
+import android.content.Context;
+
+import com.common.cache.ACache;
+import com.dlg.data.user.model.UserAttributeInfoBean;
+import com.dlg.viewmodel.BasePresenter;
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.RXSubscriber;
+import com.dlg.viewmodel.Wallet.presenter.WithDrawalPresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.server.WithDrawalServer;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+
+/**
+ * 作者：关蕤
+ * 主要功能：查询可提现次数
+ * 创建时间：2017/7/12 09:37
+ */
+public class WithdrawalViewModel extends BaseViewModel<JsonResponse<List<String>>> {
+
+    private BasePresenter basePresenter;
+    private final WithDrawalServer mServer;
+    private WithDrawalPresenter presenter;
+
+    public WithdrawalViewModel(Context context, BasePresenter basePresenter, WithDrawalPresenter rechargePresenter) {
+        this.basePresenter = basePresenter;
+        mContext = context;
+        mServer = new WithDrawalServer(context);
+        this.presenter=rechargePresenter;
+    }
+    /**
+     * 查询可免费提现次数
+     */
+    public void getFrequency() {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("userId", ACache.get(mContext).getAsString(AppKey.CacheKey.MY_USER_ID));
+        mSubscriber = getMapSubscriber();
+        mServer.getFrequency(mSubscriber,map);
+    }
+
+    private Subscriber<JsonResponse<List<String>>> getMapSubscriber() {
+        return new RXSubscriber<JsonResponse<List<String>>,List<String>>(basePresenter) {
+            @Override
+            public void requestNext(List<String> strings) {
+                    if(strings != null && strings.size() > 0){
+                        presenter.toMap(strings.get(0));
+                    }
+            }
+        };
+    }
+
+    /**
+     * 绑定微信
+     * @param name
+     * @param openid
+     * @param type
+     */
+    public void getBindWeChat(String name, String openid, String type) {
+        HashMap map = new HashMap();
+        map.put("payAccount",openid);
+        map.put("payAccountHouseholder",name);
+        map.put("payType",type);
+        mSubscriber = getBindSubscriber();
+        mServer.getBindWeChat(mSubscriber,map);
+    }
+
+    private Subscriber<JsonResponse<List<String>>> getBindSubscriber() {
+        return new RXSubscriber<JsonResponse<List<String>>,List<String>>(basePresenter) {
+            @Override
+            public void requestNext(List<String> strings) {
+                if(strings != null && strings.size() > 0){
+                    presenter.toBind(strings.get(0));
+                }
+            }
+        };
+    }
+
+    /**
+     * 绑定支付宝
+     * @param name
+     * @param mAccount
+     */
+    public void BindAli(String name, String mAccount) {
+        HashMap map = new HashMap();
+        map.put("payAccount",mAccount);
+        map.put("payAccountHouseholder",name);
+        map.put("payType","1");
+        mSubscriber = getBindSubscriber();
+        mServer.getBindWeChat(mSubscriber,map);
+    }
+
+    /**
+     * 绑定银行卡
+     * @param name
+     * @param mPhoneNum
+     * @param mCardNum
+     * @param mVaildCode
+     */
+    public void bindBank(String name, String mPhoneNum, String mCardNum, String mVaildCode) {
+        HashMap map = new HashMap();
+        map.put("payAccount",mCardNum);
+        map.put("payAccountHouseholder",name);
+        map.put("payType","3");
+        map.put("vaildCode",mVaildCode);
+        map.put("reservedPhone",mPhoneNum);
+        mSubscriber = getBindSubscriber();
+        mServer.getBindBankChat(mSubscriber,map);
+    }
+
+    /**
+     * 根据兑换码兑换
+     * @param mExchangeCode
+     */
+    public void exchange(String mExchangeCode) {
+        HashMap map = new HashMap();
+        map.put("exchangeCode",mExchangeCode);
+        map.put("userRpcvo", "788909895532548096");
+        mSubscriber = getMapSubscriber();
+        mServer.exchange(mSubscriber,map);
+    }
+}

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/interpolator/mr_fast_out_slow_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/ca24282f6e654a184f2e6b7dbe1a476f47f93e53/output/res/interpolator/mr_fast_out_slow_in.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/interpolator/mr_linear_out_slow_in.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/ca24282f6e654a184f2e6b7dbe1a476f47f93e53/output/res/interpolator/mr_linear_out_slow_in.xml"
+    }
+]

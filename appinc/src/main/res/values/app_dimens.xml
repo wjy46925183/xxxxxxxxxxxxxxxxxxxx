@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="inc_padding_2">2dp</dimen>
+    <dimen name="inc_padding_3">3dp</dimen>
+    <dimen name="inc_padding_5">5dp</dimen>
+    <dimen name="inc_padding_7">7dp</dimen>
+    <dimen name="inc_padding_10">10dp</dimen>
+    <dimen name="inc_padding_11">11dp</dimen>
+    <dimen name="inc_padding_14">14dp</dimen>
+    <dimen name="inc_padding_15">15dp</dimen>
+    <dimen name="inc_padding_18">18dp</dimen>
+    <dimen name="inc_padding_20">20dp</dimen>
+    <dimen name="inc_padding_25">25dp</dimen>
+    <dimen name="inc_padding_30">30dp</dimen>
+
+    <dimen name="inc_margin_2">2dp</dimen>
+    <dimen name="inc_margin_5">5dp</dimen>
+    <dimen name="inc_margin_7">7dp</dimen>
+    <dimen name="inc_margin_10">10dp</dimen>
+    <dimen name="inc_margin_15">15dp</dimen>
+    <dimen name="inc_margin_20">20dp</dimen>
+    <dimen name="inc_margin_25">25dp</dimen>
+    <dimen name="inc_margin_30">30dp</dimen>
+    <dimen name="inc_margin_35">35dp</dimen>
+    <dimen name="inc_margin_40">40dp</dimen>
+    <dimen name="inc_margin_3">3dp</dimen>
+
+    <dimen name="inc_toolbar_height">240dp</dimen>
+</resources>

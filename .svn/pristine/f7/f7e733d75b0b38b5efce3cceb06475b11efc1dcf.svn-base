@@ -1,0 +1,24 @@
+package com.dlg.viewmodel.key;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：用户角色
+ * 创建时间：2017/7/7 09:59
+ */
+public enum UserRole {
+    employee(1),hirer(2),agent(3);
+
+    public int role;
+
+    UserRole(int role) {
+        this.role = role;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+}

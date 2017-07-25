@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/inc_title_common_search"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lv_bank_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/bg_deep_orange"
+        android:dividerHeight="@dimen/inc_height_0_00"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/phone_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_5_5_80"
+        android:layout_marginTop="@dimen/margin_30"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/padding_15"
+        android:text=""
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size_14" />
+
+    <View style="@style/linethin_notfull" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_5_5_80"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/code_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:background="@null"
+            android:hint="请输入验证码"
+            android:paddingLeft="@dimen/padding_15"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/hint_textcolor"
+            android:textSize="@dimen/text_size_14" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/margin_7"
+            android:background="@color/bg_color" />
+
+        <LinearLayout
+            android:id="@+id/getcode_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/wait_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="@dimen/padding_3"
+                    android:text="59秒后"
+                    android:textColor="@color/hint_textcolor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/padding_3"
+                    android:text="重新获取"
+                    android:textColor="@color/hint_textcolor"
+                    android:textSize="@dimen/text_size_14" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/getnew"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="重新获取"
+                android:visibility="gone"
+                android:textColor="@color/yellow_textcolor"
+                android:textSize="@dimen/text_size_14"
+               />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/Button_Blue"
+        android:layout_marginTop="@dimen/margin_30"
+        android:text="登录" />
+
+</LinearLayout>

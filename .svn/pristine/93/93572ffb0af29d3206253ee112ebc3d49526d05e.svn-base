@@ -1,0 +1,189 @@
+package com.dlg.personal.user.fragment;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.common.utils.StringUtils;
+import com.dlg.data.user.model.UserAttributeInfoBean;
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.activity.HomeActivity;
+import com.dlg.personal.home.view.ToastUtils;
+import com.dlg.viewmodel.common.SendCodeViewModel;
+import com.dlg.viewmodel.common.presenter.SuccessObjectPresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.user.LogInViewModel;
+import com.dlg.viewmodel.user.presenter.LogInPresenter;
+
+/**
+ * 作者：小明
+ * 主要功能：验证码登录
+ * 创建时间：2017/7/14 0014 09:56
+ */
+public class PersonCertificateFragment extends BaseFragment implements View.OnClickListener, SuccessObjectPresenter, LogInPresenter,TextWatcher {
+    EditText phoneText; //电话
+    EditText codeText;  //验证码
+    TextView time;      //时间
+    TextView getnew;    //重新获取
+    Button btnLogin;    //登录
+
+    String phone;       //电话号码
+    String code;        //验证码
+    private SendCodeViewModel codeViewModel;
+    private LogInViewModel logInViewModel;
+    private LinearLayout getcodeLayout;
+    private LinearLayout waitLayout;
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_person_cerficate, null);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view) {
+        phoneText = (EditText) view.findViewById(R.id.phone_text);
+        codeText = (EditText) view.findViewById(R.id.code_text);
+        time = (TextView) view.findViewById(R.id.time);
+        getnew = (TextView) view.findViewById(R.id.getnew);
+        btnLogin = (Button) view.findViewById(R.id.btn_login);
+        getcodeLayout = (LinearLayout) view.findViewById(R.id.getcode_layout);
+        waitLayout = (LinearLayout) view.findViewById(R.id.wait_layout);
+        getcodeLayout.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+        codeText.addTextChangedListener(this);
+
+        Bundle bundle = getArguments();
+        phone = bundle.getString("phone");
+        phoneText.setText(phone);
+        btnLogin.setEnabled(false);
+        getcode();
+    }
+
+    @Override
+    public void onClick(View v) {
+        code = codeText.getText().toString();
+        if (v.getId() == R.id.getcode_layout) {
+            getcode();
+        }
+        else if (v.getId() == R.id.btn_login) {
+            if (TextUtils.isEmpty(code)) {
+                ToastUtils.showShort(mContext, "请输入验证码");
+                return;
+            }
+            if (null == logInViewModel) {
+                logInViewModel = new LogInViewModel(mContext, this, this);
+            }
+            logInViewModel.codeLogIn(phone, code);
+        }
+    }
+
+    //获取验证码
+    private void getcode() {
+        if (null == codeViewModel) {
+            codeViewModel = new SendCodeViewModel(mContext, this, this);
+        }
+        codeViewModel.sendMsg(phone);
+    }
+
+    //验证码回调
+    @Override
+    public void onSuccess(boolean success) {
+        ToastUtils.showShort(mContext, "验证码发送成功");
+        getcodeLayout.setEnabled(false);
+        MyCount myCount = new MyCount(60000, 1000);
+        myCount.start();
+    }
+
+    //登陆回调
+    @Override
+    public void logInUserInfo(UserAttributeInfoBean infoBean) {
+        mACache.put(AppKey.CacheKey.MY_USER_ID, infoBean.getUserId());
+        mACache.put(AppKey.CacheKey.NAME, infoBean.getName());
+        mACache.put(AppKey.CacheKey.USER_LOGO, infoBean.getLogo());
+        Intent intent=new Intent(getActivity(),HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
+
+
+    //计时器
+    private class MyCount extends CountDownTimer {
+        private MyCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            waitLayout.setVisibility(View.GONE);
+            getcodeLayout.setEnabled(true);
+            getnew.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            waitLayout.setVisibility(View.VISIBLE);
+            time.setText("" + millisUntilFinished / 1000 + "秒后");
+            getnew.setVisibility(View.GONE);
+
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (StringUtils.isVerifyCode(s.toString())){
+            btnLogin.setEnabled(true);
+        }else {
+            btnLogin.setEnabled(false);
+        }
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (codeViewModel!=null){
+            codeViewModel.onDestroy();
+        }
+        if (logInViewModel!=null){
+            logInViewModel.onDestroy();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (codeViewModel!=null){
+            codeViewModel.onDestroyView();
+        }
+        if (logInViewModel!=null){
+            logInViewModel.onDestroyView();
+        }
+    }
+}

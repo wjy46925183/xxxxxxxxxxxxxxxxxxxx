@@ -1,0 +1,61 @@
+package com.dlg.viewmodel.Wallet;
+
+import android.content.Context;
+
+import com.common.cache.ACache;
+import com.dlg.data.wallet.model.RechargeBean;
+import com.dlg.viewmodel.BasePresenter;
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.RXSubscriber;
+import com.dlg.viewmodel.Wallet.presenter.RechargePresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.server.RechargeServer;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+
+/**
+ * 作者：关蕤
+ * 主要功能：充值
+ * 创建时间：2017/7/11 10:24
+ */
+public class RechargeViewModel extends BaseViewModel<JsonResponse<List<RechargeBean>>> {
+    private BasePresenter basePresenter;
+    private final RechargeServer mServer;
+    private RechargePresenter rechargePresenter;
+
+    public RechargeViewModel(Context context, BasePresenter basePresenter, RechargePresenter rechargePresenter) {
+        this.basePresenter = basePresenter;
+        mContext = context;
+        mServer = new RechargeServer(context);
+        this.rechargePresenter=rechargePresenter;
+    }
+
+    /**
+     * 充值业务
+     * @param amount
+     * @param payType
+     */
+    public void pay(String amount, String payType) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("amount",amount);
+        map.put("payType", payType);
+        map.put("userId", ACache.get(mContext).getAsString(AppKey.CacheKey.MY_USER_ID));
+        mSubscriber = getMapSubscriber();
+        mServer.pay(mSubscriber,map);
+    }
+
+    private Subscriber<JsonResponse<List<RechargeBean>>> getMapSubscriber(){
+        return new RXSubscriber<JsonResponse<List<RechargeBean>>,List<RechargeBean>>(basePresenter) {
+            @Override
+            public void requestNext(List<RechargeBean> rechargeBeens) {
+                if(null != rechargeBeens && rechargeBeens.size() > 0){
+                    rechargePresenter.toMap(rechargeBeens.get(0));
+                }
+            }
+        };
+    }
+}

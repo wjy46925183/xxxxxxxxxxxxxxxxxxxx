@@ -1,0 +1,307 @@
+package com.dlg.personal.wallet.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.common.string.LogUtils;
+import com.common.utils.DateUtils;
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.dlg.data.wallet.model.InvoiceListBean;
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.base.ToolBarType;
+import com.dlg.personal.home.view.ToastUtils;
+import com.dlg.personal.wallet.adapter.InvoiceListAdapter;
+import com.dlg.personal.wallet.view.InvoiceItemDecoration;
+import com.dlg.viewmodel.Wallet.InvoiceViewModel;
+import com.dlg.viewmodel.Wallet.presenter.InvoicePresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：邹前坤
+ * 主要功能：发票管理
+ * 创建时间：2017/7/11 09:10
+ */
+public class InvoiceActivity extends BaseActivity implements InvoicePresenter,BaseLoadMoreHeaderAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+	private static final int REQUEST_ORDER = 325;
+	private RecyclerView mLvInvoiceListing;//发票列表的lv
+	private CheckBox mCbInvoiceAllSelect;//全选按钮
+	private TextView mTvInvoiceSome;//几个人
+	private TextView mTvInvoiceAllMoney;//多少钱
+	private TextView mNextBtn;//下一页
+	private InvoiceViewModel viewModel ;//
+	private ArrayList<InvoiceListBean> mInvoiceListBeanData=new ArrayList<>();//展示数据的集合
+	private InvoiceListAdapter mInvoiceListAdapter;//适配器
+
+	private ArrayList<InvoiceListBean> mSelectData=new ArrayList<>();//选中的数据集合 也是向下页传递的数据源
+	
+	public  int currentPage=0;//第几页
+	private double mAllMoney;//总钱
+	private SwipeRefreshLayout mSwipeRefreshLayout;
+	private boolean isNext=false;// 下一步是否可点
+
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.page_invoices, ToolBarType.Default);
+
+		initView();
+		initData();
+		initNet();
+	}
+
+	/**
+	 * 联网获取数据
+	 */
+	private void initNet() {
+		if (mViewModel == null) {
+			mViewModel = new InvoiceViewModel(this, this, this);
+		} else {
+			mViewModel.onDestroy();//取消上次的请求
+		}
+		viewModel.getInvoiceBalance(currentPage);
+	}
+
+	/**
+	 * 初始化数据  联网
+	 */
+	private void initData() {
+		viewModel=new InvoiceViewModel(this,this,this);
+		mToolBarHelper.setToolbarRightTextVisibility(View.VISIBLE);
+		mToolBarHelper.setToolbarTitle("发票");
+		mToolBarHelper.setToolbarTextRight("开票历史");
+		mToolBarHelper.setToolbarTextRightOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.i("zqk", "onClick: "+"点击了头部右侧发票历史");
+				ActivityNavigator.navigator().navigateTo(InvoiceHistoryActivity.class);
+			}
+		});
+
+		mInvoiceListAdapter = new InvoiceListAdapter(this,mLvInvoiceListing,mInvoiceListBeanData, R.layout.item_invoice_list);
+		mLvInvoiceListing.setAdapter(mInvoiceListAdapter);
+		mInvoiceListAdapter.setOnLoadMoreListener(this);
+		mInvoiceListAdapter.setOnItemClickListener(new BaseLoadMoreHeaderAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				//TODO z这里要注意选中未选中的切换
+				Log.i("zqk", "onItemClick: "+"发票 条目点击");
+				if (mInvoiceListBeanData.get(position).getSelect()){
+					mInvoiceListBeanData.get(position).setSelect(false);
+					mSelectData.remove(mInvoiceListBeanData.get(position));
+					mInvoiceListAdapter.notifyDataSetChanged();
+					if (mSelectData!=null&&mSelectData.size()>0){
+						setNext(true);
+					}else {
+						setNext(false);
+					}
+				}else {
+					mInvoiceListBeanData.get(position).setSelect(true);
+					mSelectData.add(mInvoiceListBeanData.get(position));
+					mInvoiceListAdapter.notifyDataSetChanged();
+					setNext(true);
+				}
+				
+				setTextView();
+				
+			}
+		});
+
+		mCbInvoiceAllSelect.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (mCbInvoiceAllSelect.isChecked()){
+					mSelectData.clear();
+					mSelectData.addAll(mInvoiceListBeanData);
+					setTextView();
+					for (int i = 0; i <mInvoiceListBeanData.size() ; i++) {
+						mInvoiceListBeanData.get(i).setSelect(true);
+					}
+					if (mSelectData.size()>0){
+						setNext(true);
+					}else {
+						setNext(false);
+					}
+
+					mInvoiceListAdapter.notifyDataSetChanged();
+
+				}else {
+					for (int i = 0; i <mInvoiceListBeanData.size() ; i++) {
+						mInvoiceListBeanData.get(i).setSelect(false);
+					}
+					setNext(false);
+					mInvoiceListAdapter.notifyDataSetChanged();
+					mSelectData.clear();
+					setTextView();
+				}
+			}
+		});
+
+		mSwipeRefreshLayout.setColorSchemeResources(R.color.orange_yellow);
+		mSwipeRefreshLayout.setOnRefreshListener(this);
+		autoRefresh();
+
+		mNextBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (isNext){
+					Bundle bunder = new Bundle();
+					bunder.putSerializable("bean",mSelectData);
+					ActivityNavigator.navigator().navigateTo(OrderBillActivity.class,bunder,REQUEST_ORDER);
+				}
+			}
+		});
+	}
+	/**
+	 * 自动刷新
+	 */
+	private void autoRefresh(){
+		if(mSwipeRefreshLayout != null){
+			mSwipeRefreshLayout.post(new Runnable() {
+				@Override
+				public void run() {
+					mSwipeRefreshLayout.setRefreshing(true);
+				}
+			});
+		}
+	}
+	/**
+	 * 给几个单多少钱设置数据
+	 */
+	private void setTextView() {
+		mTvInvoiceSome.setText(mSelectData.size()+"");
+		mAllMoney = 0.0;
+		for (int i = 0; i <mSelectData.size() ; i++) {
+			mAllMoney+=Math.abs(mSelectData.get(i).getAmount());
+		}
+		mTvInvoiceAllMoney.setText(mAllMoney+"");
+	}
+
+	/**
+	 * 初始化View
+	 */
+	private void initView() {
+		mLvInvoiceListing = (RecyclerView) findViewById(R.id.lv_invoice_listing);
+		mLvInvoiceListing.setLayoutManager(new LinearLayoutManager(mContext));
+
+		// mLvInvoiceListing.addItemDecoration(new InvoiceItemDecoration());
+
+		mCbInvoiceAllSelect = (CheckBox) findViewById(R.id.cb_invoice_all_select);
+		mTvInvoiceSome = (TextView) findViewById(R.id.tv_invoice_some);
+		mTvInvoiceAllMoney = (TextView) findViewById(R.id.tv_invoice_all_money);
+		mNextBtn = (TextView) findViewById(R.id.next_btn);
+
+		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+
+		setNext(false);
+	}
+
+	/**
+	 * 处理下一步
+	 * @param b
+	 */
+	private void setNext(boolean b) {
+		isNext = b;
+		if (b){
+			mNextBtn.setBackgroundResource(R.color.color_ff7a51);
+		}else {
+			mNextBtn.setBackgroundResource(R.color.app_color_gainsboro);
+		}
+	}
+
+	/**
+	 * 加载更多 这里要处理条数和页数
+	 */
+	@Override
+	public void onLoadMore() {
+		currentPage++;
+		initNet();
+	}
+
+//	@Override
+//	public void requestError(String msg) {
+//		super.requestError(msg);
+//		if (mSwipeRefreshLayout.isRefreshing()) {
+//			mSwipeRefreshLayout.setRefreshing(false);
+//		}
+//	}
+//
+//	@Override
+//	public void logInError() {
+//		super.logInError();
+//		if (mSwipeRefreshLayout.isRefreshing()) {
+//			mSwipeRefreshLayout.setRefreshing(false);
+//		}
+//	}
+
+	/**
+	 * 得到 需要的bean集合
+	 * @param bean
+	 */
+	@Override
+	public void getDataList(List<InvoiceListBean> bean) {
+		Log.i("zqk", "toMap: 得到了需要的数据"+bean.size());
+		mInvoiceListAdapter.completeLoadMore();
+		if (bean==null||bean.size()==0){
+			return;
+		}
+		if (currentPage==0){
+			mInvoiceListBeanData.clear();
+		}
+		mInvoiceListBeanData.addAll(bean);
+		for (int i = 0; i < mInvoiceListBeanData.size(); i++) {
+			if (i==0){
+				mInvoiceListBeanData.get(0).setShowDate("0");
+			}else {
+				if (i<mInvoiceListBeanData.size()){
+					if (DateUtils.getDate_yyyyAndMM(mInvoiceListBeanData.get(i).getCreateTime()).
+							equals(DateUtils.getDate_yyyyAndMM(mInvoiceListBeanData.get(i-1).getCreateTime()))){
+						mInvoiceListBeanData.get(i).setShowDate("1");
+					} else {
+						mInvoiceListBeanData.get(i).setShowDate("0");
+					}
+				}
+			}
+		}
+		LogUtils.i( "数据f放入集合 "+mInvoiceListBeanData.size());
+		mInvoiceListAdapter.notifyDataSetChanged();
+//		mInvoiceListAdapter.updateData(mInvoiceListBeanData);
+		if (mSwipeRefreshLayout.isRefreshing()) {
+			mSwipeRefreshLayout.setRefreshing(false);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode==REQUEST_ORDER&&resultCode==RESULT_OK&&data!=null){
+			boolean isUpdata = data.getBooleanExtra("isUpdata", false);
+			if (isUpdata){
+				mSwipeRefreshLayout.setRefreshing(true);
+				onRefresh();
+			}
+
+		}
+	}
+
+	@Override
+	public void onRefresh() {
+		currentPage=0;
+		initNet();
+	}
+}

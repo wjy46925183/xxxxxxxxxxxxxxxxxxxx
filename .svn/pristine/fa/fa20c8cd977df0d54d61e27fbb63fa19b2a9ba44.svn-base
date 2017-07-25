@@ -1,0 +1,78 @@
+package com.dlg.personal.user.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.base.ToolBarType;
+import com.dlg.personal.user.fragment.CompanyFragment;
+import com.dlg.personal.user.fragment.PersonFragment;
+
+/**
+ * 作者：小明
+ * 主要功能：选择登录方式页面、个人 、企业
+ * 创建时间：2017/7/13 0013 17:16
+ */
+public class ChoseLoginActivity extends BaseActivity {
+    private ImageView back;
+    private RadioButton person;
+    private RadioButton company;
+    private FrameLayout content;
+    private RadioGroup rg;
+    private CompanyFragment companyFragment;
+    private PersonFragment personFragment;
+    private String TAG_PERSON = "TAG_PERSON";
+    private String TAG_COMPANY = "TAG_COMPANY";
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_chose_login, ToolBarType.NO);
+        initView();
+    }
+
+    private void initView() {
+        back = (ImageView) findViewById(R.id.back);
+        person = (RadioButton) findViewById(R.id.person);
+        company = (RadioButton) findViewById(R.id.company);
+        content = (FrameLayout) findViewById(R.id.content);
+        rg = (RadioGroup) findViewById(R.id.rg);
+        if (personFragment == null) {
+            personFragment = new PersonFragment();
+        }
+        addFragment(R.id.content, personFragment, TAG_PERSON);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.person) {
+                    if (personFragment == null) {
+                        personFragment = new PersonFragment();
+                    }
+                    addFragment(R.id.content, personFragment, TAG_PERSON);
+                }
+                if (checkedId == R.id.company) {
+                    if (companyFragment == null) {
+                        companyFragment = new CompanyFragment();
+                    }
+                    addFragment(R.id.content, companyFragment, TAG_COMPANY);
+                }
+            }
+        });
+
+    }
+
+
+}

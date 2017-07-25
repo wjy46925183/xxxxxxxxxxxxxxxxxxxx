@@ -1,0 +1,176 @@
+package gongren.com.dlg.login.fragment;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.common.utils.StringUtils;
+import com.dlg.data.user.model.UserAttributeInfoBean;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.activity.HomeActivity;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.user.LogInViewModel;
+import com.dlg.viewmodel.user.presenter.LogInPresenter;
+
+import gongren.com.dlg.R;
+
+import static gongren.com.dlg.login.activity.LoginActivity.TAG_RESET;
+import static gongren.com.dlg.login.activity.LoginActivity.TAG_VERYCODE;
+
+
+/**
+ * 作者：小明
+ * 主要功能：个人普通登录
+ * 创建时间：2017/7/14 0014 09:40
+ */
+public class PersonLoginFragment extends BaseFragment implements View.OnClickListener, LogInPresenter,TextWatcher {
+
+    ResetPsdFragment resetPsdFragment;
+    PersonCertificateFragment certificateFragment;
+    LogInViewModel logInViewModel;
+
+    EditText psd_text;          //密码
+    TextView phoneText;         //电话
+    TextView btnNext;           //下一步
+    TextView forgetPsd;         //忘记密码
+    TextView verifycodeLogin;   //验证码
+
+    String phone;               //电话
+    String psd;                 //密码
+    CheckBox eye;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_person_login, null);
+        initView(view);
+        return view;
+    }
+
+    public void initView(View view) {
+        psd_text = (EditText) view.findViewById(R.id.psd_text);
+        phoneText = (TextView) view.findViewById(R.id.phone_text);
+        btnNext = (TextView) view.findViewById(R.id.btnNext);
+        forgetPsd = (TextView) view.findViewById(R.id.forget_psd);
+        eye = (CheckBox) view.findViewById(R.id.eye);
+        verifycodeLogin = (TextView) view.findViewById(R.id.verifycode_login);
+
+        btnNext.setOnClickListener(this);
+        forgetPsd.setOnClickListener(this);
+        verifycodeLogin.setOnClickListener(this);
+        psd_text.addTextChangedListener(this);
+
+        Bundle bundle = getArguments();
+        phone = bundle.getString("phone");
+        phoneText.setText(phone);
+        initCheckBox();
+        btnNext.setEnabled(false);
+    }
+
+    private void initCheckBox() {
+        eye.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    psd_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());//密码明文
+                }else {
+                    psd_text.setTransformationMethod(PasswordTransformationMethod.getInstance());   //密码隐藏
+                }
+                psd_text.setSelection(psd_text.getText().toString().length());
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        psd = psd_text.getText().toString();
+        if (v.getId() == R.id.btnNext) {//登录
+            if (logInViewModel == null) {
+                logInViewModel = new LogInViewModel(getActivity(), this, this);
+            }
+            logInViewModel.logIn(phone, psd);
+        }
+        if (v.getId() == R.id.forget_psd) {//忘记密码
+            resetPsdFragment = new ResetPsdFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("inFrom", TAG_RESET);
+            bundle.putString("phone", phone);
+            resetPsdFragment.setArguments(bundle);
+            mActivity.getToolBarHelper().setToolbarTitle("重置密码");
+            addFragment(R.id.frameLayout, resetPsdFragment, TAG_RESET);
+
+        }
+        if (v.getId() == R.id.verifycode_login) {//验证码登录
+            certificateFragment = new PersonCertificateFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("inFrom", TAG_VERYCODE);
+            bundle.putString("phone", phone);
+            certificateFragment.setArguments(bundle);
+            mActivity.getToolBarHelper().setToolbarTitle("验证码登录");
+            addFragment(R.id.frameLayout, certificateFragment, TAG_VERYCODE);
+        }
+    }
+
+    @Override
+    public void logInUserInfo(UserAttributeInfoBean infoBean) {
+        mACache.put(AppKey.CacheKey.MY_USER_ID, infoBean.getUserId());
+        if(!TextUtils.isEmpty(infoBean.getName())){
+            mACache.put(AppKey.CacheKey.NAME, infoBean.getName());
+        }
+        if(!TextUtils.isEmpty(infoBean.getLogo())){
+            mACache.put(AppKey.CacheKey.USER_LOGO, infoBean.getLogo());
+        }
+        mACache.put(AppKey.CacheKey.MY_USER_INFO, infoBean);
+        Intent intent=new Intent(getActivity(),HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (StringUtils.isPassWord(s.toString())){
+            btnNext.setEnabled(true);
+        }else {
+            btnNext.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (logInViewModel!=null){
+            logInViewModel.onDestroy();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (logInViewModel!=null){
+            logInViewModel.onDestroyView();
+        }
+    }
+}

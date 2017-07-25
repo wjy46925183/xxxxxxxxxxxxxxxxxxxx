@@ -1,0 +1,186 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.dlg.inc"
+>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+        <!--极光推送广播-->
+
+        <!--首页-->
+        <activity
+            android:name=".home.activity.IncHomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--绑定支付宝-->
+        <activity
+            android:name=".wallet.activity.IncBindAliActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--绑定银行卡-->
+        <activity
+            android:name=".wallet.activity.IncBindBankCardActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--兑换券-->
+        <activity
+            android:name=".wallet.activity.IncExchangeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--发票管理-->
+        <activity
+            android:name=".wallet.activity.IncInvoiceActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--发票历史 列表-->
+        <activity
+            android:name=".wallet.activity.IncInvoiceHistoryActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--发票历史  单个详情-->
+        <activity
+            android:name=".wallet.activity.IncInvoiceHistoryDetailsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--按订单卡发票-->
+        <activity
+            android:name=".wallet.activity.IncOrderBillActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--按订单开票 更多-->
+        <activity
+            android:name=".wallet.activity.IncOrderMoreInfoActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+
+        <!--公共的密码输入界面-->
+        <activity
+            android:name=".wallet.activity.IncPublicInputPwdActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--充值 -->
+        <activity
+            android:name=".wallet.activity.IncRechargeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--第一次进入时绑定-->
+        <activity
+            android:name=".wallet.activity.IncSetBindActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--解除绑定-->
+        <activity
+            android:name=".wallet.activity.IncUnBindActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--钱包-->
+        <activity
+            android:name=".wallet.activity.IncWalletActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--钱包详情列表-->
+        <activity
+            android:name=".wallet.activity.IncWalletDetailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--钱包详情 单条详情-->
+        <activity
+            android:name=".wallet.activity.IncWalletDetailDetailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--提现-->
+        <activity
+            android:name=".wallet.activity.IncWithdrawalActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--输入密码-->
+        <activity
+            android:name=".wallet.activity.IncWritePwdActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--一卡通-->
+        <activity
+            android:name=".web.IncCMBWebViewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--公共H5页面-->
+        <activity
+            android:name=".web.IncDefaultWebActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--支付-->
+        <activity
+            android:name=".wallet.activity.IncPaymentActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--重置密码，接收验证码-->
+        <activity
+            android:name=".wallet.activity.IncWalletResetPwdActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--重置密码输入密码-->
+        <activity
+            android:name=".wallet.activity.IncWalletResetPwdInputActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--钱包设置-->
+        <activity
+            android:name=".wallet.activity.IncWalletSettingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+
+        <!--用户设置-->
+        <activity
+            android:name=".user.activity.IncSettingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--关于我们-->
+        <activity
+            android:name=".user.activity.IncAboutUsAtivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+        <!--绑定企业账户 -->
+        <activity
+            android:name=".wallet.activity.IncCompanyActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/inc_AppTheme.NoActionBar" />
+    </application>
+
+</manifest>

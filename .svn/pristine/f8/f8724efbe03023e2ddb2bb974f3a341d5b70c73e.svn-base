@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/mis_default_text_color.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/color/mis_default_text_color.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/abc_secondary_text_material_light.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/switch_thumb_material_dark.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/mis_folder_text_color.xml",
+        "source": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/res/color/mis_folder_text_color.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/switch_thumb_material_light.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/abc_primary_text_material_dark.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/abc_primary_text_material_light.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/abc_search_url_text.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/intermediates/res/merged/debug/color/abc_secondary_text_material_dark.xml",
+        "source": "/Users/wangdakuan/.android/build-cache/bc0172b3e2914e5379bd99baf0dd2fa78ad35d8e/output/res/color/abc_secondary_text_material_dark.xml"
+    }
+]

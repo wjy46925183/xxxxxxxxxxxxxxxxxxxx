@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_draw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/slide_layout_head"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/inc_height_18_5_80"
+        android:background="@mipmap/bg_findorder"
+        android:orientation="vertical">
+
+    </RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_head"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/slide_layout_head"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="-35dp"
+        android:background="@mipmap/mrtx" />
+
+    <TextView
+        android:id="@+id/slid_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_head"
+        android:layout_marginTop="@dimen/inc_margin_10"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="登录"
+        android:textColor="@color/inc_app_color_black_01"
+        android:textSize="@dimen/inc_text_size_15" />
+
+    <TextView
+        android:id="@+id/slid_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slid_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/inc_margin_3"
+        android:drawableLeft="@mipmap/icon_iscertification"
+        android:drawablePadding="@dimen/inc_padding_2"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/gray_text"
+        android:textSize="@dimen/inc_text_size_11"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/slide_linggong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slid_status"
+        android:layout_marginTop="@dimen/inc_height_4_5_80"
+        android:background="@drawable/inc_pressed_layout"
+        android:drawableLeft="@mipmap/menu_linggong"
+        android:drawablePadding="@dimen/inc_padding_20"
+        android:gravity="center|left"
+        android:paddingBottom="@dimen/inc_padding_15"
+        android:paddingLeft="@dimen/inc_padding_25"
+        android:paddingTop="@dimen/inc_padding_15"
+        android:text="零工"
+        android:textColor="@color/inc_app_color_black"
+        android:textSize="@dimen/inc_text_size_16" />
+
+
+    <TextView
+        android:id="@+id/slide_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slide_linggong"
+        android:background="@drawable/inc_pressed_layout"
+        android:drawableLeft="@mipmap/menu_qianbao"
+        android:drawablePadding="@dimen/inc_padding_20"
+        android:gravity="center|left"
+        android:paddingBottom="@dimen/inc_padding_15"
+        android:paddingLeft="@dimen/inc_padding_25"
+        android:paddingTop="@dimen/inc_padding_15"
+        android:text="钱包"
+        android:textColor="@color/inc_app_color_black"
+        android:textSize="@dimen/inc_text_size_16" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slide_money"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/slide_kefu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inc_pressed_layout"
+            android:drawableLeft="@mipmap/ic_kehu"
+            android:drawablePadding="@dimen/inc_padding_20"
+            android:gravity="center|left"
+            android:visibility="visible"
+            android:paddingBottom="@dimen/inc_padding_15"
+            android:paddingLeft="@dimen/inc_padding_25"
+            android:paddingTop="@dimen/inc_padding_15"
+            android:text="客服"
+            android:textColor="@color/inc_app_color_black"
+            android:textSize="@dimen/inc_text_size_16" />
+
+        <TextView
+            android:id="@+id/slide_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/slide_money"
+            android:background="@drawable/inc_pressed_layout"
+            android:drawableLeft="@mipmap/menu_shezhi"
+            android:drawablePadding="@dimen/inc_padding_20"
+            android:gravity="center|left"
+            android:paddingBottom="@dimen/inc_padding_15"
+            android:paddingLeft="@dimen/inc_padding_25"
+            android:paddingTop="@dimen/inc_padding_15"
+            android:text="设置"
+            android:textColor="@color/inc_app_color_black"
+            android:textSize="@dimen/inc_text_size_16" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/inc_margin_10"
+        android:layout_marginRight="@dimen/inc_margin_10"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/inc_padding_30">
+
+        <LinearLayout
+            android:id="@+id/layout_really"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/im_really"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_above="@+id/tv_drawlay_zhenwo"
+                android:src="@mipmap/icon_default_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inc_margin_5"
+                android:text="真我"
+                android:textColor="@color/inc_app_color_grey_03"
+                android:textSize="@dimen/inc_text_size_12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_welfare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/im_welfare"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_above="@+id/tv_drawlay_zhenwo"
+                android:src="@mipmap/icon_default_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inc_margin_5"
+                android:text="福利社"
+                android:textColor="@color/inc_app_color_grey_03"
+                android:textSize="@dimen/inc_text_size_12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_recommended"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/im_recommended"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_above="@+id/tv_drawlay_zhenwo"
+                android:src="@mipmap/icon_default_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/inc_margin_5"
+                android:text="推荐有奖"
+                android:textColor="@color/inc_app_color_grey_03"
+                android:textSize="@dimen/inc_text_size_12" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

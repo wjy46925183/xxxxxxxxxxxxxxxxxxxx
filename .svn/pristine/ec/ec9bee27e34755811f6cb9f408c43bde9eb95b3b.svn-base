@@ -1,0 +1,65 @@
+package com.dlg.viewmodel.server;
+
+import android.content.Context;
+
+import com.alibaba.fastjson.JSON;
+import com.dlg.data.wallet.factory.WithDrawalFactory;
+import com.dlg.data.wallet.interactor.WithDrawalInteractor;
+import com.dlg.data.wallet.url.WalletUrl;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+/**
+ * 作者：关蕤
+ * 主要功能：
+ * 创建时间：2017/7/12 09:45
+ */
+public class WithDrawalServer {
+    WithDrawalFactory factory ;
+
+    public WithDrawalServer(Context appContext) {
+        this(new WithDrawalFactory(appContext));
+    }
+
+    public WithDrawalServer(WithDrawalFactory factory) {
+        this.factory = factory;
+    }
+
+    public void getFrequency(Subscriber<JsonResponse<List<String>>> mSubscriber, HashMap<String, String> map) {
+        WithDrawalInteractor interactor = factory.getFrequency(WalletUrl.FREQUENCY_NUM + JSON.toJSONString(map), true);
+        interactor.getFrequency(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    public void getBindWeChat(Subscriber<JsonResponse<List<String>>> mSubscriber, HashMap map) {
+        WithDrawalInteractor interactor = factory.getBindWeChat(WalletUrl.PAY_BIND_ADD + JSON.toJSONString(map), true);
+        interactor.getBindWeChat(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    public void getBindBankChat(Subscriber<JsonResponse<List<String>>> mSubscriber, HashMap map) {
+        WithDrawalInteractor interactor = factory.getBindWeChat(WalletUrl.PAY_BIND_ADD + JSON.toJSONString(map), true);
+        interactor.getBindWeChat(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+
+    public void exchange(Subscriber<JsonResponse<List<String>>> mSubscriber, HashMap map) {
+        WithDrawalInteractor interactor = factory.getBindWeChat(WalletUrl.EXCHANGE + JSON.toJSONString(map), true);
+        interactor.exchange(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mSubscriber);
+    }
+}

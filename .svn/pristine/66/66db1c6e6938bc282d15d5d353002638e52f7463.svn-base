@@ -1,0 +1,72 @@
+package com.dlg.viewmodel.home;
+
+import android.content.Context;
+
+import com.common.cache.ACache;
+import com.dlg.data.home.model.JobOrdersInfo;
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.RXSubscriber;
+import com.dlg.viewmodel.home.presenter.JobOrderPresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.server.HomeServer;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+
+/**
+ * 作者：王进亚
+ * 主要功能：
+ * 创建时间：2017/7/17 17:05
+ */
+
+public class JobOrderViewModel extends BaseViewModel {
+    private JobOrderPresenter mJobOrderPresenter;
+    private final HomeServer mHomeServer;
+
+    public JobOrderViewModel(Context context, JobOrderPresenter jobOrderPresenter) {
+        this.mJobOrderPresenter = jobOrderPresenter;
+        mContext = context;
+        mHomeServer = new HomeServer(mContext);
+    }
+
+    public void jobOrder(String employeeParamId) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("employeeId", employeeParamId);
+        map.put("userId", ACache.get(mContext).getAsString(AppKey.CacheKey.MY_USER_ID));
+        map.put("minId", "");
+        map.put("pageSize", "1000");
+        map.put("status", "0");
+        mSubscriber = getSub();
+        mHomeServer.jobOrderNum(mSubscriber, map);
+    }
+
+    private Subscriber<JsonResponse<List<JobOrdersInfo>>> getSub() {
+        return new RXSubscriber<JsonResponse<List<JobOrdersInfo>>, List<JobOrdersInfo>>(null) {
+            @Override
+            public void requestNext(List<JobOrdersInfo> jobOrdersInfos) {
+                if (jobOrdersInfos != null) {
+                    mJobOrderPresenter.jobOrderList(jobOrdersInfos);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                mJobOrderPresenter.error(e.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                super.onCompleted();
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+            }
+        };
+    }
+}

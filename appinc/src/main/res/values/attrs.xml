@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="inc_TextOrEditxtView">
+        <!--左边文字-->
+        <attr name="inc_leftText" format="string" />
+        <!--左边文字颜色-->
+        <attr name="inc_leftTextColor" format="color" />
+        <!--左边文字字体大小-->
+        <attr name="inc_leftTextSize" format="dimension" />
+        <!--右边文字-->
+        <attr name="inc_rightText" format="string" />
+        <!--右边文字颜色-->
+        <attr name="inc_rightTextColor" format="color" />
+        <!--右边文字字体大小-->
+        <attr name="inc_rightTextSize" format="dimension" />
+        <!--右边提示文字-->
+        <attr name="inc_rightHintText" format="string" />
+        <!--右边提示文字颜色-->
+        <attr name="inc_rightTextHintColor" format="color" />
+        <!--右边文字字体大小-->
+        <attr name="inc_rightTextHintSize" format="dimension" />
+        <!--右边又paddingRight-->
+        <attr name="inc_rightTextPaddingRight" format="dimension" />
+        <!--底部分割线是否显示-->
+        <attr name="inc_bottomDivider" format="boolean" />
+        <!--右边Editext是否可以编辑-->
+        <attr name="inc_isEnabled" format="boolean" />
+        <!--右边Editext只能输入数字-->
+        <attr name="inc_isNumber" format="boolean" />
+        <!--右边Editext可输入的长度-->
+        <attr name="inc_maxLength" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="inc_StatisticalOrderView">
+        <!--订单类型 -->
+        <attr name="inc_orderType" format="integer" />
+        <!--标题提示文字-->
+        <attr name="inc_hintText" format="string" />
+    </declare-styleable>
+</resources>

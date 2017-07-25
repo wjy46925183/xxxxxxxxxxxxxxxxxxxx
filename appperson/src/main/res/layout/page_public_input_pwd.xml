@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_marked_words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/width_7_80"
+        android:layout_marginRight="@dimen/width_7_80"
+        android:layout_marginTop="@dimen/width_7_80"
+        android:text="请输入6位字符的密码"/>
+
+    <com.common.view.gridpasswordview.GridPasswordView
+        android:id="@+id/passwordInputView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_5_80"
+        android:layout_margin="@dimen/width_7_80"
+        android:inputType="textPassword"
+        android:maxLength="6"
+        app:pivBorderColor="#ffffff"
+        app:pivBorderRadius="0dp"
+        app:pivBorderWidth="1dp"
+        app:pivPasswordColor="#cccccc"
+        app:pivPasswordLength="6">
+
+        <requestFocus/>
+    </com.common.view.gridpasswordview.GridPasswordView>
+</LinearLayout>

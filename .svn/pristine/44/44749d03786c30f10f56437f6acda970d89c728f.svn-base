@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--dialg 颜色-->
+    <color name="dialogplus_black_overlay">#60000000</color>
+    <color name="text_colors_grey">#666666</color>
+
+    <!--日历控件颜色-->
+    <color name="normal_day">#ff999999</color>
+    <color name="not_click_day">#dddddd</color>
+    <color name="selected_day_background">#ffb452</color>
+    <color name="selected_day_text">#fff2f2f2</color>
+
+    <color name="textColor_white">#FFFFFF</color>
+    <color name="textColor_black">#000000</color>
+    <color name="textColor_black_light01">#333333</color>
+    <color name="textColor_black_light02">#a3a3a3</color>
+    <color name="textColor_black_light03">#666666</color>
+    <color name="textColor_black_hint">#cacaca</color>
+    <color name="textColor_orange">#ffb353</color>
+    <color name="textColor_deep_blue">#1E3460</color>
+
+    <color name="mis_actionbar_color">#21282C</color>
+
+    <color name="blue_pressed">#ff0099cc</color>
+    <color name="blue_normal">#ff33b5e5</color>
+    <color name="green_complete">#ff99cc00</color>
+    <color name="purple_progress">#ffaa66cc</color>
+    <color name="red_error">#ffff4444</color>
+
+    <color name="holo_blue_bright">#ff00ddff</color>
+    <color name="holo_green_light">#ff99cc00</color>
+    <color name="holo_orange_light">#ffffbb33</color>
+    <color name="holo_red_light">#ffff4444</color>
+</resources>

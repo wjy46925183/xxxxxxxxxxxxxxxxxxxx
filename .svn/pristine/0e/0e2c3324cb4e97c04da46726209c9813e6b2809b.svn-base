@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\richpush_progressbar.xml",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\richpush_progressbar.xml"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\bottom_bg.9.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\bottom_bg.9.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\corners_bg.xml",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\corners_bg.xml"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\tiledstripes.xml",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\tiledstripes.xml"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\richpush_btn_selector.xml",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\richpush_btn_selector.xml"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\jpush_ic_richpush_actionbar_back.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\jpush_ic_richpush_actionbar_back.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\border_bg.9.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\border_bg.9.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\jpush_notification_icon.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\jpush_notification_icon.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\jpush_ic_richpush_actionbar_divider.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\jpush_ic_richpush_actionbar_divider.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\top_bg.9.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\top_bg.9.png"
+    },
+    {
+        "merged": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\stripes.png",
+        "source": "D:\\Code\\DLG_ADNDROID\\jpush\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\stripes.png"
+    }
+]

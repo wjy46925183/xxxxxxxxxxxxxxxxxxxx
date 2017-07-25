@@ -1,0 +1,29 @@
+package com.dlg.personal.jpush;
+
+import android.util.Log;
+
+import java.util.Set;
+
+import cn.jpush.android.api.TagAliasCallback;
+
+/**
+ * 作者：王进亚
+ * 主要功能：极光推送 设置id回调
+ * 创建时间：2017/7/19 10:55
+ */
+
+public class JPushTagAliasCallBack implements TagAliasCallback {
+    @Override
+    public void gotResult(int code, String s, Set<String> set) {
+        switch (code) {
+            case 0:
+                Log.i("JPush-----", "Set tag and alias success");
+                break;
+            case 6002:
+                Log.i("JPush-----", "Failed to set alias and tags due to timeout. Try again after 60s.");
+                break;
+            default:
+                Log.e("JPush-----", "Failed with errorCode = " + code);
+        }
+    }
+}

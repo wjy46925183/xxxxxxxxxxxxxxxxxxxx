@@ -1,0 +1,49 @@
+package com.dlg.viewmodel.user;
+
+import android.content.Context;
+
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.RXSubscriber;
+import com.dlg.viewmodel.server.UserServer;
+import com.dlg.viewmodel.user.presenter.IsRegistPresenter;
+
+import java.util.HashMap;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+
+/**
+ * 作者：小明
+ * 主要功能：
+ * 创建时间：2017/7/14 0014 13:34
+ */
+public class IsRegistViewModel extends BaseViewModel {
+    private final UserServer mServer;
+    private IsRegistPresenter mIsRegistPresenter;
+
+    public IsRegistViewModel(Context context,  IsRegistPresenter presenter) {
+        mServer = new UserServer(context);
+        this.mIsRegistPresenter=presenter;
+    }
+
+    public void IsRegist(String phone,String type) {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("phone",phone);
+        map.put("type",type);
+        mSubscriber=IsRegist();
+        mServer.getRegist(mSubscriber,map);
+    }
+    private Subscriber<JsonResponse> IsRegist() {
+        return new RXSubscriber<JsonResponse, JsonResponse>(null) {
+            @Override
+            public void requestNextCode(Object m) {
+                super.requestNextCode(m);
+                if("0".equals(m.toString())){
+                    mIsRegistPresenter.getIsRegist(true);
+                }else{
+                    mIsRegistPresenter.getIsRegist(false);
+                }
+            }
+        };
+    }
+}

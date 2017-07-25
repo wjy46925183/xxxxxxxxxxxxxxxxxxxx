@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@mipmap/next"
+        android:paddingBottom="@dimen/padding_7"
+        android:paddingTop="@dimen/padding_7"
+        android:text="王大萨"
+        android:layout_marginRight="@dimen/margin_15"
+        android:textColor="@color/app_color_black_01"
+        android:textSize="@dimen/text_size_14" />
+
+    <TextView
+        android:id="@+id/tv_line"
+        style="@style/line_thin_full" />
+</LinearLayout>

@@ -1,0 +1,138 @@
+[
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\design_fab_out.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\9888cee2e8527bd5beda80da26bc50aa4366d83e\\output\\res\\anim\\design_fab_out.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\modal_out.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\7cbdf9e865442975e3e99dce3e09a046b1f2356f\\output\\res\\anim\\modal_out.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\design_bottom_sheet_slide_out.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\9888cee2e8527bd5beda80da26bc50aa4366d83e\\output\\res\\anim\\design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\pop_down_in.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\pop_down_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\slide_out_top.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\slide_out_bottom.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\modal_in.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\7cbdf9e865442975e3e99dce3e09a046b1f2356f\\output\\res\\anim\\modal_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\loading_progress_bar.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\loading_progress_bar.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\design_snackbar_out.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\9888cee2e8527bd5beda80da26bc50aa4366d83e\\output\\res\\anim\\design_snackbar_out.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\in_translate_top.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\in_translate_top.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\fade_out_center.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\fade_out_center.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\fade_in_center.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\fade_in_center.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\cmbkb_push_bottom_in.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\cmbkb_push_bottom_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\error_frame_in.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\7cbdf9e865442975e3e99dce3e09a046b1f2356f\\output\\res\\anim\\error_frame_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\success_mask_layout.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\7cbdf9e865442975e3e99dce3e09a046b1f2356f\\output\\res\\anim\\success_mask_layout.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\error_x_in.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\7cbdf9e865442975e3e99dce3e09a046b1f2356f\\output\\res\\anim\\error_x_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\cmbkb_push_bottom_out.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\cmbkb_push_bottom_out.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\design_fab_in.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\9888cee2e8527bd5beda80da26bc50aa4366d83e\\output\\res\\anim\\design_fab_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\slide_in_bottom.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\success_bow_roate.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\7cbdf9e865442975e3e99dce3e09a046b1f2356f\\output\\res\\anim\\success_bow_roate.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\design_bottom_sheet_slide_in.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\9888cee2e8527bd5beda80da26bc50aa4366d83e\\output\\res\\anim\\design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\pop_down_out.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\pop_down_out.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\slide_in_top.xml",
+        "source": "D:\\DLG_ANDROID\\common\\build\\intermediates\\bundles\\default\\res\\anim\\slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\design_snackbar_in.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\9888cee2e8527bd5beda80da26bc50aa4366d83e\\output\\res\\anim\\design_snackbar_in.xml"
+    },
+    {
+        "merged": "D:\\DLG_ANDROID\\image_selector\\build\\intermediates\\res\\merged\\release\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\aaa\\.android\\build-cache\\e260d41c4ffdcc5079f6f824222fa384ad5938dd\\output\\res\\anim\\abc_popup_enter.xml"
+    }
+]

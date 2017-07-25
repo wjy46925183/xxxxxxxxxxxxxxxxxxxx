@@ -1,0 +1,93 @@
+package com.dlg.data.wallet;
+
+import com.alibaba.fastjson.JSON;
+import com.dlg.data.cache.ObjectCache;
+import com.dlg.data.wallet.interactor.WalletInteractor;
+import com.dlg.data.wallet.model.BillDetailBean;
+import com.dlg.data.wallet.model.BillDetailListBean;
+import com.dlg.data.wallet.model.BillHistoryBean;
+import com.dlg.data.wallet.model.InvoiceInformationRestVoBean;
+import com.dlg.data.wallet.model.InvoiceListBean;
+import com.dlg.data.wallet.model.WalletBean;
+import com.dlg.data.wallet.model.WalletListBean;
+import com.dlg.data.wallet.model.WalletListDetailBean;
+import com.dlg.data.wallet.url.WalletUrl;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Observable;
+
+/**
+ * 作者：曹伟
+ * 主要功能：缓存实现接口
+ * 创建时间：2017/7/6 17:54
+ */
+
+public class WalletDiaskSource implements WalletInteractor{
+    private final ObjectCache objectCache;
+
+    public WalletDiaskSource(ObjectCache objectCache) {
+        this.objectCache = objectCache;
+    }
+
+    @Override
+    public Observable<JsonResponse<List<WalletBean>>> getWalletBalance(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.WALLET_BALANCE + JSON.toJSONString(map), JsonResponse.class,WalletBean.class);
+    }
+
+    @Override
+    public Observable<JsonResponse<List<InvoiceListBean>>> getInvoiceBalance(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.INVOICE_LIST_BALANCE + JSON.toJSONString(map), JsonResponse.class,InvoiceListBean.class);
+    }
+
+    @Override
+    public Observable<JsonResponse<List<BillHistoryBean>>> getInvoiceHistory(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.INVOICE_BILL_LIST + JSON.toJSONString(map), JsonResponse.class,BillHistoryBean.class);
+    }
+
+    @Override
+    public Observable<JsonResponse<List<BillDetailListBean>>> getInvoiceHistoryDetail(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.INVOICE_BILL_DETAILS + JSON.toJSONString(map), JsonResponse.class,BillDetailListBean.class);
+
+    }
+
+    @Override
+    public Observable<JsonResponse<List<InvoiceInformationRestVoBean>>> getOrderBillTemplape(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.ORDER_BILL_TEMPLATE + JSON.toJSONString(map), JsonResponse.class,InvoiceInformationRestVoBean.class);
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> getOrderBillNew(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.ORDER_BILL_NEW + JSON.toJSONString(map), JsonResponse.class,String.class);
+    }
+
+    @Override
+    public Observable<JsonResponse<List<WalletListBean>>> getWalletList(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.WALLET_DETAILS_LIST + JSON.toJSONString(map), JsonResponse.class,WalletListBean.class);
+    }
+
+    @Override
+    public Observable<JsonResponse<List<WalletListDetailBean>>> getWalletListDetail(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.WALLET_DETAILS_LIST_DETAIL+ JSON.toJSONString(map), JsonResponse.class,WalletListDetailBean.class);
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> getResetPwdCheck(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.RESET_PWD_CHECK_VERIFYCODE+ JSON.toJSONString(map), JsonResponse.class,String.class);
+
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> getResetPwd(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.RESET_PWD_UPDATE_PWD+ JSON.toJSONString(map), JsonResponse.class,String.class);
+
+    }
+
+    @Override
+    public Observable<JsonResponse<List<String>>> getPayment(HashMap<String, String> map) {
+        return this.objectCache.getList(WalletUrl.PAYMENT+ JSON.toJSONString(map), JsonResponse.class,String.class);
+
+    }
+}

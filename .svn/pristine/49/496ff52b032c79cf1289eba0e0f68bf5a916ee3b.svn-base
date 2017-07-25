@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bgColor_actionsheet_cancel_nor">#ffffff</color>
+    <color name="bgColor_alert_button_press">#EAEAEA</color>
+    <color name="bgColor_alertview_alert">#f8f8f8</color>
+    <color name="bgColor_alertview_alert_start">#f0f0f0</color>
+    <color name="bgColor_divier">#d7d7db</color>
+    <color name="bgColor_overlay">#60000000</color>
+    <color name="bg_color">#f7f7f7</color>
+    <color name="bg_colors_dialog_context">#FFFFFF</color>
+    <color name="bg_colors_dialog_green">#00be88</color>
+    <color name="bg_colors_dialog_green_hint">#8800be88</color>
+    <color name="bg_colors_dialog_search">#334050</color>
+    <color name="bg_colors_dialog_title">#F1F1F1</color>
+    <color name="bg_deep_orange">#FD8841</color>
+    <color name="bg_gray">#E9E9E9</color>
+    <color name="bg_white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="black_text">#333333</color>
+    <color name="black_textcolor">#202020</color>
+    <color name="blue">#02add9</color>
+    <color name="blue_deep">#0199C0</color>
+    <color name="blue_pressed">#00a1ca</color>
+    <color name="bottom_btn_bg">#ffb552</color>
+    <color name="chenghong_textcolor">#ff7a52</color>
+    <color name="cmbkb_black">#ff000000</color>
+    <color name="cmbkb_blue">#ee0000c6</color>
+    <color name="cmbkb_category_divider_color">#ffdbdbdb</color>
+    <color name="cmbkb_category_list_bg">#fff7f7f7</color>
+    <color name="cmbkb_category_name_gray">#aa000000</color>
+    <color name="cmbkb_category_text_color">#ff000000</color>
+    <color name="cmbkb_category_vertival_line">#ffc4c4c4</color>
+    <color name="cmbkb_choose_text_color">#0074E1</color>
+    <color name="cmbkb_contents_text">#ff000000</color>
+    <color name="cmbkb_crimson">#ffe61a1a</color>
+    <color name="cmbkb_dark_red">#ffcc0000</color>
+    <color name="cmbkb_encode_view">#ffffffff</color>
+    <color name="cmbkb_font_gray">#ff888888</color>
+    <color name="cmbkb_font_red">#ffff0000</color>
+    <color name="cmbkb_gray">#ffcccccc</color>
+    <color name="cmbkb_help_button_view">#ffcccccc</color>
+    <color name="cmbkb_help_view">#ff404040</color>
+    <color name="cmbkb_light_gray">#ffe6e6e6</color>
+    <color name="cmbkb_lightblack">#ff202020</color>
+    <color name="cmbkb_limit_buy_border_bg">#ffd4bc77</color>
+    <color name="cmbkb_limit_buy_green">#ff00cc00</color>
+    <color name="cmbkb_limit_buy_text_bg">#ff666666</color>
+    <color name="cmbkb_limit_buy_title_bg">#fffffaee</color>
+    <color name="cmbkb_limit_buy_title_border_bg">#fff2daac</color>
+    <color name="cmbkb_orange_line">#fff2daac</color>
+    <color name="cmbkb_possible_result_points">#c0ffff00</color>
+    <color name="cmbkb_product_even_row">#fff5f5f5</color>
+    <color name="cmbkb_product_odd_row">#ffffffff</color>
+    <color name="cmbkb_product_options_active">#ffff9900</color>
+    <color name="cmbkb_product_options_passive">#ff999999</color>
+    <color name="cmbkb_red">#ffff0000</color>
+    <color name="cmbkb_result_image_border">#ffffffff</color>
+    <color name="cmbkb_result_minor_text">#ffc0c0c0</color>
+    <color name="cmbkb_result_points">#c000ff00</color>
+    <color name="cmbkb_result_text">#ffffffff</color>
+    <color name="cmbkb_result_view">#b0000000</color>
+    <color name="cmbkb_sbc_header_text">#ff808080</color>
+    <color name="cmbkb_sbc_header_view">#ffffffff</color>
+    <color name="cmbkb_sbc_layout_view">#ffffffff</color>
+    <color name="cmbkb_sbc_list_item">#fffff0e0</color>
+    <color name="cmbkb_sbc_page_number_text">#ff000000</color>
+    <color name="cmbkb_sbc_snippet_text">#ff4b4b4b</color>
+    <color name="cmbkb_share_text">#ff000000</color>
+    <color name="cmbkb_status_text">#ffffffff</color>
+    <color name="cmbkb_status_view">#50000000</color>
+    <color name="cmbkb_transparent">#00000000</color>
+    <color name="cmbkb_unchoose_text_color">#565656</color>
+    <color name="cmbkb_viewfinder_frame">#ff000000</color>
+    <color name="cmbkb_viewfinder_laser">#ffff0000</color>
+    <color name="cmbkb_viewfinder_mask">#60000000</color>
+    <color name="cmbkb_white">#ffffffff</color>
+    <color name="colorAccent">#02add9</color>
+    <color name="colorPrimary">#02add9</color>
+    <color name="colorPrimaryDark">#02add9</color>
+    <color name="color_c6c5c5">#c6c5c5</color>
+    <color name="color_cccccc">#cccccc</color>
+    <color name="dialogplus_black_overlay">#60000000</color>
+    <color name="find_time">#F77843</color>
+    <color name="fu_textcolor">#626262</color>
+    <color name="gray_button">#F0F0F0</color>
+    <color name="gray_line">#EBEBEB</color>
+    <color name="gray_pressed">@color/bg_color</color>
+    <color name="gray_text">#888888</color>
+    <color name="gray_textcolor">#7e7e7e</color>
+    <color name="green">#169C17</color>
+    <color name="green_textcolor">#00bf74</color>
+    <color name="gw_unselect_textcolor">#a3a3a3</color>
+    <color name="hint_textcolor">#c6c5c5</color>
+    <color name="normal_day">#ff999999</color>
+    <color name="not_click_day">#dddddd</color>
+    <color name="orange_yellow">#ff9752</color>
+    <color name="pink">#F47741</color>
+    <color name="province_line_border">#C7C7C7</color>
+    <color name="receipt_txt1">#404040</color>
+    <color name="receipt_txt2">#c4c4c4</color>
+    <color name="receipt_txt3">#ffa892</color>
+    <color name="receipt_txt4">#9b9b9b</color>
+    <color name="receipt_txt5">#ff7a52</color>
+    <color name="red">#FE0000</color>
+    <color name="right_change_textcolor">#7e7e7e</color>
+    <color name="right_nochange_textcolor">#c6c5c5</color>
+    <color name="selected_day_background">#ffb452</color>
+    <color name="selected_day_text">#fff2f2f2</color>
+    <color name="slow_white">#FAF9F5</color>
+    <color name="small_line_bg">#e5e5e5</color>
+    <color name="tab_selected_textcolor">#ffb452</color>
+    <color name="textColor_actionsheet_msg">#8f8f8f</color>
+    <color name="textColor_actionsheet_title">#8f8f8f</color>
+    <color name="textColor_alert_button_cancel">#007aff</color>
+    <color name="textColor_alert_button_destructive">#ff3b30</color>
+    <color name="textColor_alert_button_others">#007aff</color>
+    <color name="textColor_alert_msg">#000000</color>
+    <color name="textColor_alert_title">#000000</color>
+    <color name="textColor_black">#000000</color>
+    <color name="textColor_black_hint">#cacaca</color>
+    <color name="textColor_black_light01">#333333</color>
+    <color name="textColor_black_light02">#a3a3a3</color>
+    <color name="textColor_black_light03">#666666</color>
+    <color name="textColor_deep_blue">#1E3460</color>
+    <color name="textColor_orange">#ffb353</color>
+    <color name="textColor_white">#FFFFFF</color>
+    <color name="text_colors_grey">#666666</color>
+    <color name="text_detel_color">#f76e38</color>
+    <color name="text_spreads_color">#ffb452</color>
+    <color name="tmwhite_color">#00ffffff</color>
+    <color name="transparent_color">#00000000</color>
+    <color name="umeng_socialize_color_group">#2c3035</color>
+    <color name="umeng_socialize_comments_bg">#F4F4F4</color>
+    <color name="umeng_socialize_divider">#E6E6E6</color>
+    <color name="umeng_socialize_edit_bg">#C4C4C4</color>
+    <color name="umeng_socialize_grid_divider_line">#F8F8F8</color>
+    <color name="umeng_socialize_list_item_bgcolor">#FFFFFF</color>
+    <color name="umeng_socialize_list_item_textcolor">#333333</color>
+    <color name="umeng_socialize_shareactivity">#D4E0E5</color>
+    <color name="umeng_socialize_shareactivitydefault">#ffffff</color>
+    <color name="umeng_socialize_text_friends_list">#959696</color>
+    <color name="umeng_socialize_text_share_content">#666666</color>
+    <color name="umeng_socialize_text_time">#999999</color>
+    <color name="umeng_socialize_text_title">#464f61</color>
+    <color name="umeng_socialize_text_ucenter">#595959</color>
+    <color name="umeng_socialize_ucenter_bg">#EEEEEE</color>
+    <color name="umeng_socialize_web_bg">#F4F4F4</color>
+    <color name="wallet">#a3a3a3</color>
+    <color name="wallet_fail">#f7582e</color>
+    <color name="wallet_ing">#fec106</color>
+    <color name="wallet_start">#c5c5c5</color>
+    <color name="wallet_success">#2cc701</color>
+    <color name="white">#ffffff</color>
+    <color name="white_color">#ffffff</color>
+    <color name="yellow_btncolor">#ffb353</color>
+    <color name="yellow_price">#FF9752</color>
+    <color name="yellow_textcolor">#ffae44</color>
+    <color name="yinying_bg">#33000000</color>
+    <declare-styleable name="CmbEditText"><attr name="KeyBoardType">
+            <enum name="Normal" value="0"/>
+            <enum name="Number" value="1"/>
+        </attr><attr format="integer" name="Length"/><attr format="boolean" name="isPassword"/></declare-styleable>
+    <declare-styleable name="ConvenientBanner"><attr format="boolean" name="canLoop"/></declare-styleable>
+    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
+    <declare-styleable name="DayPickerView"><attr format="color" name="colorCurrentDay"/><attr format="color" name="colorSelectedDayBackground"/><attr format="color" name="colorSelectedDayText"/><attr format="color" name="colorPreviousDay"/><attr format="color" name="colorNormalDay"/><attr format="color" name="colorMonthName"/><attr format="color" name="colorDayName"/><attr format="dimension" name="textSizeDay"/><attr format="dimension" name="textSizeMonth"/><attr format="dimension" name="textSizeDayName"/><attr format="dimension" name="headerMonthHeight"/><attr format="dimension" name="selectedDayRadius"/><attr format="dimension" name="calendarHeight"/><attr format="boolean" name="enablePreviousDay"/><attr format="boolean" name="currentDaySelected"/><attr format="boolean" name="drawRoundRect"/><attr format="enum" name="firstMonth">
+            <enum name="january" value="0"/>
+            <enum name="february" value="1"/>
+            <enum name="march" value="2"/>
+            <enum name="april" value="3"/>
+            <enum name="may" value="4"/>
+            <enum name="june" value="5"/>
+            <enum name="july" value="6"/>
+            <enum name="august" value="7"/>
+            <enum name="september" value="8"/>
+            <enum name="october" value="9"/>
+            <enum name="november" value="10"/>
+            <enum name="december" value="11"/>
+        </attr><attr format="enum" name="lastMonth">
+            <enum name="january" value="0"/>
+            <enum name="february" value="1"/>
+            <enum name="march" value="2"/>
+            <enum name="april" value="3"/>
+            <enum name="may" value="4"/>
+            <enum name="june" value="5"/>
+            <enum name="july" value="6"/>
+            <enum name="august" value="7"/>
+            <enum name="september" value="8"/>
+            <enum name="october" value="9"/>
+            <enum name="november" value="10"/>
+            <enum name="december" value="11"/>
+        </attr></declare-styleable>
+    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
+    <declare-styleable name="MultiDirectionSlidingDrawer"><attr format="dimension" name="handle"/><attr format="dimension" name="content"/><attr format="boolean" name="allowSingleTap"/><attr format="boolean" name="animateOnClick"/><attr format="dimension" name="bottomOffset"/><attr format="dimension" name="topOffset"/><attr name="direction">
+            <enum name="rightToLeft" value="0"/>
+            <enum name="bottomToTop" value="1"/>
+            <enum name="leftToRight" value="2"/>
+            <enum name="topToBottom" value="3"/>
+        </attr></declare-styleable>
+    <declare-styleable name="PasswordInputView"><attr format="color" name="pivBorderColor"/><attr format="dimension" name="pivBorderWidth"/><attr format="dimension" name="pivBorderRadius"/><attr format="color" name="pivPasswordColor"/><attr format="dimension" name="pivPasswordWidth"/><attr format="dimension" name="pivPasswordRadius"/><attr format="integer" name="pivPasswordLength"/></declare-styleable>
+    <declare-styleable name="PreviewBorderView"><attr format="string" name="tipText"/><attr format="color|reference" name="tipTextColor"/><attr format="dimension" name="tipTextSize"/></declare-styleable>
+    <declare-styleable name="SelectableRoundedImageView"><attr format="dimension" name="sriv_left_top_corner_radius"/><attr format="dimension" name="sriv_right_top_corner_radius"/><attr format="dimension" name="sriv_left_bottom_corner_radius"/><attr format="dimension" name="sriv_right_bottom_corner_radius"/><attr format="dimension" name="sriv_border_width"/><attr format="color" name="sriv_border_color"/><attr format="boolean" name="sriv_oval"/><attr name="android:scaleType"/></declare-styleable>
+    <declare-styleable name="gridPasswordView"><attr format="color|reference" name="gpvTextColor"/><attr format="dimension" name="gpvTextSize"/><attr format="color" name="gpvLineColor"/><attr format="color" name="gpvGridColor"/><attr format="dimension" name="gpvLineWidth"/><attr format="integer" name="gpvPasswordLength"/><attr format="string" name="gpvPasswordTransformation"/><attr format="enum" name="gpvPasswordType">
+            <enum name="numberPassword" value="0"/>
+            <enum name="textPassword" value="1"/>
+            <enum name="textVisiblePassword" value="2"/>
+            <enum name="textWebPassword" value="3"/>
+        </attr></declare-styleable>
+    <dimen name="actionbar">44dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="alphabet_size">12dip</dimen>
+    <dimen name="big_textsize">18sp</dimen>
+    <dimen name="bold_line_height">10dp</dimen>
+    <dimen name="button_height">44dp</dimen>
+    <dimen name="button_size">18sp</dimen>
+    <dimen name="calendar_height">270dip</dimen>
+    <dimen name="camera_height">220dp</dimen>
+    <dimen name="cmbkb_key_height">50.0dip</dimen>
+    <dimen name="cmbkb_key_height_qwerty">40dip</dimen>
+    <dimen name="delete_width">50dp</dimen>
+    <dimen name="dialogplus_default_center_margin">16dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="header_month_height">50dip</dimen>
+    <dimen name="height_actionsheet_title">40dp</dimen>
+    <dimen name="height_alert_button">48dp</dimen>
+    <dimen name="height_alert_title">60dp</dimen>
+    <dimen name="left_right_jx">@dimen/px_30</dimen>
+    <dimen name="line_height">@dimen/px_88</dimen>
+    <dimen name="marginBottom_actionsheet_msg">14dp</dimen>
+    <dimen name="marginBottom_alert_msg">25dp</dimen>
+    <dimen name="margin_actionsheet_left_right">10dp</dimen>
+    <dimen name="margin_alert_left_right">40dp</dimen>
+    <dimen name="normal_textsize">15sp</dimen>
+    <dimen name="px_10">4.81dp</dimen>
+    <dimen name="px_100">48.08dp</dimen>
+    <dimen name="px_120">57.69dp</dimen>
+    <dimen name="px_130">62.5dp</dimen>
+    <dimen name="px_136">65.38dp</dimen>
+    <dimen name="px_140">67.31dp</dimen>
+    <dimen name="px_15">7.21dp</dimen>
+    <dimen name="px_150">72.12dp</dimen>
+    <dimen name="px_160">76.92dp</dimen>
+    <dimen name="px_176">84.62dp</dimen>
+    <dimen name="px_20">9.62dp</dimen>
+    <dimen name="px_200">96.15dp</dimen>
+    <dimen name="px_212">101.92dp</dimen>
+    <dimen name="px_234">112.5dp</dimen>
+    <dimen name="px_240">115.38dp</dimen>
+    <dimen name="px_245">117.79dp</dimen>
+    <dimen name="px_246">118.27dp</dimen>
+    <dimen name="px_247">118.75dp</dimen>
+    <dimen name="px_25">12.02dp</dimen>
+    <dimen name="px_250">125dp</dimen>
+    <dimen name="px_260">120.19dp</dimen>
+    <dimen name="px_272">130.77dp</dimen>
+    <dimen name="px_290">139.42dp</dimen>
+    <dimen name="px_30">14.42dp</dimen>
+    <dimen name="px_300">144.23dp</dimen>
+    <dimen name="px_305">146.63dp</dimen>
+    <dimen name="px_310">149.04dp</dimen>
+    <dimen name="px_320">153.85dp</dimen>
+    <dimen name="px_332">159.62dp</dimen>
+    <dimen name="px_340">163.46dp</dimen>
+    <dimen name="px_375">180.29dp</dimen>
+    <dimen name="px_40">19.23dp</dimen>
+    <dimen name="px_408">196.15dp</dimen>
+    <dimen name="px_450">216.35dp</dimen>
+    <dimen name="px_50">24.04dp</dimen>
+    <dimen name="px_500">240.38dp</dimen>
+    <dimen name="px_530">254.81dp</dimen>
+    <dimen name="px_535">257.21dp</dimen>
+    <dimen name="px_560">269.23dp</dimen>
+    <dimen name="px_59">28.37dp</dimen>
+    <dimen name="px_60">28.85dp</dimen>
+    <dimen name="px_600">288.46dp</dimen>
+    <dimen name="px_68">32.69dp</dimen>
+    <dimen name="px_70">33.65dp</dimen>
+    <dimen name="px_72">34.62dp</dimen>
+    <dimen name="px_78">37.5dp</dimen>
+    <dimen name="px_8">3.92dp</dimen>
+    <dimen name="px_80">38.46dp</dimen>
+    <dimen name="px_82">39.42dp</dimen>
+    <dimen name="px_86">41.35dp</dimen>
+    <dimen name="px_88">42.31dp</dimen>
+    <dimen name="px_90">43.27dp</dimen>
+    <dimen name="px_f154">-74.04dp</dimen>
+    <dimen name="radius_alertview">15px</dimen>
+    <dimen name="selected_day_radius">16dip</dimen>
+    <dimen name="shadow_width">15dp</dimen>
+    <dimen name="size_divier">1dp</dimen>
+    <dimen name="slidingmenu_offset">100dp</dimen>
+    <dimen name="small_10_textsize">10sp</dimen>
+    <dimen name="small_11_textsize">11sp</dimen>
+    <dimen name="small_line_height">0.5dp</dimen>
+    <dimen name="small_textsize">12sp</dimen>
+    <dimen name="textSize_actionsheet_msg">14sp</dimen>
+    <dimen name="textSize_actionsheet_title">14sp</dimen>
+    <dimen name="textSize_alert_button">18sp</dimen>
+    <dimen name="textSize_alert_msg">15sp</dimen>
+    <dimen name="textSize_alert_title">22sp</dimen>
+    <dimen name="text_size_day">16sp</dimen>
+    <dimen name="text_size_day_name">10sp</dimen>
+    <dimen name="text_size_month">16sp</dimen>
+    <dimen name="umeng_socialize_pad_window_height">350dip</dimen>
+    <dimen name="umeng_socialize_pad_window_width">580dip</dimen>
+    <dimen name="user_icon_size">35dp</dimen>
+    <item name="cb_item_tag" type="id"/>
+    <item name="expand_collapse" type="id"/>
+    <item name="expandable_text" type="id"/>
+    <item name="onclick_type" type="id"/>
+    <item name="request_image_view" type="id"/>
+    <item name="tag_current_offset" type="id"/>
+    <item name="tag_item" type="id"/>
+    <item name="tag_observable_view" type="id"/>
+    <item name="tag_observable_view_last_scroll_x" type="id"/>
+    <item name="tag_observable_view_last_scroll_y" type="id"/>
+    <item name="tag_view_target" type="id"/>
+    <item name="worker_order_card" type="id"/>
+    <integer name="animationDuration">250</integer>
+    <integer name="dialogplus_animation_default_duration">300</integer>
+    <string name="aboat_our">关于我们</string>
+    <string name="app_name">打零工</string>
+    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"http://www.dalinggong.com\",\n  }\n}]</string>
+    <string name="cmbkb_back">返回</string>
+    <string name="cmbkb_caption">招商银行安全输入</string>
+    <string name="cmbkb_finish">完成</string>
+    <string name="cmbkb_more">更多</string>
+    <string name="cmbkb_please_input">请输入</string>
+    <string name="cmbkb_publickey">aP28KufJh9SXSNjAa/8uUmY0xWKImkTaQVcQACeXGK44QOLAbYo4F+2TQ2O010DHwMAPAq8OeELxHK6BTAaxVUao4jOiCFSqpnoZ0MH4U58kgq9RoAkcSskUAVEtJT16w8UoguX6VTYjJ/EWOwaRNcxb4taIPi6S8AnwTXfniIeuzo1LsMOLlACY3+PAQJDYO4/47Wf/cTDB9Fqu6J7ab9+EueLsBrWR0uQ/h+ANM+VE19s7UikisumSd06fIg8aOFORj/1zjmWMi8u+7FESFYywROQVcd+v8HCJoKnVdJQaAd3Nu4cVx+34PE3K46UqyTi36JkvGX6ZZDK/ImRukQ==</string>
+    <string name="cmbkb_safe_input">安全输入</string>
+    <string name="guyuan">雇员</string>
+    <string name="guzhu">雇主</string>
+    <string name="has_yanzheng">已认证</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_dlg">附近没有找到零工</string>
+    <string name="no_yanzheng">未认证</string>
+    <string name="sans_serif" translatable="false">sans-serif</string>
+    <string name="title_activity_employer_disagree_evaluate">EmployerDisagreeEvaluateAct</string>
+    <string name="toast_jijian_cancle">"功能维护中"</string>
+    <string name="umeng_example_home_btn_plus">社交分享</string>
+    <string name="umeng_socialize_cancel_btn_str">取消</string>
+    <string name="umeng_socialize_content_hint">说点啥…</string>
+    <string name="umeng_socialize_mail">邮件</string>
+    <string name="umeng_socialize_send_btn_str">发送</string>
+    <string name="umeng_socialize_share">分享</string>
+    <string name="umeng_socialize_sina">新浪</string>
+    <string name="umeng_socialize_sms">短信</string>
+    <string name="umeng_socialize_text_add_custom_platform">请配置用户平台</string>
+    <string name="umeng_socialize_text_alipay_key">支付宝</string>
+    <string name="umeng_socialize_text_dingding_key">钉钉</string>
+    <string name="umeng_socialize_text_douban_key">豆瓣</string>
+    <string name="umeng_socialize_text_evernote_key">印象笔记</string>
+    <string name="umeng_socialize_text_facebook_key">Facebook</string>
+    <string name="umeng_socialize_text_facebookmessager_key">Facebook Messager</string>
+    <string name="umeng_socialize_text_flickr_key">Flickr</string>
+    <string name="umeng_socialize_text_foursquare_key">Foursquare</string>
+    <string name="umeng_socialize_text_googleplus_key">GooglePlus</string>
+    <string name="umeng_socialize_text_instagram_key">Instagram</string>
+    <string name="umeng_socialize_text_kakao_key">KakaoTalk</string>
+    <string name="umeng_socialize_text_laiwangdynamic_key">点点虫动态</string>
+    <string name="umeng_socialize_text_line_key">LINE</string>
+    <string name="umeng_socialize_text_linkedin_key">Linkedin</string>
+    <string name="umeng_socialize_text_more_key">更多</string>
+    <string name="umeng_socialize_text_pinterest_key">Pinterest</string>
+    <string name="umeng_socialize_text_pocket_key">Pocket</string>
+    <string name="umeng_socialize_text_qq_key">QQ</string>
+    <string name="umeng_socialize_text_qq_zone_key">QQ空间</string>
+    <string name="umeng_socialize_text_renren_key">人人网</string>
+    <string name="umeng_socialize_text_sina_key">微博</string>
+    <string name="umeng_socialize_text_tencent_key">腾讯微博</string>
+    <string name="umeng_socialize_text_tumblr_key">Tumblr</string>
+    <string name="umeng_socialize_text_twitter_key">Twitter</string>
+    <string name="umeng_socialize_text_waitting_share">分享中…</string>
+    <string name="umeng_socialize_text_weixin_circle_key">微信朋友圈</string>
+    <string name="umeng_socialize_text_weixin_fav_key">微信收藏</string>
+    <string name="umeng_socialize_text_weixin_key">微信</string>
+    <string name="umeng_socialize_text_wenxin_fav">微信收藏</string>
+    <string name="umeng_socialize_text_whatsapp_key">WhatsApp</string>
+    <string name="umeng_socialize_text_ydnote_key">有道云笔记</string>
+    <string name="umeng_socialize_text_yixin_key">易信</string>
+    <string name="umeng_socialize_text_yixincircle_key">易信朋友圈</string>
+    <style name="ACPLDialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="CMBAnimBottom">
+    	<item name="android:windowEnterAnimation">@anim/cmbkb_push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/cmbkb_push_bottom_out</item>
+	</style>
+    <style name="CmbDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item><!--模糊-->        
+    </style>
+    <style name="CmbDialogStyleBottom" parent="android:Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/CMBAnimBottom</item>
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--activity不变暗-->        
+     </style>
+    <style name="CmbDialogStyleBottomDark" parent="android:Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/CMBAnimBottom</item>
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">true</item><!--activity不变暗-->        
+     </style>
+    <style name="GridPasswordView"/>
+    <style name="GridPasswordView.Divider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginBottom">1dp</item>
+    </style>
+    <style name="GridPasswordView.EditText" parent="GridPasswordView.TextView">
+        <item name="android:cursorVisible">false</item>
+    </style>
+    <style name="GridPasswordView.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="Theme.UMDefault" parent="android:style/Theme.NoTitleBar"/>
+    <style name="Theme.UMDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="umeng_socialize_action_bar_item_im">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="umeng_socialize_action_bar_item_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:text">999</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="umeng_socialize_action_bar_itemlayout">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="umeng_socialize_divider">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/umeng_socialize_divider</item>
+    </style>
+    <style name="umeng_socialize_edit_padding">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@color/umeng_socialize_list_item_bgcolor</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+    <style name="umeng_socialize_list_item">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:background">@color/umeng_socialize_list_item_bgcolor</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
+    <style name="umeng_socialize_popup_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+</resources>

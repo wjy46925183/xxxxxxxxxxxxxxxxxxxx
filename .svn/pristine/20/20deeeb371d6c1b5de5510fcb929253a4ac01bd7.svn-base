@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <View style="@style/linethin_notfull" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_290"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/img_states"
+            android:layout_width="@dimen/px_408"
+            android:layout_height="@dimen/px_234"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside" />
+    </RelativeLayout>
+    <View style="@style/linefat_full" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/left_text_style"
+            android:layout_marginLeft="@dimen/margin_15"
+            android:text="姓名" />
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/right_edit_text"
+            android:layout_marginRight="@dimen/margin_15"
+            android:hint="请输入姓名" />
+    </LinearLayout>
+    <View style="@style/linethin_notfull" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/left_right_jx"
+            android:text="证件号码"
+            android:textColor="@color/black_textcolor"
+            android:textSize="@dimen/normal_textsize" />
+        <EditText
+            android:id="@+id/et_cardNo"
+            style="@style/right_edit_text"
+            android:layout_marginRight="@dimen/margin_15"
+            android:hint="请输入证件号码" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color">
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/Button_Blue"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_25"
+            android:text="提交" />
+    </RelativeLayout>
+
+</LinearLayout>

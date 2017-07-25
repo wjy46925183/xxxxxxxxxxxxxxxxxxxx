@@ -1,0 +1,97 @@
+package com.dlg.personal.user.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.common.utils.StringUtils;
+import com.dlg.data.user.model.UserAttributeInfoBean;
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.view.ToastUtils;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.user.LogInViewModel;
+import com.dlg.viewmodel.user.presenter.LogInPresenter;
+
+import static com.dlg.personal.user.activity.LoginActivity.TAG_RESET;
+import static com.dlg.personal.user.activity.LoginActivity.TAG_VERYCODE;
+
+
+/**
+ * 作者：小明
+ * 主要功能：个人普通登录
+ * 创建时间：2017/7/14 0014 09:40
+ */
+public class PersonLoginFragment extends BaseFragment implements View.OnClickListener,LogInPresenter {
+
+    private ResetPsdFragment resetPsdFragment;
+    private PersonCertificateFragment certificateFragment;
+    private LogInViewModel logInViewModel;
+    private String phone;
+    private EditText psd_text;
+    private TextView phoneText;
+    private String psd;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_person_login, null);
+        initView(view);
+        return view;
+    }
+    public void initView(View view){
+        psd_text = (EditText)view.findViewById(R.id.psd_text);
+        phoneText = (TextView)view.findViewById(R.id.phone_text);
+        Bundle bundle=getArguments();
+        phone = bundle.getString("phone");
+        phoneText.setText(phone);
+    }
+
+    @Override
+    public void onClick(View v) {
+        psd = psd_text.getText().toString();
+        if (v.getId()==R.id.btnNext){//登录
+            if (TextUtils.isEmpty(psd)){
+                ToastUtils.showShort(mContext,"请设置6-16位密码");
+                return;
+            }
+            if (!StringUtils.isPassWord(psd)){
+                ToastUtils.showShort(mContext,"非法账户密码，请重新输入");
+                return;
+            }
+            if (logInViewModel==null){
+                logInViewModel=new LogInViewModel(getActivity(),this,this);
+            }logInViewModel.logIn(phone,psd);
+
+
+        }
+        if (v.getId()==R.id.forget_psd){//忘记密码
+            resetPsdFragment = new ResetPsdFragment();
+            Bundle bundle=new Bundle();
+            bundle.putString("inFrom","3");
+            resetPsdFragment.setArguments(bundle);
+            addFragment(R.id.frameLayout,resetPsdFragment,TAG_RESET);
+
+        }
+        if (v.getId()==R.id.verifycode_login){//验证码登录
+            certificateFragment = new PersonCertificateFragment();
+            Bundle bundle=new Bundle();
+            bundle.putString("inFrom","4");
+            certificateFragment.setArguments(bundle);
+            addFragment(R.id.frameLayout,certificateFragment,TAG_VERYCODE);
+        }
+    }
+
+    @Override
+    public void logInUserInfo(UserAttributeInfoBean infoBean) {
+        mACache.put(AppKey.CacheKey.MY_USER_ID,infoBean.getUserId());
+        mACache.put(AppKey.CacheKey.NAME,infoBean.getName());
+        mACache.put(AppKey.CacheKey.USER_LOGO,infoBean.getLogo());
+        mActivity.finish();
+    }
+}

@@ -1,0 +1,222 @@
+package com.dlg.data.wallet.model;
+
+/**
+ * 作者：关蕤
+ * 主要功能：绑定账号的列表实体对象
+ * 创建时间：2017/7/12 13:59
+ */
+public class BindBean {
+
+    /**
+     * id : 27614761012991354112306561994
+     * userId : 27614709103853530693628313858
+     * idCard : null
+     * payType : 1
+     * payAccount : 13321917860
+     * payAccounthouseholder : 梁文明
+     * payAccountType : null
+     * bankCode : null
+     * depositBank : null
+     * bankCardType : null
+     * bankCardNature : null
+     * reservedPhone : 13321917860
+     * depositBankProvince : null
+     * depositBankCity : null
+     * status : 1
+     * createTime : 1496999195000
+     * bindId : 201706091706348915867292225
+     * bankIconUrl : null
+     */
+
+    private String id;
+    private String userId;
+    private Object idCard;
+    private int payType;
+    private String payAccount;
+    private String payAccounthouseholder;
+    private Object payAccountType;
+    private Object bankCode;
+    private Object depositBank;
+    private Object bankCardType;
+    private Object bankCardNature;
+    private String reservedPhone;
+    private Object depositBankProvince;
+    private Object depositBankCity;
+    private int status;
+    private long createTime;
+    private String bindId;
+    private Object bankIconUrl;
+
+    public BindBean() {
+    }
+
+    public BindBean(int payType, String payAccount) {
+        this.payType = payType;
+        this.payAccount = payAccount;
+    }
+
+    public BindBean(String id, String userId, Object idCard, int payType, String payAccount, String payAccounthouseholder, Object payAccountType, Object bankCode, Object depositBank, Object bankCardType, Object bankCardNature, String reservedPhone, Object depositBankProvince, Object depositBankCity, int status, long createTime, String bindId, Object bankIconUrl) {
+        this.id = id;
+        this.userId = userId;
+        this.idCard = idCard;
+        this.payType = payType;
+        this.payAccount = payAccount;
+        this.payAccounthouseholder = payAccounthouseholder;
+        this.payAccountType = payAccountType;
+        this.bankCode = bankCode;
+        this.depositBank = depositBank;
+        this.bankCardType = bankCardType;
+        this.bankCardNature = bankCardNature;
+        this.reservedPhone = reservedPhone;
+        this.depositBankProvince = depositBankProvince;
+        this.depositBankCity = depositBankCity;
+        this.status = status;
+        this.createTime = createTime;
+        this.bindId = bindId;
+        this.bankIconUrl = bankIconUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Object getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(Object idCard) {
+        this.idCard = idCard;
+    }
+
+    public int getPayType() {
+        return payType;
+    }
+
+    public void setPayType(int payType) {
+        this.payType = payType;
+    }
+
+    public String getPayAccount() {
+        return payAccount;
+    }
+
+    public void setPayAccount(String payAccount) {
+        this.payAccount = payAccount;
+    }
+
+    public String getPayAccounthouseholder() {
+        return payAccounthouseholder;
+    }
+
+    public void setPayAccounthouseholder(String payAccounthouseholder) {
+        this.payAccounthouseholder = payAccounthouseholder;
+    }
+
+    public Object getPayAccountType() {
+        return payAccountType;
+    }
+
+    public void setPayAccountType(Object payAccountType) {
+        this.payAccountType = payAccountType;
+    }
+
+    public Object getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(Object bankCode) {
+        this.bankCode = bankCode;
+    }
+
+    public Object getDepositBank() {
+        return depositBank;
+    }
+
+    public void setDepositBank(Object depositBank) {
+        this.depositBank = depositBank;
+    }
+
+    public Object getBankCardType() {
+        return bankCardType;
+    }
+
+    public void setBankCardType(Object bankCardType) {
+        this.bankCardType = bankCardType;
+    }
+
+    public Object getBankCardNature() {
+        return bankCardNature;
+    }
+
+    public void setBankCardNature(Object bankCardNature) {
+        this.bankCardNature = bankCardNature;
+    }
+
+    public String getReservedPhone() {
+        return reservedPhone;
+    }
+
+    public void setReservedPhone(String reservedPhone) {
+        this.reservedPhone = reservedPhone;
+    }
+
+    public Object getDepositBankProvince() {
+        return depositBankProvince;
+    }
+
+    public void setDepositBankProvince(Object depositBankProvince) {
+        this.depositBankProvince = depositBankProvince;
+    }
+
+    public Object getDepositBankCity() {
+        return depositBankCity;
+    }
+
+    public void setDepositBankCity(Object depositBankCity) {
+        this.depositBankCity = depositBankCity;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getBindId() {
+        return bindId;
+    }
+
+    public void setBindId(String bindId) {
+        this.bindId = bindId;
+    }
+
+    public Object getBankIconUrl() {
+        return bankIconUrl;
+    }
+
+    public void setBankIconUrl(Object bankIconUrl) {
+        this.bankIconUrl = bankIconUrl;
+    }
+}

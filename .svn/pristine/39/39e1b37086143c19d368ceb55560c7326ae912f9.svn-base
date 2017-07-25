@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout style="@style/inc_MyProfile_Layout">
+
+        <TextView
+            style="@style/inc_left_text_style"
+            android:text="版本号" />
+
+        <TextView
+            android:id="@+id/tv_version_name"
+            style="@style/inc_right_text_style"
+            android:text="V3.0" />
+
+    </LinearLayout>
+
+    <View style="@style/inc_linethin_notfull" />
+
+    <LinearLayout
+        android:id="@+id/ll_changepwd"
+        style="@style/inc_MyProfile_Layout">
+
+        <TextView
+            style="@style/inc_left_text_style"
+            android:text="修改密码" />
+
+        <TextView
+            style="@style/inc_right_text_style"
+            android:text="" />
+
+        <ImageView style="@style/inc_right_img_style" />
+    </LinearLayout>
+
+    <View style="@style/inc_linethin_notfull" />
+
+    <LinearLayout
+        android:id="@+id/ll_people_name"
+        style="@style/inc_MyProfile_Layout">
+
+        <TextView
+            style="@style/inc_left_text_style"
+            android:text="实名认证" />
+
+        <TextView
+            style="@style/inc_right_text_style"
+            android:text="" />
+
+        <ImageView style="@style/inc_right_img_style" />
+    </LinearLayout>
+
+    <View style="@style/inc_line_thin_full"
+          android:background="@color/bg_color"
+        android:layout_height="@dimen/inc_height_1_5_5_80"/>
+
+    <LinearLayout
+        android:id="@+id/ll_clear_cache"
+        style="@style/inc_MyProfile_Layout">
+
+        <TextView
+            style="@style/inc_left_text_style"
+            android:text="清理缓存" />
+
+        <TextView
+            android:id="@+id/tv_cache"
+            style="@style/inc_right_text_style"
+            android:text="" />
+
+        <ImageView style="@style/inc_right_img_style" />
+    </LinearLayout>
+
+    <View style="@style/inc_line_thin_full"
+          android:background="@color/bg_color"
+          android:layout_height="@dimen/inc_height_1_5_5_80"/>
+
+    <LinearLayout
+        android:id="@+id/ll_user_agreement"
+        style="@style/inc_MyProfile_Layout">
+
+        <TextView
+            style="@style/inc_left_text_style"
+            android:text="用户协议" />
+
+        <TextView
+            style="@style/inc_right_text_style"
+            android:text="" />
+
+        <ImageView style="@style/inc_right_img_style" />
+    </LinearLayout>
+
+    <View style="@style/inc_linethin_notfull" />
+
+    <LinearLayout
+        android:id="@+id/ll_about_us"
+        style="@style/inc_MyProfile_Layout">
+
+        <TextView
+            style="@style/inc_left_text_style"
+            android:text="关于我们" />
+
+        <TextView
+            style="@style/inc_right_text_style"
+            android:text="" />
+
+        <ImageView style="@style/inc_right_img_style" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color">
+
+        <Button
+            android:id="@+id/bt_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inc_btn_selector_pay"
+            android:text="退 出"
+            android:textSize="@dimen/inc_text_size_16"
+            android:layout_marginTop="@dimen/inc_margin_20"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/inc_margin_20"
+            android:layout_marginRight="@dimen/inc_margin_20">
+        </Button>
+    </LinearLayout>
+</LinearLayout>

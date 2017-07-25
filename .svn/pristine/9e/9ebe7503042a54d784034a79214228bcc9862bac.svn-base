@@ -1,0 +1,254 @@
+package com.dlg.personal.oddjob.fragment;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
+
+import com.common.view.swipemenulistview.SwipeMenu;
+import com.common.view.swipemenulistview.SwipeMenuCreator;
+import com.common.view.swipemenulistview.SwipeMenuItem;
+import com.common.view.swipemenulistview.SwipeMenuListView;
+import com.dlg.data.oddjob.model.EmployeeOrderItemBean;
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.oddjob.activity.EmployeeOddMapActivity;
+import com.dlg.personal.oddjob.activity.EvaluateHirerActivity;
+import com.dlg.personal.oddjob.adapter.EmployeeOddAdapter;
+import com.dlg.viewmodel.oddjob.EmployeeDeleteOrderViewModel;
+import com.dlg.viewmodel.oddjob.OddEmployeeViewModel;
+import com.dlg.viewmodel.oddjob.presenter.EmployeeDeleteOrderPresenter;
+import com.dlg.viewmodel.oddjob.presenter.EmployeeOddPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：雇员零工列表
+ * 创建时间：2017/7/7 09:41
+ */
+public class EmployeesJobsFragment extends BaseFragment implements EmployeeOddPresenter,
+        SwipeRefreshLayout.OnRefreshListener, SwipeMenuListView.OnLoadMoreListener, EmployeeDeleteOrderPresenter {
+
+
+    private SwipeRefreshLayout mSwipeRefresh; //下拉刷新控件
+    private SwipeMenuListView mMenuListview; //我的零工列表控件
+
+    private EmployeeOddAdapter mOddAdapter; //雇员零工数据列表适配器
+
+    private EmployeeDeleteOrderViewModel mDeleteOrderViewModel; //删除零工ViewModel
+    private OddEmployeeViewModel mEmployeeViewModel; //列表数据获取ViewModel
+    private List<EmployeeOrderItemBean> mOrderItemBeanList = new ArrayList<>();
+    private int index;
+    private int pageIndex = 0;
+    private boolean isVisibleToUser;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        index = arguments.getInt("index");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View inflate = inflater.inflate(R.layout.fragment_odd_employees, null);
+        initView(inflate);
+        initData();
+        return inflate;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            pageIndex = 0;
+            this.isVisibleToUser = isVisibleToUser;
+            mEmployeeViewModel = new OddEmployeeViewModel(mActivity, this, this);
+            mEmployeeViewModel.getOddEmployeeList(getStatus(index), pageIndex);
+            if (null != mOddAdapter) {
+                mOrderItemBeanList.clear();
+                mOddAdapter.notifyDataSetChanged();
+            }
+            if (null != mSwipeRefresh) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeRefresh.setRefreshing(true);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (null != mOrderItemBeanList && mOrderItemBeanList.size() > 0 && isVisibleToUser) {
+            setUserVisibleHint(isVisibleToUser);
+        }
+    }
+
+    private void initData() {
+        mSwipeRefresh.setColorSchemeColors(Color.parseColor("#ffb353"));
+        mSwipeRefresh.setOnRefreshListener(this);
+        if (isVisibleToUser) {
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefresh.setRefreshing(true);
+                }
+            });
+        }
+
+        mDeleteOrderViewModel = new EmployeeDeleteOrderViewModel(mActivity, this, this);
+
+        mMenuListview.setOnLoadMoreListener(this);
+        mMenuListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //跳转到工作台地图页
+                EmployeeOrderItemBean itemBean = mOrderItemBeanList.get(i);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("businessNumber", itemBean.getBusinessNumber());
+                ActivityNavigator.navigator().navigateTo(EmployeeOddMapActivity.class, bundle);
+            }
+        });
+    }
+
+    private void initView(View inflate) {
+        mSwipeRefresh = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh);
+        mMenuListview = (SwipeMenuListView) inflate.findViewById(R.id.menu_listview);
+        mOddAdapter = new EmployeeOddAdapter(mActivity, mOrderItemBeanList);
+        mMenuListview.setAdapter(mOddAdapter);
+        mOddAdapter.setReviewBtnClick(new EmployeeOddAdapter.onReviewBtnClick() {
+            @Override
+            public void review(EmployeeOrderItemBean orderItemBean) { //点评
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("DetailBean", orderItemBean);
+                ActivityNavigator.navigator().navigateTo(EvaluateHirerActivity.class, bundle);
+            }
+        });
+        mMenuListview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) { //删除按钮
+                EmployeeOrderItemBean orderItemBean = mOrderItemBeanList.get(position);
+                if (null != mDeleteOrderViewModel) {
+                    mDeleteOrderViewModel.employeeDeleteOrder(orderItemBean.getBusinessNumber(), orderItemBean.getEmployeeId());
+                }
+                return false;
+            }
+        });
+        mMenuListview.setMenuCreator(new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+                switch (menu.getViewType()) {
+                    case 0://有侧滑删除
+                        addCHMenu(menu);
+                        break;
+                    case 1:
+                        break;
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 侧拉出现删除按钮
+     *
+     * @param menu
+     */
+    public void addCHMenu(SwipeMenu menu) {
+        SwipeMenuItem editItem = new SwipeMenuItem(
+                getActivity().getApplicationContext());
+        editItem.setIcon(R.mipmap.edit);
+        editItem.setWidth(getResources().getDimensionPixelSize(R.dimen.delete_width));
+        editItem.setId(1);
+        editItem.setTitleColor(Color.WHITE);
+        // 将创建的菜单项添加进菜单中
+        menu.addMenuItem(editItem);
+    }
+
+    /**
+     * 获取状态值
+     *
+     * @param index
+     * @return
+     */
+    public String getStatus(int index) {
+        String result = "";
+        switch (index) {
+            case 0:
+                result = "";
+                break;
+            case 1:
+                result = "20,21";
+                break;
+            case 2:
+                result = "30";
+                break;
+            case 3:
+                result = "40";
+                break;
+        }
+        return result;
+    }
+
+    @Override
+    public void onRefresh() {
+        pageIndex = 0;
+        mEmployeeViewModel.onDestroy();
+        mMenuListview.setLoadState(false);
+        mEmployeeViewModel.getOddEmployeeList(getStatus(index), pageIndex);
+    }
+
+    @Override
+    public void loadMore() {
+        pageIndex++;
+        mSwipeRefresh.setRefreshing(false);
+        mEmployeeViewModel.onDestroy();
+        mEmployeeViewModel.getOddEmployeeList(getStatus(index), pageIndex);
+    }
+
+    @Override
+    public void getEmployeeOddList(List<EmployeeOrderItemBean> job) {
+        mSwipeRefresh.setRefreshing(false);
+        mMenuListview.setLoadState(false);
+        if (null == job) {
+            return;
+        }
+        if (pageIndex == 0) {//下拉刷新 清空列表
+            mOrderItemBeanList.clear();
+            mOrderItemBeanList.addAll(job);
+        } else {//上拉加载
+            if (job == null || job.size() == 0) {
+                Toast.makeText(mContext, "无更多内容", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            mOrderItemBeanList.addAll(job);
+        }
+        mOddAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void employeeDeleteSuccessful() {
+        onRefresh();
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefresh.setRefreshing(true);
+            }
+        });
+    }
+}

@@ -1,0 +1,180 @@
+package com.dlg.personal.home.fragment;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.common.utils.DialogUtils;
+import com.dlg.data.common.model.ActionButtonsBean;
+import com.dlg.data.common.model.AssistButtonBean;
+import com.dlg.data.common.model.ButtonBean;
+import com.dlg.data.home.model.OrderCreateInfo;
+import com.dlg.data.oddjob.model.HirerMapBean;
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.home.activity.HomeActivity;
+import com.dlg.personal.home.view.HirerContentCardView;
+import com.dlg.personal.home.view.OrderButtnView;
+import com.dlg.personal.oddjob.activity.CancleActivity;
+import com.dlg.personal.oddjob.activity.HirerMapActivity;
+import com.dlg.personal.oddjob.activity.OddActivity;
+import com.dlg.viewmodel.common.OrderButtnViewModel;
+import com.dlg.viewmodel.common.presenter.OrderButtnPresenter;
+import com.dlg.viewmodel.oddjob.OddHandleOrderViewModel;
+import com.dlg.viewmodel.oddjob.presenter.OddHandleOrderPresenter;
+
+/**
+ * 作者：王进亚
+ * 主要功能：雇主工作台卡片
+ * 创建时间：2017/7/4 11:45
+ */
+
+public class HirerDeskCardFragment extends BaseFragment implements OrderButtnPresenter, OrderButtnView.onButtonClickListener, OddHandleOrderPresenter {
+
+    private LinearLayout mBossmapLayoutOrder;
+    private HirerContentCardView mHirerDeskCard;
+    private OrderButtnView mOrderBtn;
+    private OrderCreateInfo orderCreateInfo;
+    private OrderButtnViewModel mOrderButtnViewModel;
+    private HirerMapBean beans;
+    private String businessNumber;
+    private OddHandleOrderViewModel mOddHandleOrderViewModel;
+    private Dialog mDialog;
+    private int status;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View inflate = inflater.inflate(R.layout.item_hire_doing_card, null);
+        initView(inflate);
+        return inflate;
+    }
+
+    private void initView(View inflate) {
+        mBossmapLayoutOrder = (LinearLayout) inflate.findViewById(R.id.bossmap_layout_order);
+        mHirerDeskCard = (HirerContentCardView) inflate.findViewById(R.id.hirer_desk_card);
+        mOrderBtn = (OrderButtnView) inflate.findViewById(R.id.order_btn);
+        mOrderBtn.setButtonClickListener(this);
+        mOrderButtnViewModel = new OrderButtnViewModel(mContext, this);
+        if (orderCreateInfo != null)//设置卡片内容
+        {
+            mHirerDeskCard.setOrderCreateInfo(orderCreateInfo);
+            mOrderButtnViewModel.getOrderButtnData(orderCreateInfo.businessNumber);
+            businessNumber = orderCreateInfo.businessNumber;
+            status = orderCreateInfo.status;
+        } else if (beans != null) {
+            mHirerDeskCard.setHirerMap(beans);
+            mOrderButtnViewModel.getOrderButtnData(beans.getBusinessNumber());
+            businessNumber = beans.getBusinessNumber();
+            status = beans.getStatus();
+        }
+        //TODO 按钮初始化 根据接口返回数据来
+    }
+
+    /**
+     * 设置订单 雇主工作台
+     *
+     * @param orderCreateInfo
+     */
+    public void setOrderCreateInfo(OrderCreateInfo orderCreateInfo) {
+        this.orderCreateInfo = orderCreateInfo;
+    }
+
+    /**
+     * 从雇主零工地图而来的数据
+     *
+     * @param beans
+     */
+    public void setHirerMap(HirerMapBean beans) {
+        this.beans = beans;
+    }
+
+    @Override
+    public void onOrderButtnList(ActionButtonsBean buttonsBean) {
+        if (buttonsBean.getStatusCode() == 30) {//待支付 支付的时候 需要传入价格
+            if (orderCreateInfo != null) {
+                mOrderBtn.setPrice(orderCreateInfo.price == null ? 0.0 : Double.parseDouble(orderCreateInfo.price));
+            } else if (beans != null) {
+                mOrderBtn.setPrice(beans.getPrice() == null ? 0.0 : Double.parseDouble(beans.getPrice()));
+            }
+        }
+        mOrderBtn.setButtonData(buttonsBean);
+    }
+
+    /**
+     * 操作
+     *
+     * @param buttonBean
+     */
+    @Override
+    public void buttOnClick(ButtonBean buttonBean) {
+        buttonBean.setStatus(status);
+        if (buttonBean.getOperateStatusCode() == 1
+                || buttonBean.getOperateStatusCode() == 2) {//已取消 再来一单
+            mActivity.startActivity(new Intent(mActivity, OddActivity.class));
+        }else if(buttonBean.getOperateStatusCode() == 3) {//取消 跳转到扣除信用或者押金的界面
+            Bundle bundle = new Bundle();
+            String businessNumber = "";
+            if (beans != null) {
+                businessNumber = beans.getBusinessNumber();
+            } else if (orderCreateInfo != null) {
+                businessNumber = orderCreateInfo.businessNumber;
+            }
+            if(buttonBean.getStatus() == 21){
+                bundle.putBoolean("isWY",true);
+            }else{
+                bundle.putBoolean("isWY",false);
+            }
+            bundle.putString("businessNumber",businessNumber);
+            ActivityNavigator.navigator().navigateTo(CancleActivity.class,bundle);
+        }else if(buttonBean.getOperateStatusCode() == 40){//支付页面
+
+        } else {
+            mDialog = DialogUtils.showLoadingDialog(mContext);
+            mOddHandleOrderViewModel = new OddHandleOrderViewModel(mContext, this, this);
+            mOddHandleOrderViewModel.handleOrder(businessNumber
+                    , buttonBean.getNextStatusCode() + "", buttonBean.getOperateStatusCode() + "");
+        }
+    }
+
+    @Override
+    public void assistButtOnClick(AssistButtonBean assistButtonBean) {
+
+    }
+
+    @Override
+    public void handle(String s) {
+        Log.i("====s", s.toString());
+    }
+
+    @Override
+    public void requestComplete() {
+        super.requestComplete();
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void requestNext(String msg) {
+        super.requestNext(msg);
+        if (!TextUtils.isEmpty(msg))
+            Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+        if (mActivity instanceof HomeActivity) {
+            HierDeskFragment hierDeskFragment = (HierDeskFragment) getParentFragment();
+            hierDeskFragment.goToOrders();//重新请求
+        } else if (mActivity instanceof HirerMapActivity) {
+            mActivity.startActivity(new Intent(mActivity, OddActivity.class));
+        }
+    }
+
+}

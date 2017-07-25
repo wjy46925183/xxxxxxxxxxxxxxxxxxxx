@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_theme_color">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_21_80"
+        android:background="@mipmap/qianbaobg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/height_4_5_80"
+            android:gravity="center_horizontal"
+            android:text="金 额"
+            android:textColor="@color/app_color_white"
+            android:textSize="@dimen/text_size_20"></TextView>
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/height_4_5_80"
+            android:gravity="center_horizontal"
+            android:text="¥  1234.56"
+            android:textColor="@color/app_color_white"
+            android:textSize="@dimen/text_size_30"></TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_amount"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/height_1_5_80"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="折合金橙"
+                android:textColor="@color/app_color_white"
+                android:textSize="@dimen/text_size_20"></TextView>
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/width_5_80"
+                android:text="5366个"
+                android:textColor="@color/app_color_white"
+                android:textSize="@dimen/text_size_20"></TextView>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_6_80"
+        android:layout_marginTop="@dimen/height_1_5_5_80"
+        android:text="充值"
+        android:background="@color/white"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/app_color_black_01"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/margin_10"
+        android:paddingLeft="@dimen/margin_10"
+        android:drawableLeft="@mipmap/chongzhi"
+        android:drawableRight="@mipmap/next"
+        android:paddingRight="@dimen/margin_10">
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/app_theme_color"
+        android:layout_height="@dimen/margin_2">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_withdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_6_80"
+        android:text="提现"
+        android:textSize="@dimen/text_size_15"
+        android:background="@color/white"
+        android:textColor="@color/app_color_black_01"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/margin_10"
+        android:paddingLeft="@dimen/margin_10"
+        android:drawableLeft="@mipmap/chongzhi"
+        android:drawableRight="@mipmap/next"
+        android:paddingRight="@dimen/margin_10">
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/app_theme_color"
+        android:layout_height="@dimen/margin_15">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_voucher"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_6_80"
+        android:text="兑换券"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/margin_10"
+        android:paddingLeft="@dimen/margin_10"
+        android:drawableLeft="@mipmap/duihangquan"
+        android:textSize="@dimen/text_size_15"
+        android:textColor="@color/app_color_black_01"
+        android:drawableRight="@mipmap/next"
+        android:paddingRight="@dimen/margin_10">
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/app_theme_color"
+        android:layout_height="@dimen/margin_15">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_invoice_manage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_6_80"
+        android:drawableLeft="@mipmap/fapiaoguanli"
+        android:drawablePadding="@dimen/margin_10"
+        android:drawableRight="@mipmap/next"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingRight="@dimen/margin_10"
+        android:text="发票管理"
+        android:textColor="@color/app_color_black_01"
+        android:textSize="@dimen/text_size_15"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/app_theme_color"
+        android:layout_height="@dimen/margin_15">
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_setting"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_6_80"
+        android:paddingRight="@dimen/margin_10"
+        android:paddingLeft="@dimen/margin_10"
+        android:drawableLeft="@mipmap/shezhi"
+        android:drawablePadding="@dimen/margin_10"
+        android:drawableRight="@mipmap/next"
+        android:gravity="center_vertical"
+        android:text="设置"
+        android:background="@color/white"
+        android:textColor="@color/app_color_black_01"
+        android:textSize="@dimen/text_size_15"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/app_theme_color">
+    </TextView>
+</LinearLayout>

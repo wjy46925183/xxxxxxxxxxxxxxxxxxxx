@@ -1,0 +1,55 @@
+package com.dlg.viewmodel.oddjob;
+
+import android.content.Context;
+
+import com.dlg.viewmodel.BasePresenter;
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.RXSubscriber;
+import com.dlg.viewmodel.oddjob.presenter.EmployeeDeleteOrderPresenter;
+import com.dlg.viewmodel.server.OddServer;
+
+import java.util.HashMap;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：雇员零工删除
+ * 创建时间：2017/7/10 19:45
+ */
+public class EmployeeDeleteOrderViewModel extends BaseViewModel<JsonResponse<Object>> {
+
+    private BasePresenter mBasePresenter;
+    private EmployeeDeleteOrderPresenter mEmployeeOddPresenter;
+    private final OddServer mOddServer;
+
+    public EmployeeDeleteOrderViewModel(Context context, BasePresenter basePresenter, EmployeeDeleteOrderPresenter presenter) {
+        mContext = context;
+        this.mBasePresenter = basePresenter;
+        this.mEmployeeOddPresenter = presenter;
+        mOddServer = new OddServer(context);
+    }
+
+    /**
+     * 删除雇员零工
+     * @param businessNumber 订单
+     * @param userVo 雇员ID
+     */
+    public void employeeDeleteOrder(String businessNumber, String userVo) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("businessNumber", businessNumber);
+        hashMap.put("userVo", userVo);
+        mSubscriber = getEmployeeDeleteOrderSub();
+        mOddServer.employeeDeleteOrder(mSubscriber, hashMap);
+    }
+
+    private Subscriber<JsonResponse<Object>> getEmployeeDeleteOrderSub() {
+        return new RXSubscriber<JsonResponse<Object>, Object>(mBasePresenter) {
+            @Override
+            public void requestNext(Object o) {
+                mEmployeeOddPresenter.employeeDeleteSuccessful();
+            }
+        };
+    }
+}

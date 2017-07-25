@@ -1,0 +1,188 @@
+package com.dlg.personal.oddjob.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.common.utils.DateUtils;
+import com.dlg.data.common.model.ShareDataBean;
+import com.dlg.data.oddjob.model.OddHirerBean;
+import com.dlg.personal.R;
+import com.common.sys.ActivityNavigator;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.oddjob.activity.DetailedInfoActivity;
+import com.dlg.viewmodel.common.ShareViewModel;
+import com.dlg.viewmodel.common.presenter.SharePresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.oddjob.GrabSingleOrderViewModel;
+import com.dlg.viewmodel.oddjob.OddMapInfoViewModel;
+import com.dlg.viewmodel.oddjob.presenter.GrabSingleOrderPresenter;
+import com.dlg.viewmodel.oddjob.presenter.OddMapInfoPresenter;
+import com.example.umengshare.UmengShareUtil;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：雇员零工地图详情页面
+ * 创建时间：2017/7/11 20:59
+ */
+public class EmployeeMapInfoFragment extends BaseFragment implements View.OnClickListener
+        , OddMapInfoPresenter, SharePresenter, GrabSingleOrderPresenter {
+
+    private TextView mTvName; //零工名称
+    private TextView mTvType; //类型  计价、双休日等
+    private ImageView mIvInsurance; //是否显示保险
+    private TextView mTvPrice; //价格
+    private TextView mTvTypeName; //类型名称 家政服务等类型
+    private TextView mTvNumber; //人数
+    private TextView mTvDate; //日期
+    private TextView mTvTime; //时间
+    private TextView mTvDescribe; //描述
+    private CircleImageView mIvHead; //头像
+    private TextView mTvFaithValve; //诚信值
+    private TextView mTvShare; //扩散按钮
+    private TextView mTvOrderBtn; //抢单按钮
+
+    private OddMapInfoViewModel mOddMapInfoViewModel;
+    private OddHirerBean oddHirerBean;
+    private ShareViewModel mShareViewModel; //分享
+    private GrabSingleOrderViewModel mOrderViewModel; //抢单
+    private String mId;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_employee_map_info, null);
+        initView(view);
+        initData();
+        return view;
+    }
+
+    private void initView(View view) {
+        mTvName = (TextView) view.findViewById(R.id.tv_name);
+        mTvType = (TextView) view.findViewById(R.id.tv_type);
+        mIvInsurance = (ImageView) view.findViewById(R.id.iv_insurance);
+        mTvPrice = (TextView) view.findViewById(R.id.tv_price);
+        mTvTypeName = (TextView) view.findViewById(R.id.tv_type_name);
+        mTvNumber = (TextView) view.findViewById(R.id.tv_number);
+        mTvDate = (TextView) view.findViewById(R.id.tv_date);
+        mTvTime = (TextView) view.findViewById(R.id.tv_time);
+        mTvDescribe = (TextView) view.findViewById(R.id.tv_describe);
+        mIvHead = (CircleImageView) view.findViewById(R.id.iv_head);
+        mTvFaithValve = (TextView) view.findViewById(R.id.tv_faith_valve);
+        mTvShare = (TextView) view.findViewById(R.id.tv_share);
+        mTvOrderBtn = (TextView) view.findViewById(R.id.tv_order_btn);
+        mTvShare.setOnClickListener(this);
+        mTvOrderBtn.setOnClickListener(this);
+        mIvHead.setOnClickListener(this);
+        mIvInsurance.setVisibility(View.GONE);
+    }
+
+
+    private void initData() {
+        mOddMapInfoViewModel = new OddMapInfoViewModel(mActivity, this, this);
+        if (null != getArguments()) {
+            mId = getArguments().getString("id");
+            mOddMapInfoViewModel.getJobtaskInfo(mId);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.tv_share) { //扩散
+            if (null == mShareViewModel) {
+                mShareViewModel = new ShareViewModel(mActivity, EmployeeMapInfoFragment.this);
+            }
+            if (null != oddHirerBean) {
+                mShareViewModel.getShareData(oddHirerBean.id);
+            }
+        } else if (id == R.id.tv_order_btn) { //抢单按钮
+
+            if (null == mOrderViewModel) {
+                mOrderViewModel = new GrabSingleOrderViewModel(mActivity, this, this);
+            }
+            mOrderViewModel.grabSingleOrder(mId);
+
+        } else if (id == R.id.iv_head) { //头像按钮
+            if (null != oddHirerBean) {
+                Bundle bundle = new Bundle();
+                bundle.putString("userId", oddHirerBean.userId);
+                ActivityNavigator.navigator().navigateTo(DetailedInfoActivity.class, bundle);
+            }
+
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (null != mShareViewModel) {
+            mShareViewModel.onDestroyView();
+        }
+        if (null != mOddMapInfoViewModel) {
+            mOddMapInfoViewModel.onDestroyView();
+        }
+    }
+
+    @Override
+    public void onShareData(ShareDataBean shareDataBean) {
+        if (null != shareDataBean) {
+            UmengShareUtil.Builder(mActivity).initListener()
+                    .initShareAction(shareDataBean.getTaskTitle(), shareDataBean.getTaskDescription()
+                            , shareDataBean.getDetailsUrl(), shareDataBean.getUserLogo()).open();
+        }
+    }
+
+    @Override
+    public void onGrabSingleOrderSuccess(boolean b) {
+        if (b) {
+            mActivity.setResult(AppKey.PageRequestCodeKey.SINGLE_KEY);
+            mActivity.finish();
+        }
+    }
+
+    @Override
+    public void oddMapInfoData(OddHirerBean oddHirerBean) {
+        this.oddHirerBean = oddHirerBean;
+        mTvName.setText(oddHirerBean.postName);
+        mTvType.setText(oddHirerBean.demandType == 3 ? "计件" : oddHirerBean.demandType == 1 ? "工作日" : "双休日");
+        if (!"志愿义工".equals(oddHirerBean.postTypeName)) {
+            //单价
+            mTvPrice.setText(oddHirerBean.price + "元/" + oddHirerBean.jobMeterUnitName);
+        } else {
+            mTvPrice.setText("0元/单");
+        }
+        if (oddHirerBean.isFarmersInsurance == 1) {
+            mIvInsurance.setVisibility(View.VISIBLE);
+        } else {
+            mIvInsurance.setVisibility(View.INVISIBLE);
+        }
+        mTvTypeName.setText(oddHirerBean.postTypeName);
+        mTvNumber.setText(oddHirerBean.recruitNumber + "");
+
+        String date = DateUtils.getDateShow(oddHirerBean.demandType, oddHirerBean.startYear, oddHirerBean.startMonth, oddHirerBean.startDay,
+                oddHirerBean.endYear, oddHirerBean.endMonth, oddHirerBean.endDay);
+        String time = DateUtils.getTimeShow(oddHirerBean.demandType, oddHirerBean.startHour, oddHirerBean.startMinute,
+                oddHirerBean.endHour, oddHirerBean.endMinute);
+        mTvDate.setText(date);
+        mTvTime.setText(time);
+        mTvDescribe.setText(oddHirerBean.taskDescription);
+        mTvFaithValve.setText(oddHirerBean.getUserCreditCount());
+        Glide.with(mActivity)
+                .load(oddHirerBean.userLogo)
+                .error(R.mipmap.icon_default_user)
+                .into(mIvHead);
+    }
+}

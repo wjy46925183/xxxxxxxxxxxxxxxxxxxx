@@ -1,0 +1,99 @@
+package com.dlg.personal.wallet.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.common.cache.ACache;
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.wallet.view.TimeCount;
+import com.dlg.viewmodel.key.AppKey;
+
+/**
+ * 作者：邹前坤
+ * 主要功能： 重置密码 接收验证码和确认界面
+ * 创建时间： 2017/7/14  16:04
+ */
+
+public class WalletResetPwdActivity extends BaseActivity {
+	private TextView mTvPhoneNum;//手机号  要特殊处理
+	private EditText mEtCode;//验证码输入框
+	private TextView mBtnCode;//重新获取验证码
+	private Button mBtnNext;//下一步
+	private String userId;//用户id
+	private String userPhone;//用户手机
+	private TimeCount timeCount;
+
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.page_wallet_reset_pwd);
+
+		initView();
+		initData();
+		initNet();
+		initlistener();
+	}
+
+	/**
+	 * 初始化控件
+	 */
+	private void initView() {
+
+		mTvPhoneNum = (TextView) findViewById(R.id.tv_phoneNum);
+		mEtCode = (EditText) findViewById(R.id.et_code);
+		mBtnCode = (TextView) findViewById(R.id.btn_code);
+		mBtnNext = (Button) findViewById(R.id.btn_next);
+	}
+
+	/**
+	 * 初始化数据
+	 */
+	private void initData() {
+		getToolBarHelper().setToolbarTitle("重置密码");
+		userId = ACache.get(mContext).getAsString(AppKey.CacheKey.MY_USER_ID);
+		userPhone = ACache.get(mContext).getAsString(AppKey.CacheKey.USER_PHONE);
+
+		if (!TextUtils.isEmpty(userPhone) && userPhone.length() == 11){
+			mTvPhoneNum.setText(userPhone.substring(0, 3) + "****" + userPhone.substring(7));
+		}
+
+
+		timeCount = new TimeCount(60000,1000,mBtnCode);
+
+	}
+
+	/**
+	 * 初始化联网 获取验证码
+	 */
+	private void initNet() {
+
+
+
+	}
+
+	/**
+	 * 初始化监听
+	 */
+	private void initlistener() {
+
+		mBtnCode.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				timeCount.start();
+
+				/**
+				 * 验证码输入后联网调一下
+				 *  time.cancel();
+				   time.onReSend();
+				 */
+			}
+		});
+	}
+}

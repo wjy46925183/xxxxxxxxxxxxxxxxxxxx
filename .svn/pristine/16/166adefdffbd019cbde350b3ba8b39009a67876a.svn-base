@@ -1,0 +1,86 @@
+package com.dlg.data.home.url;
+
+import com.dlg.data.UrlNet;
+
+/**
+ * 作者：wangdakuan
+ * 主要功能：首页模块请求接口连接
+ * 创建时间：2017/6/23 10:58
+ */
+public class HomeUrl {
+    /**
+     * 雇员列表数据
+     */
+    public static final String EMPPLOYEELIST_URL = UrlNet.getName() + "/api/jobTaskRest/getJobTaskMapPage";
+
+    /**
+     * 雇员是否有进行中的订单
+     */
+    public static final String WORKER_IS_TASKING = UrlNet.getName() + "/api/jobTaskRest/isOrderByEmployeeId";
+    /**
+     * 雇主是否有进行中的订单
+     */
+    public static final String BOSS_IS_TASKING = UrlNet.getName() + "/api/jobTaskRest/isOrderByEmployerId";
+
+    /**
+     * 雇员进行中的订单数据
+     */
+    public static final String DOING_TASK_DETAIL_LIST = UrlNet.getName() + "/api/orderRest/findListByEmployeeIdOrBusinessNumber";
+    /**
+     * 首页雇员地图数据
+     */
+    public static final String HOME_WORK_MAP_LIST = UrlNet.getName() + "/api/jobTaskRest/getJobTaskMapList";
+    /**
+     * 首页雇主地图数据
+     */
+    public static final String HOME_BOSS_MAP_LIST = UrlNet.getName() + "/api/jobTaskRest/getJobTaskMapListByEmployeeId";
+    /**
+     * 雇主进行中的订单
+     */
+    public static final String BOSS_IS_TASKING_LIST = UrlNet.getName() + "/api/jobTaskRest/getJobTaskOfOrderList";
+    /**
+     * 雇主列表数据
+     */
+    public static final String BOSS_DATA_LIST = UrlNet.getName() + "/api/jobTaskRest/getJobTaskMapPageByEmployeeId";
+    /**
+     * 数据字典列表
+     */
+    public static final String DICTIONARY = UrlNet.getName() + "/api/dictionaryRest/queryGroup";
+    /**
+     * 雇员主页卡片
+     */
+    public static final String EMPLOYEE_CARD = UrlNet.getName()+"/api/jobTaskRest/getJobTaskById";
+
+    /**
+     * 历史搜索记录
+     */
+    public static final String SEARCH_HISTORY = UrlNet.getName()+"/api/jobConditionRest/findByUserId";
+    /**
+     * 新增零工条件
+     */
+    public static final String ADD_JOB_CONDITION = UrlNet.getName() + "/api/jobConditionRest/saveJobCondition";
+    /**
+     * 根据雇员需求-列表
+     */
+    public static final String GET_JOB_BY_CONDITION = UrlNet.getName() + "/api/jobTaskRest/getJobTaskOfEmployeePage";
+    /**
+     * 删除搜索历史
+     */
+    public static final String DELEET_SERACH_HISTORY = UrlNet.getName() + "/api/jobConditionRest/deleteById";
+    /**
+     * 可接单数量
+     */
+    public static final String ORDERED_NUM = UrlNet.getName()+"/api/jobTaskRest/getJobTaskOfNotUsedPage";
+    /**
+     * 选择需求订单
+     */
+    public static final String SELECT_ORDER = UrlNet.getName()+"/api/jobTaskRest/getJobTaskAskByEmployeeId";
+    /**
+     * 预约
+     */
+    public static final String SUBSCRIBE_ORDER = UrlNet.getName()+"/api/jobServiceRest/saveJobTask";
+    /**
+     * 服务详情
+     */
+    public static final String SERVICE_DETAIL = UrlNet.getName() + "/api/jobServiceRest/findById";
+}

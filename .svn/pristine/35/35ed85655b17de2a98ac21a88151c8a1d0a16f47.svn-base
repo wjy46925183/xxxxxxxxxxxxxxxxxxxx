@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/main/assets"/><source path="/Users/wangdakuan/DLG/DLG_ADNDROID/common/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/Users/wangdakuan/DLG/DLG_ADNDROID/common/src/release/assets"/></dataSet></merger>

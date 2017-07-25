@@ -1,0 +1,309 @@
+package com.dlg.personal.oddjob.fragment;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
+
+import com.common.view.swipemenulistview.SwipeMenu;
+import com.common.view.swipemenulistview.SwipeMenuCreator;
+import com.common.view.swipemenulistview.SwipeMenuItem;
+import com.common.view.swipemenulistview.SwipeMenuListView;
+import com.dlg.data.common.model.ShareDataBean;
+import com.dlg.data.oddjob.model.OddHirerBean;
+import com.dlg.data.oddjob.model.OrderStatusListBean;
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseFragment;
+import com.dlg.personal.oddjob.activity.OddHirerHandleActivity;
+import com.dlg.personal.oddjob.activity.ReleaseOrEditActivity;
+import com.dlg.personal.oddjob.adapter.HirerOddAdapter;
+import com.dlg.viewmodel.common.ShareViewModel;
+import com.dlg.viewmodel.common.presenter.SharePresenter;
+import com.dlg.viewmodel.oddjob.DeleteOrderViewModel;
+import com.dlg.viewmodel.oddjob.OddHirerViewModel;
+import com.dlg.viewmodel.oddjob.presenter.DeleteOrderPresenter;
+import com.dlg.viewmodel.oddjob.presenter.HirerOddPresenter;
+import com.example.umengshare.UmengShareUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * 作者：王进亚
+ * 主要功能：雇主零工
+ * 创建时间：2017/7/6 13:15
+ */
+
+public class HirerOddFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, HirerOddPresenter,
+        SwipeMenuListView.OnLoadMoreListener, SharePresenter ,DeleteOrderPresenter{
+
+    private SwipeMenuListView mMenuListview;//listview
+    private int index; //0,全部 1.进行中 2.待付款 3.已完成
+    private SwipeRefreshLayout mSwipeRefresh;
+    private HirerOddAdapter mAdapter;
+    private List<OddHirerBean> job = new ArrayList<>();
+    private OddHirerViewModel mOddHirerViewModel; //请求
+    private ShareViewModel mShareViewModel; //分享
+    private DeleteOrderViewModel mDeleteOrderViewModel; //删除
+    private int pageIndex;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        index = arguments.getInt("index");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View inflate = inflater.inflate(R.layout.fragment_odd_hirer, null);
+        initView(inflate);
+        return inflate;
+    }
+
+    private void initView(final View inflate) {
+        mMenuListview = (SwipeMenuListView) inflate.findViewById(R.id.menu_listview);
+        mSwipeRefresh = (SwipeRefreshLayout) inflate.findViewById(R.id.swipe_refresh);
+        mAdapter = new HirerOddAdapter(mActivity, job);
+        mMenuListview.setAdapter(mAdapter);
+        mMenuListview.setMenuCreator(new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+                switch (menu.getViewType()) {
+                    case 0://有侧滑删除
+                        addCHMenu(menu);
+                        break;
+                    case 1://侧滑分享
+                        addShareAndBianji(menu);
+                        break;
+                }
+            }
+        });
+
+        mMenuListview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                if (null == job || position >= job.size()) {
+                    return false;
+                }
+                OddHirerBean oddHirerBean = job.get(position);
+                SwipeMenuItem menuItem = menu.getMenuItem(index);
+                if(null == menuItem){
+                    return false;
+                }
+                switch (menuItem.getId()) {
+                    case 0://删除
+                        if(null == mDeleteOrderViewModel){
+                            mDeleteOrderViewModel = new DeleteOrderViewModel(mActivity, HirerOddFragment.this, HirerOddFragment.this);
+                        }
+                        mDeleteOrderViewModel.deleteHirerOrder(oddHirerBean.id);
+                        break;
+                    case 1://编辑
+                        Intent intent = new Intent(mActivity, ReleaseOrEditActivity.class);
+                        intent.putExtra("editBean", oddHirerBean);
+                        startActivity(intent);
+                        break;
+                    case 2://分享
+                        if (null == mShareViewModel) {
+                            mShareViewModel = new ShareViewModel(mActivity, HirerOddFragment.this);
+                        }
+                        mShareViewModel.getShareData(oddHirerBean.id);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        mSwipeRefresh.setColorSchemeColors(Color.parseColor("#ffb353"));
+        mSwipeRefresh.setOnRefreshListener(this);
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefresh.setRefreshing(true);
+            }
+        });
+        mMenuListview.setOnLoadMoreListener(this);
+
+        mMenuListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (job.get(position) != null && job.get(position).orderStatusList.size() > 0) {
+                    OrderStatusListBean orderStatusListBean = job.get(position).orderStatusList.get(0);
+                    Intent intent = new Intent(mContext, OddHirerHandleActivity.class);
+                    intent.putExtra("statusBean", orderStatusListBean);
+                    intent.putExtra("isFarmersInsurance",job.get(position).isFarmersInsurance);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mOddHirerViewModel = new OddHirerViewModel(mContext, this);
+        mOddHirerViewModel.getOddHirerList(getStatus(index), pageIndex);
+        if (mMenuListview.getFirstVisiblePosition() >= 0) {
+            mMenuListview.setSelection(0);
+        }
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefresh.setRefreshing(true);
+            }
+        });
+    }
+
+    //侧拉
+    public void addCHMenu(SwipeMenu menu) {
+        addShareAndBianji(menu);
+        SwipeMenuItem editItem = new SwipeMenuItem(
+                getActivity().getApplicationContext());
+        editItem.setIcon(R.mipmap.edit);
+        editItem.setWidth(getResources().getDimensionPixelSize(R.dimen.delete_width));
+        editItem.setId(1);
+        editItem.setTitleColor(Color.WHITE);
+        // 将创建的菜单项添加进菜单中
+        menu.addMenuItem(editItem);
+
+        SwipeMenuItem deleteItem = new SwipeMenuItem(
+                getActivity().getApplicationContext());
+        deleteItem.setIcon(R.mipmap.delete);
+        deleteItem.setTitleColor(Color.WHITE);
+        deleteItem.setWidth(getResources().getDimensionPixelSize(R.dimen.delete_width));
+        deleteItem.setId(0);
+        // 将创建的菜单项添加进菜单中
+        menu.addMenuItem(deleteItem);
+    }
+
+    //侧拉
+    public void addShareAndBianji(SwipeMenu menu) {
+        SwipeMenuItem shareItem = new SwipeMenuItem(
+                getActivity().getApplicationContext());
+        shareItem.setIcon(R.mipmap.share);
+        shareItem.setWidth(getResources().getDimensionPixelSize(R.dimen.delete_width));
+        shareItem.setId(2);
+        // 将创建的菜单项添加进菜单中
+        menu.addMenuItem(shareItem);
+    }
+
+    /**
+     * 根据上一页选择的tab,判断出应该获取哪个状态的数据。
+     *
+     * @param index
+     * @return
+     */
+    public String getStatus(int index) {
+        String result = "";
+        switch (index) {
+            case 0://全部
+                result = "";
+                break;
+            case 1://进行中
+                result = "20";
+                break;
+            case 2://待付款
+                result = "30";
+                break;
+            case 3://已完成
+                result = "40";
+                break;
+        }
+        return result;
+    }
+
+    @Override
+    public void onRefresh() {
+        pageIndex = 0;
+        mOddHirerViewModel.onDestroy();
+        mMenuListview.setLoadState(false);
+        mOddHirerViewModel.getOddHirerList(getStatus(index), pageIndex);
+    }
+
+    @Override
+    public void getHirerOddList(List<OddHirerBean> job) {
+        mSwipeRefresh.setRefreshing(false);
+        mMenuListview.setLoadState(false);
+        if (pageIndex == 0) {//下拉刷新 清空列表
+            this.job.clear();
+        } else {//上拉加载
+            if (job == null || job.size() == 0) {
+                Toast.makeText(mContext, "无更多内容", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (this.job != null && job != null) {
+            this.job.addAll(job);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * 加载更多
+     */
+    @Override
+    public void loadMore() {
+        pageIndex++;
+        mSwipeRefresh.setRefreshing(false);
+        mOddHirerViewModel.onDestroy();
+        mOddHirerViewModel.getOddHirerList(getStatus(index), pageIndex);
+    }
+
+    @Override
+    public void onShareData(ShareDataBean shareDataBean) {
+        if(null != shareDataBean){
+            UmengShareUtil.Builder(mActivity).initListener()
+                    .initShareAction(shareDataBean.getTaskTitle(), shareDataBean.getTaskDescription()
+                            , shareDataBean.getDetailsUrl(), shareDataBean.getUserLogo()).open();
+        }
+    }
+
+    @Override
+    public void onDeleteOrderSuccess(boolean success) {
+        if(success){
+            Toast.makeText(mContext, "删除成功,正在刷新.", Toast.LENGTH_SHORT).show();
+            onRefresh();
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefresh.setRefreshing(true);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mOddHirerViewModel.onDestroyView();
+        if (null != mShareViewModel) {
+            mShareViewModel.onDestroyView();
+        }
+        if(null != mDeleteOrderViewModel){
+            mDeleteOrderViewModel.onDestroyView();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mOddHirerViewModel.onDestroy();
+        if (null != mShareViewModel) {
+            mShareViewModel.onDestroy();
+        }
+        if(null != mDeleteOrderViewModel){
+            mDeleteOrderViewModel.onDestroy();
+        }
+    }
+
+
+}

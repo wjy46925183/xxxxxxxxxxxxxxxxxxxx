@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme.NoActionBar.Start">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="toolbarStyle">@style/ClubToolbar</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:windowBackground">@color/red</item>-->
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="toolbarStyle">@style/ClubToolbar</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:windowAnimationStyle">@style/fade</item>-->
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--<item name="colorAccent">@color/colorPrimaryDark</item>-->
+        <item name="toolbarStyle">@style/ClubToolbar</item>
+        <item name="android:actionBarSize">@dimen/height_6_80</item>
+        <item name="android:windowBackground">@color/app_bg_page</item>
+    </style>
+
+    <style name="ClubToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item>
+        <!-- 设置该属性解决空白部分-->
+    </style>
+    <style name="TextAppearance.Design.Tab.Custom" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <!--沾满宽度的割线-->
+    <style name="line_thin_full" >
+        <!-- Customize your theme here. -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5px</item>
+        <item name="android:background">@color/bg_gray</item>
+    </style>
+
+    <!--细线不沾满-->
+    <style name="linethin_notfull" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.4dp</item>
+        <item name="android:background">@color/small_line_bg</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <!--粗线沾满-->
+    <style name="linefat_full" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@color/bg_color</item>
+    </style>
+
+    <!-- 蓝色的Button，点击变深蓝 -->
+    <style name="Button_Blue">
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/selector_button_blue</item>
+        <item name="android:textSize">@dimen/button_size</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+    </style>
+    <!--checkbox的样式-->
+    <style name="checkbox_style">
+        <item name="android:layout_width">@dimen/px_30</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/cmbkb_transparent</item>
+        <item name="android:button">@drawable/checkbox_selector</item>
+        <item name="android:checked">false</item>
+    </style>
+    <!--左侧常用黑体-->
+    <style name="left_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:textColor">@color/cmbkb_lightblack</item>
+    </style>
+
+    <!--layout条目-->
+    <style name="MyProfile_Layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_5_5_80</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+
+    <style name="right_release_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:background">@color/cmbkb_transparent</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:textColor">@color/cmbkb_lightblack</item>
+    </style>
+
+    <style name="right_img_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">7dp</item>
+        <item name="android:src">@mipmap/enter</item>
+        <item name="android:background">@color/cmbkb_transparent</item>
+    </style>
+    <!--底部按钮的样式-->
+    <style name="bottonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">43dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_15</item>
+        <item name="android:layout_marginRight">@dimen/margin_15</item>
+        <item name="android:layout_marginBottom">@dimen/margin_10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@drawable/commit_bg</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="right_cancle_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:background">@color/cmbkb_transparent</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/right_change_textcolor</item>
+    </style>
+    <!--右边沾满条目的edittext-->
+    <style name="right_edit_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">@color/hint_textcolor</item>
+
+    </style>
+    <style name="TabLayoutTextAppearance"
+        parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <!--  用户设置  右侧 字   -->
+    <style name="right_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:background">@color/cmbkb_transparent</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:textColor">@color/black_textcolor</item>
+    </style>
+
+    <!--对话框的文字样式-->
+    <style name="dialog_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_height</item>
+        <item name="android:background">@color/cmbkb_category_list_bg</item>
+    </style>
+</resources>

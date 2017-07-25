@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#efefef"
+              android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rg_orderact"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_90"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/rb_01"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/odd_seletor"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="全部"
+            android:textColor="@color/odd_textcolor"
+            android:textSize="@dimen/text_size_13" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/rb_02"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/odd_seletor"
+            android:button="@null"
+            android:gravity="center"
+            android:text="进行中"
+            android:textColor="@color/odd_textcolor"
+            android:textSize="@dimen/text_size_13" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/rb_03"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/odd_seletor"
+            android:button="@null"
+            android:gravity="center"
+            android:text="待付款"
+            android:textColor="@color/odd_textcolor"
+            android:textSize="@dimen/text_size_13" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/rb_04"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/odd_seletor"
+            android:button="@null"
+            android:gravity="center"
+            android:text="已完成"
+            android:textColor="@color/odd_textcolor"
+            android:textSize="@dimen/text_size_13" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </RadioGroup>
+
+    <com.dlg.personal.oddjob.view.NoScrollViewPager
+        android:id="@+id/odd_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

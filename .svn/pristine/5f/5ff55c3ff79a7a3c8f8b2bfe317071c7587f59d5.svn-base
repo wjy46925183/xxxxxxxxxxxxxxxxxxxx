@@ -1,0 +1,65 @@
+package com.dlg.viewmodel.Wallet;
+
+import android.content.Context;
+
+import com.common.cache.ACache;
+import com.dlg.data.wallet.model.BillDetailBean;
+import com.dlg.data.wallet.model.BillDetailListBean;
+import com.dlg.data.wallet.model.BillHistoryBean;
+import com.dlg.viewmodel.BasePresenter;
+import com.dlg.viewmodel.BaseViewModel;
+import com.dlg.viewmodel.RXSubscriber;
+import com.dlg.viewmodel.Wallet.presenter.InvoiceHistoryDetailPresenter;
+import com.dlg.viewmodel.Wallet.presenter.InvoiceHistoryPresenter;
+import com.dlg.viewmodel.key.AppKey;
+import com.dlg.viewmodel.server.WalletServer;
+
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp.rx.JsonResponse;
+import rx.Subscriber;
+
+/**
+ * 作者：邹前坤
+ * 主要功能：发票列表 model
+ * 创建时间：2017/7/11 09:20
+ */
+
+public class InvoiceHistoryDetailViewModel extends BaseViewModel<JsonResponse<List<BillDetailListBean>>>{
+    private BasePresenter basePresenter;
+    private final WalletServer mServer;
+    private InvoiceHistoryDetailPresenter invoicePresenter;
+
+    public InvoiceHistoryDetailViewModel(Context context, BasePresenter basePresenter, InvoiceHistoryDetailPresenter invoicePresenter) {
+        this.basePresenter = basePresenter;
+        mContext = context;
+        mServer = new WalletServer(context);
+        this.invoicePresenter=invoicePresenter;
+    }
+
+    /**
+     * 根据userid获取当前用户消费列表
+     */
+    public void getInvoiceHistoryDetail(int currentPage,String receiptId) {
+        HashMap<String,String> map = new HashMap<>();
+
+        map.put("invoiceId", receiptId);
+        map.put("size", "30");
+        map.put("minId", currentPage+"");
+
+        mSubscriber = getMapSubscriber();
+        mServer.getInvoicHistoryDetail(mSubscriber,map);
+    }
+
+    private Subscriber<JsonResponse<List<BillDetailListBean>>> getMapSubscriber(){
+        return new RXSubscriber<JsonResponse<List<BillDetailListBean>>,List<BillDetailListBean>>(basePresenter) {
+            @Override
+            public void requestNext(List<BillDetailListBean> walletBeans) {
+                if(null != walletBeans && walletBeans.size() > 0){
+                    invoicePresenter.getDataList(walletBeans);
+                }
+            }
+        };
+    }
+}

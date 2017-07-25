@@ -1,0 +1,211 @@
+package com.dlg.inc.wallet.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RadioButton;
+
+import com.common.string.LogUtils;
+import com.common.sys.ActivityNavigator;
+import com.common.utils.DateUtils;
+import com.common.view.loadmore.BaseLoadMoreHeaderAdapter;
+import com.dlg.data.wallet.model.WalletListBean;
+
+import com.dlg.inc.R;
+import com.dlg.inc.base.IncBaseActivity;
+import com.dlg.inc.wallet.adapter.IncWalletDetailListAdapter;
+import com.dlg.viewmodel.Wallet.WalletDetailViewModel;
+import com.dlg.viewmodel.Wallet.presenter.WalletDetailPresenter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：邹前坤
+ * 主要功能： 钱包明细列表
+ * 创建时间： 2017/7/13  17:53
+ */
+
+public class IncWalletDetailActivity extends IncBaseActivity implements WalletDetailPresenter, BaseLoadMoreHeaderAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+	private RadioButton mRbAll;//全部
+	private RadioButton mRbExpend;//支出
+	private RadioButton mRbIncome;//收入
+	private SwipeRefreshLayout mSwipeRefresh;//刷新
+	private RecyclerView mLvDetailList;//list
+	private String billStatus = "0"; // 类型  0全部  1收入  2支出
+	private WalletDetailViewModel viewModel;
+	private int currentPage=0;//第几页
+	private ArrayList<WalletListBean> walletListBeenDate=new ArrayList<>();
+	private IncWalletDetailListAdapter walletDetailListAdapter;
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.inc_page_wallet_detail);
+		initView();
+		initData();
+		initNet();
+		initListener();
+	}
+
+	/**
+	 * 初始化控件
+	 */
+	private void initView() {
+		mRbAll = (RadioButton) findViewById(R.id.rb_all);
+		mRbExpend = (RadioButton) findViewById(R.id.rb_expend);
+		mRbIncome = (RadioButton) findViewById(R.id.rb_income);
+		mSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+		mLvDetailList = (RecyclerView) findViewById(R.id.lv_detail_list);
+		mLvDetailList.setLayoutManager(new LinearLayoutManager(mContext));
+
+	}
+
+	/**
+	 * 初始化数据
+	 */
+	private void initData() {
+		viewModel=new WalletDetailViewModel(this,this,this);
+		getToolBarHelper().setToolbarTitle("收支明细");
+
+		walletDetailListAdapter = new IncWalletDetailListAdapter(this,mLvDetailList,walletListBeenDate, R.layout.inc_item_wallet_detail_list);
+		mLvDetailList.setAdapter(walletDetailListAdapter);
+		walletDetailListAdapter.setOnLoadMoreListener(this);
+		walletDetailListAdapter.setOnItemClickListener(new BaseLoadMoreHeaderAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				LogUtils.d("点击了条目"+position);
+				WalletListBean walletListBean = walletListBeenDate.get(position);
+				Bundle bunder = new Bundle();
+				bunder.putSerializable("bean",walletListBean);
+				ActivityNavigator.navigator().navigateTo(IncWalletDetailDetailActivity.class,bunder);
+
+//				Intent intent=new Intent();
+//				intent.putExtra("bean",walletListBean);
+//				ActivityNavigator.navigator().navigateTo(WalletDetailDetailActivity.class,intent);
+			}
+		});
+
+		mSwipeRefresh.setColorSchemeResources(R.color.orange_yellow);
+		mSwipeRefresh.setOnRefreshListener(this);
+		autoRefresh();
+	}
+
+	private void autoRefresh() {
+		if(mSwipeRefresh != null){
+			mSwipeRefresh.post(new Runnable() {
+				@Override
+				public void run() {
+					mSwipeRefresh.setRefreshing(true);
+				}
+			});
+		}
+	}
+
+	/**
+	 * 初始化联网以及联网处理
+	 */
+	private void initNet() {
+		viewModel.getInvoiceBalance(currentPage,billStatus);
+	}
+
+	/**
+	 * 处理点击事件
+	 */
+	private void initListener() {
+
+		mRbAll.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LogUtils.d("点击全部");
+				if (!billStatus.equals("0")){
+					mRbAll.setChecked(true);
+					currentPage=0;
+					billStatus="0";
+					walletListBeenDate.clear();
+					walletDetailListAdapter.notifyDataSetChanged();
+					initNet();
+				}
+			}
+		});
+		mRbExpend.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LogUtils.d("点击支出");
+				if (!billStatus.equals("2")){
+					mRbExpend.setChecked(true);
+					currentPage=0;
+					billStatus="2";
+					walletListBeenDate.clear();
+					walletDetailListAdapter.notifyDataSetChanged();
+					initNet();
+				}
+			}
+		});
+		mRbIncome.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LogUtils.d("点击收入");
+				if (!billStatus.equals("1")){
+					mRbIncome.setChecked(true);
+					currentPage=0;
+					billStatus="1";
+					walletListBeenDate.clear();
+					walletDetailListAdapter.notifyDataSetChanged();
+					initNet();
+				}
+			}
+		});
+	}
+
+	/**
+	 * 得到列表集合
+	 * @param bean
+	 */
+	@Override
+	public void getDataList(List<WalletListBean> bean) {
+		LogUtils.d("  得到了钱包详情的集合  "+bean.size());
+		walletDetailListAdapter.completeLoadMore();
+		if (null!=mSwipeRefresh&&mSwipeRefresh.isRefreshing()) {
+			mSwipeRefresh.setRefreshing(false);
+		}
+		if (bean==null||bean.size()==0&&currentPage!=0){
+			return;
+		}
+		if (currentPage==0){
+			walletListBeenDate.clear();
+		}
+		walletListBeenDate.addAll(bean);
+		for (int i = 0; i < walletListBeenDate.size(); i++) {
+			if (i==0){
+				walletListBeenDate.get(0).setShowTitle("0");
+			}else {
+				if (i<walletListBeenDate.size()){
+					if (DateUtils.getDate_yyyyAndMM(walletListBeenDate.get(i).getCreateTime()).
+							equals(DateUtils.getDate_yyyyAndMM(walletListBeenDate.get(i-1).getCreateTime()))){
+						walletListBeenDate.get(i).setShowTitle("1");
+					} else {
+						walletListBeenDate.get(i).setShowTitle("0");
+					}
+				}
+			}
+		}
+		walletDetailListAdapter.notifyDataSetChanged();
+
+	}
+
+	@Override
+	public void onLoadMore() {
+		currentPage++;
+		initNet();
+	}
+
+	@Override
+	public void onRefresh() {
+		currentPage=0;
+		initNet();
+	}
+}

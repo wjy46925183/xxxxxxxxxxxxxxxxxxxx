@@ -1,0 +1,94 @@
+package com.dlg.personal.home.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+
+import com.dlg.personal.R;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.personal.home.adapter.EmployeeCardAdapter;
+import com.dlg.personal.home.fragment.NeedOrServiceFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：王进亚
+ * 主要功能：雇佣他详情页面 服务和需求
+ * 创建时间：2017/7/17 15:41
+ */
+
+public class HireDetailActivity extends BaseActivity implements View.OnClickListener {
+    /**
+     * 返回
+     */
+    private ImageView mIvBack;
+    /**
+     * 需求
+     */
+    private RadioButton mRb01;
+    /**
+     * 服务
+     */
+    private RadioButton mRb02;
+    private RadioGroup mMapRg;
+    private RelativeLayout mRlAction;
+    private LinearLayout mActivityLl;
+    private ViewPager mViewPager;
+    private String mUserId;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_hire_detail);
+        initView();
+    }
+
+    private void initView() {
+        mIvBack = (ImageView) findViewById(R.id.iv_back);
+        mIvBack.setOnClickListener(this);
+        mRb01 = (RadioButton) findViewById(R.id.rb_01);
+        mRb02 = (RadioButton) findViewById(R.id.rb_02);
+        mMapRg = (RadioGroup) findViewById(R.id.map_rg);
+        mRlAction = (RelativeLayout) findViewById(R.id.rl_action);
+        mActivityLl = (LinearLayout) findViewById(R.id.activity_ll);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mUserId = getIntent().getStringExtra("userId");
+
+        setToolBarGone(mActivityLl);
+        initViewPage();
+    }
+
+    /**
+     * 初始化ViewPager
+     */
+    private void initViewPage() {
+        List<Fragment> fragments = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            NeedOrServiceFragment needOrServiceFragment = new NeedOrServiceFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("mUserId",mUserId);
+            bundle.putInt("index",i);
+            needOrServiceFragment.setArguments(bundle);
+            fragments.add(needOrServiceFragment);
+        }
+        EmployeeCardAdapter employeeCardAdapter
+                = new EmployeeCardAdapter(getSupportFragmentManager(), fragments);
+        mViewPager.setAdapter(employeeCardAdapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.iv_back) {
+            finish();
+        }
+    }
+}

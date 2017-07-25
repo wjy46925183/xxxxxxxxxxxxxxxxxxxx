@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="google_blue">#4285F4</color>
+    <color name="google_green">#34A853</color>
+    <color name="google_red">#EA4335</color>
+    <color name="google_yellow">#FBBC05</color>
+    <declare-styleable name="CanRefreshLayout"><attr format="boolean" name="can_enabled_up"/><attr format="boolean" name="can_enabled_down"/><attr format="enum" name="can_style_up">
+            <enum name="classic" value="0"/>
+            <enum name="upper" value="1"/>
+            <enum name="lower" value="2"/>
+            <enum name="mid" value="3"/>
+        </attr><attr format="enum" name="can_style_down">
+            <enum name="classic" value="0"/>
+            <enum name="upper" value="1"/>
+            <enum name="lower" value="2"/>
+            <enum name="mid" value="3"/>
+        </attr><attr format="float" name="can_friction"/><attr format="integer" name="can_duration"/><attr format="integer" name="can_smooth_length"/><attr format="integer" name="can_smooth_duration"/></declare-styleable>
+    <declare-styleable name="GoogleCircleProgressView"><attr format="dimension" name="gcp_inner_radius"/><attr format="color" name="gcp_background_color"/><attr format="color" name="gcp_progress_color"/><attr format="dimension" name="gcp_progress_stoke_width"/><attr format="boolean" name="gcp_show_arrow"/><attr format="boolean" name="gcp_enable_circle_background"/><attr format="dimension" name="gcp_arrow_width"/><attr format="dimension" name="gcp_arrow_height"/><attr format="integer" name="gcp_progress"/><attr format="integer" name="gcp_max"/><attr format="dimension" name="gcp_progress_text_size"/><attr format="color" name="gcp_progress_text_color"/><attr format="enum" name="gcp_progress_text_visibility">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+        </attr></declare-styleable>
+    <dimen name="refresh_height_google">100dp</dimen>
+    <dimen name="refresh_height_rotate">50dp</dimen>
+    <dimen name="refresh_height_yalantis">136dp</dimen>
+    <item name="can_content_view" type="id"/>
+    <item name="can_refresh_footer" type="id"/>
+    <item name="can_refresh_header" type="id"/>
+</resources>

@@ -1,0 +1,194 @@
+package com.dlg.personal.home.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.common.view.convenientbanner.ConvenientBanner;
+import com.common.view.convenientbanner.NetworkImageHolderView;
+import com.common.view.convenientbanner.holder.CBViewHolderCreator;
+import com.dlg.data.home.model.ServiceShareBean;
+import com.dlg.data.oddjob.model.OddServiceItemBean;
+import com.dlg.data.oddjob.model.ServiceListDataBean;
+import com.dlg.personal.R;
+import com.dlg.personal.app.ActivityNavigator;
+import com.dlg.personal.base.BaseActivity;
+import com.dlg.viewmodel.home.ServiceDetailViewModel;
+import com.dlg.viewmodel.home.ServiceShareViewModel;
+import com.dlg.viewmodel.home.presenter.ServiceDetailPersenter;
+import com.dlg.viewmodel.home.presenter.ShareServicePresenter;
+import com.example.umengshare.UmengShareUtil;
+import com.umeng.socialize.ShareAction;
+
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+/**
+ * 作者：王进亚
+ * 主要功能：服务详情
+ * 创建时间：2017/7/18 17:36
+ */
+
+public class ServiceDetailActivity extends BaseActivity implements View.OnClickListener, ServiceDetailPersenter, ShareServicePresenter {
+
+    private ConvenientBanner mBanner;
+    private ImageView mIvBanner;
+    private TextView mTvName;
+    private TextView mTvDemand;
+    private TextView mTvMoney;
+    /**
+     * 详情描述:
+     */
+    private TextView mTvDescription;
+    private TextView mTvEdit;
+    private CircleImageView mIvLogo;
+    /**
+     * 人名
+     */
+    private TextView mTvNamePerson;
+    /**
+     * 扩散
+     */
+    private TextView mTvShare;
+    /**
+     * 雇TA
+     */
+    private TextView mTvHireTa;
+    private ServiceDetailViewModel mServiceDetailViewModel;
+    private OddServiceItemBean mItemBean;
+    private ShareAction mShareAction;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.page_service_detail);
+        initView();
+    }
+
+    private void initView() {
+        mBanner = (ConvenientBanner) findViewById(R.id.banner);
+        mIvBanner = (ImageView) findViewById(R.id.iv_banner);
+        mTvName = (TextView) findViewById(R.id.tv_name);
+        mTvDemand = (TextView) findViewById(R.id.tv_demand);
+        mTvMoney = (TextView) findViewById(R.id.tv_money);
+        mTvDescription = (TextView) findViewById(R.id.tv_description);
+        mTvEdit = (TextView) findViewById(R.id.tv_edit);
+        mIvLogo = (CircleImageView) findViewById(R.id.iv_logo);
+        mTvNamePerson = (TextView) findViewById(R.id.tv_name_person);
+        mTvShare = (TextView) findViewById(R.id.tv_share);
+        mTvShare.setOnClickListener(this);
+        mTvHireTa = (TextView) findViewById(R.id.tv_hire_ta);
+        mTvHireTa.setOnClickListener(this);
+
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            mItemBean = (OddServiceItemBean) getIntent().getExtras().getSerializable("itemBean");
+
+            mServiceDetailViewModel = new ServiceDetailViewModel(this, this);
+            mServiceDetailViewModel.serviceDetail(mItemBean.getId());
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.tv_share) {//分享
+            if (mShareAction != null) {
+                mShareAction.open();
+            } else {
+                ServiceShareViewModel serviceShareViewModel = new ServiceShareViewModel(this, this);
+                serviceShareViewModel.shareService(mItemBean.getId());
+            }
+        } else if (i == R.id.tv_hire_ta) {//雇TA
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("oddServiceItemBean", mItemBean);
+            ActivityNavigator.navigator().navigateTo(WillServiceActivity.class, bundle);
+        }
+    }
+
+    @Override
+    public void serviceDetail(List<ServiceListDataBean> serviceListDataBeen) {
+        if (serviceListDataBeen.size() > 0) {
+            ServiceListDataBean dataBean = serviceListDataBeen.get(0);
+            initUI(dataBean);
+        }
+    }
+
+    @Override
+    public void shareService(List<ServiceShareBean> serviceShareBeen) {
+        ServiceShareBean serviceShareBean = serviceShareBeen.get(0);
+        mShareAction = UmengShareUtil.Builder(this).initListener().initShareAction(serviceShareBean.getServiceTitle()
+                , serviceShareBean.getServiceDescription(), serviceShareBean.getDetailsUrl(),
+                serviceShareBean.getUserLogo());
+        mShareAction.open();
+    }
+
+    @Override
+    public void error(String errorMsg) {
+        Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mServiceDetailViewModel != null) {
+            mServiceDetailViewModel.onDestroy();
+        }
+    }
+
+    private void initUI(ServiceListDataBean dataBean) {
+        int serviceMeterUnit = dataBean.getServiceMeterUnit();
+        String unitName = null;
+        if (serviceMeterUnit == 1) {
+            unitName = "/天";
+        } else if (serviceMeterUnit == 2) {
+            unitName = "/时";
+        } else if (serviceMeterUnit == 3) {
+            unitName = "/单";
+        }
+        getToolBarHelper().getToolbarTitle().setText(dataBean.getServiceName() + " " + dataBean.getPrice() + "元" + unitName);
+        mTvName.setText(dataBean.getServiceName());
+        mTvMoney.setText(dataBean.getPrice() + "元" + unitName);
+        int demandType = dataBean.getDemandType();
+        String demandTypeName = null;
+        switch (demandType) {
+            case 1:
+                demandTypeName = "工作日";
+                break;
+            case 2:
+                demandTypeName = "双休日";
+                break;
+            case 3:
+                demandTypeName = "计件";
+                break;
+        }
+        mTvDemand.setText(demandTypeName);
+        mTvEdit.setText(dataBean.getServiceDescription());
+        mTvNamePerson.setText(dataBean.getName() == null ? "" : dataBean.getName());
+        Glide.with(this).load(dataBean.getLogo()).error(R.mipmap.icon_default_user).placeholder(R.mipmap.icon_default_user)
+                .into(mIvLogo);
+        if (dataBean.getImagesUrlList() != null && dataBean.getImagesUrlList().size() > 0) {
+            mBanner.setPages(new CBViewHolderCreator() {
+                @Override
+                public NetworkImageHolderView createHolder() {
+                    return new NetworkImageHolderView();
+                }
+            }, dataBean.getImagesUrlList())//设置指示器是否可见
+                    //设置自动切换（同时设置了切换时间间隔）
+                    .startTurning(2000)
+                    .setPointViewVisible(true)
+                    //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                    .setPageIndicator(new int[]{R.mipmap.service_unfoncus, R.mipmap.service_focused})
+                    //设置指示器的方向（左、中、右）
+                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+            mBanner.getViewPager().setOffscreenPageLimit(1);
+        } else {
+            mIvBanner.setVisibility(View.VISIBLE);
+            mBanner.setVisibility(View.GONE);
+        }
+    }
+}
